@@ -4,7 +4,6 @@
   description: "first test version"
   questions:
   uuid: zabbix-agent-xxl
-
 zabbix-agent:
   start_on_create: true
   health_check:
