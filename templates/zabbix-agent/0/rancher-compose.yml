@@ -1,10 +1,10 @@
 .catalog:
-  name: zabbix-agent
-  version: 3.2.0
-  description: |
-    (Experimental)  zabbix-agent
-  uuid: zabbix-agent
+  name: "zabbix-agent-xxl-limited"
+  version: "v0.1"
+  description: "first test version"
   questions:
+  uuid: zabbix-agent-xxl
+
 zabbix-agent:
   start_on_create: true
   health_check:
