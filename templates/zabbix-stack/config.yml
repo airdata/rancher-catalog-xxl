@@ -1,7 +1,8 @@
 name: Zabbix-Sack
 description: |
   Zabbix-Sack
-version: v0.1
-category: Santech
-maintainer: "Rumen Lishkov <rumen.lishkov@icloud.com>"
+version: 1.0.1
+category: Monitoring
+maintainer: Rumen Lishkov <rumen.lishkov@icloud.com>
+license: MIT
 projectURL: https://github.com/airdata/rancher-catalog-xxl
