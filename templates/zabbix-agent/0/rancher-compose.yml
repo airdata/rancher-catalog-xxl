@@ -1,7 +1,7 @@
 .catalog:
   name: zabbix-agent
   version: 3.2.0
-  description:|
+  description: |
     (Experimental)  zabbix-agent
   uuid: zabbix-agent
   questions:
