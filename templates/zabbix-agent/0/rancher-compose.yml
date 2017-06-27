@@ -3,20 +3,17 @@
   version: "v0.1"
   description: "first test version"
   uuid: zabbix-agent
-  questions:
-zabbix-agent:
-  privileged: true
-  image: monitoringartist/zabbix-agent-xxl-limited:latest
-  environment:
-    ZA_Server: zabbix.lab
-    ZA_StartAgents: '10'
-    ZA_Timeout: '30'
-  stdin_open: true
-  volumes:
-  - /:/rootfs
-  - /var/run:/var/run
-  tty: true
-  labels:
-    io.rancher.container.pull_image: always
-    io.rancher.container.dns: 'true'
-    io.rancher.scheduler.global: 'true'
+  zabbix-server:
+    scale: 1
+    start_on_create: true
+  zabbix-agent:
+    start_on_create: true
+    health_check:
+      response_timeout: 2000
+      healthy_threshold: 2
+      port: 10050
+      unhealthy_threshold: 3
+      initializing_timeout: 30000
+      interval: 2000
+      strategy: recreate
+      reinitializing_timeout: 30000

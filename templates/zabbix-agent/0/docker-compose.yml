@@ -1,5 +1,25 @@
 version: '2'
 services:
+  zabbix-server:
+    image: monitoringartist/zabbix-xxl:latest
+    environment:
+      ZS_DBHost: zabbix.db
+      ZS_DBUser: zabbix
+      ZS_DBPassword: N@Q@w8Dc
+      XXL_zapix: 'true'
+      XXL_grapher: 'true'
+    stdin_open: true
+    volumes:
+    - /etc/localtime:/etc/localtime:ro
+    tty: true
+    links:
+    - alexandria:zabbix.db
+    ports:
+    - 10050:10050/tcp
+    - 10051:10051/tcp
+    - 10053:80/tcp
+    labels:
+      io.rancher.container.pull_image: always
   zabbix-agent:
     privileged: true
     image: monitoringartist/zabbix-agent-xxl-limited:latest
