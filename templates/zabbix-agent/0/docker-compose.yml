@@ -1,5 +1,3 @@
-version: '2'
-services:
   zabbix-agent:
     privileged: true
     image: monitoringartist/zabbix-agent-xxl-limited:latest
