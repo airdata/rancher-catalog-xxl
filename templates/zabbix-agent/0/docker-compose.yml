@@ -12,8 +12,8 @@ services:
     volumes:
       - /:/rootfs
       - /var/run:/var/run
-  tty: true
-  labels:
-    io.rancher.container.dns: 'true'
-    io.rancher.container.pull_image: always
-    io.rancher.scheduler.global: 'true'
+    tty: true
+    labels:
+      io.rancher.container.dns: 'true'
+      io.rancher.container.pull_image: always
+      io.rancher.scheduler.global: 'true'
