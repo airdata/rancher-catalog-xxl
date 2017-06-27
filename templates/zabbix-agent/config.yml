@@ -1,0 +1,7 @@
+name: zabbix-agent-xxl
+description: |
+  Zabbix-Agent
+version: v0.3
+category: Santech
+maintainer: Santech DevOps Team
+projectURL: https://bitbucket.org/e-santech/infra
