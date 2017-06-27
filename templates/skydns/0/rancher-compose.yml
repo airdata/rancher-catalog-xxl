@@ -4,7 +4,7 @@
   description: |
     (Experimental) Skydns service.
   minimum_rancher_version: v1.0.0
-  maintainer: "Raul Sanchez <rawmind@gmail.com>"
+  maintainer: Rumen Lishkov <rumen.lishkov@icloud.com>
   uuid: skydns-0
   questions:
     - variable: "skydns_scale"

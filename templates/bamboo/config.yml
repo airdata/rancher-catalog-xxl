@@ -1,5 +1,6 @@
 name: Bamboo
 description: |
   Bamboo — continuous integration, deployment, and delivery.
+maintainer: Rumen Lishkov <rumen.lishkov@icloud.com>
 version: v0.0.1
 category: CI

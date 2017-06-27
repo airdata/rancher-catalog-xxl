@@ -4,7 +4,7 @@
   description: |
     (Experimental) Etcd cluster.
   minimum_rancher_version: v0.59.0
-  maintainer: "Raul Sanchez <rawmind@gmail.com>"
+  maintainer: Rumen Lishkov <rumen.lishkov@icloud.com>
   uuid: etcd-0
   questions:
     - variable: "etcd_scale"

@@ -4,7 +4,7 @@
   description: |
     (Experimental) Vamp core.
   minimum_rancher_version: v0.59.0
-  maintainer: "Raul Sanchez <rawmind@gmail.com>"
+  maintainer: Rumen Lishkov <rumen.lishkov@icloud.com>
   uuid: vamp-0
   questions:
     - variable: "vamp_mem"

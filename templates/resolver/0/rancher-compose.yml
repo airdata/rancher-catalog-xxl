@@ -4,7 +4,7 @@
   description: |
     (Experimental) go-dnsmasq as dns resolver service.
   minimum_rancher_version: v1.0.0
-  maintainer: "Raul Sanchez <rawmind@gmail.com>"
+  maintainer: Rumen Lishkov <rumen.lishkov@icloud.com>
   uuid: resolver-0
   questions:
     - variable: "resolver_scale"

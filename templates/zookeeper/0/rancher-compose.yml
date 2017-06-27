@@ -4,7 +4,7 @@
   description: |
     (Experimental) Apache Zookeeper cluster.
   minimum_rancher_version: v0.56.0
-  maintainer: "Raul Sanchez <rawmind@gmail.com>"
+  maintainer: Rumen Lishkov <rumen.lishkov@icloud.com>
   uuid: zk-0
   questions:
     - variable: "zk_scale"

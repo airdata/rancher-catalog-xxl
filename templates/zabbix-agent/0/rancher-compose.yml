@@ -1,0 +1,19 @@
+.catalog:
+  name: zabbix-agent
+  version: 3.2.0
+  description: zabbix-agent
+  uuid: zabbix-agent
+questions:
+version: '2'
+services:
+  zabbix-agent:
+    start_on_create: true
+    health_check:
+      healthy_threshold: 2
+      response_timeout: 2000
+      port: 10050
+      unhealthy_threshold: 3
+      initializing_timeout: 30000
+      interval: 2000
+      strategy: recreate
+      reinitializing_timeout: 30000

@@ -1,5 +1,6 @@
 name: ADOP
 description: |
   (Experimental) Accenture DevOps Platform.
+maintainer: Rumen Lishkov <rumen.lishkov@icloud.com>
 version: 0.1.0-rancher1
 category: Platform

@@ -4,7 +4,7 @@
   description: |
     (Experimental) Apache Cassandra cluster. Cassandra only allows us to add one new node at any given time which means we have to be careful about how we launch services. We have to launch the seed service before the rack services. We have to make sure we only scale up each rack service at any given time. In addition, we can only scale up one rack services at a time.
   minimum_rancher_version: v0.56.0
-  maintainer: Autoshift
+  maintainer: Rumen Lishkov <rumen.lishkov@icloud.com>
   uuid: cassandra-0
   questions:
     - variable: "SeedScale"
