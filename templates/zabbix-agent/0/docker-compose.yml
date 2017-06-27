@@ -1,19 +1,28 @@
 version: '2'
 services:
+  zabbix-db-storage:
+    image: busybox:latest
+    volumes:
+      - /var/lib/mysql
+  zabbix-db:
+    image: monitoringartist/zabbix-db-mariadb
+    volumes:
+      - /backups:/backups \
+      - /etc/localtime:/etc/localtime:ro \
+      --env="MARIADB_USER=zabbix" \
+      --env="MARIADB_PASS=zabbix" \
   zabbix-server:
     image: monitoringartist/zabbix-xxl:latest
     environment:
       ZS_DBHost: zabbix.db
       ZS_DBUser: zabbix
-      ZS_DBPassword: N@Q@w8Dc
+      ZS_DBPassword: zabbix
       XXL_zapix: 'true'
       XXL_grapher: 'true'
     stdin_open: true
     volumes:
     - /etc/localtime:/etc/localtime:ro
     tty: true
-    links:
-    - alexandria:zabbix.db
     ports:
     - 10050:10050/tcp
     - 10051:10051/tcp
