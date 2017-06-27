@@ -1,0 +1,9 @@
+name: Kafka manager
+description: |
+  (Experimental) Kafka manager
+version: 1.3.1.8-rancher1
+category: Clustering
+maintainer: "Raul Sanchez <rawmind@gmail.com>"
+minimum_rancher_version: v0.59.0
+license: 
+projectURL: https://github.com/rawmind0/alpine-kafka-manager

@@ -1,0 +1,42 @@
+.catalog:
+  name: "localtunnel"
+  version: "1.0"
+  description: "LocalTunnel"
+  uuid: localtunnel-0
+  questions:
+    - variable: "EXTERNAL_SERVICE"
+      description: "The Rancher service that you would like to expose externally"
+      label: "Rancher External Service"
+      required: true
+      type: "service"
+    - variable: "EXTERNAL_SERVICE_PORT"
+      description: "The Rancher service port that you would like to expose externally"
+      label: "Rancher External Service Port"
+      required: true
+      type: "int"
+      default: 8181
+    - variable: "CLOUDFLARE_DOMAIN"
+      description: "The cloudflare domain to expose the service on"
+      label: "Cloudflare Domain"
+      required: true
+      type: "string"
+      default: "example.com"
+    - variable: "CLOUDFLARE_DOMAIN_PREFIX"
+      description: "The cloudflare domain prefix to expose the service on"
+      label: "Cloudflare Domain Prefix"
+      required: true
+      type: "string"
+      default: "servicename"
+    - variable: "CLOUDFLARE_EMAIL"
+      description: "The cloudflare account email address"
+      label: "Cloudflare Account Email"
+      required: true
+      type: "string"
+      default: "user@example.com"
+    - variable: "CLOUDFLARE_KEY"
+      description: "The cloudflare account api key"
+      label: "Cloudflare Account Api Key"
+      required: true
+      type: "password"
+tunnel:
+  scale: 1

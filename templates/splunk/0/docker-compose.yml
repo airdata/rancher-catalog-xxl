@@ -1,0 +1,25 @@
+vsplunk:
+  net: none
+  image: busybox
+  labels:
+      io.rancher.container.start_once: true
+  volumes:
+    - ${SPLUNK_DIR_ETC}:/opt/splunk/etc
+    - ${SPLUNK_DIR_VAR}:/opt/splunk/var
+splunk:
+  restart: always
+  image: outcoldman/splunk:latest
+  hostname: splunk
+  volumes_from:
+    - vsplunk
+  labels:
+    io.rancher.sidekicks: vsplunk
+    io.rancher.container.pull_image: always
+  ports:
+    - ${SPLUNK_PORT}:8000
+    - ${SPLUNK_CLUSTER_PORT}:8089
+    - ${SPLUNK_FORWARDER_PORT}:9997
+
+
+
+

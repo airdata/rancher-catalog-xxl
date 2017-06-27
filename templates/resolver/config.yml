@@ -1,0 +1,8 @@
+name: Resolver
+description: |
+    (Experimental) go-dnsmasq as dns resolver service.
+version: 1.0.6-rancher1
+category: Rancher Services
+maintainer: "Raul Sanchez <rawmind@gmail.com>"
+license: 
+projectURL: https://github.com/rawmind0/alpine-go-dnsmasq

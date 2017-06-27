@@ -1,0 +1,71 @@
+.catalog:
+  name: Skydns
+  version: 2.5.3-rancher1
+  description: |
+    (Experimental) Skydns service.
+  minimum_rancher_version: v1.0.0
+  maintainer: "Raul Sanchez <rawmind@gmail.com>"
+  uuid: skydns-0
+  questions:
+    - variable: "skydns_scale"
+      description: "Skydns scale to deploy"
+      label: "Skydns scale:"
+      required: true
+      default: "3"
+      type: "int"
+    - variable: "etcd_link"
+      description: |
+        Choose the etcd service to use. 
+      label: "Etcd stack/service"
+      default: "etcd/etcd"
+      required: true
+      type: "service"
+    - variable: "skydns_addr"
+      description: "Skydns address to bind"
+      label: "Skydns bind:"
+      required: true
+      default: "0.0.0.0:53" 
+      type: "string"
+    - variable: "skydns_domain"
+      description: "Skydns domain"
+      label: "Skydns domain:"
+      required: true
+      default: "dev.local"
+      type: "string"
+    - variable: "skydns_path_prefix"
+      description: "Skydns path prefix"
+      label: "Skydns path prefix:"
+      required: true
+      default: "skydns"
+      type: "string"
+    - variable: "skydns_ndots"
+      description: "Minimum dot at query to forward"
+      label: "Skydns ndots:"
+      required: true
+      default: 1
+      type: "int"
+    - variable: "skydns_no_rec"
+      label: "Disable skydns forward:"
+      description: |
+        Disable skydns forward recursion
+      default: true
+      required: true
+      type: boolean
+    - variable: "skydns_nameservers"
+      description: |
+        Skydns forward servers. <host>:<port>,<host>:<port>...
+        Needed if "Disable skydns forward: false"
+      label: "Skydns forward servers:"
+      required: false
+      default: ""
+      type: "string"
+skydns:
+  scale: ${skydns_scale}
+  retain_ip: true
+  health_check:
+    port: 53
+    interval: 5000
+    unhealthy_threshold: 3
+    request_line: ''
+    healthy_threshold: 2
+    response_timeout: 5000

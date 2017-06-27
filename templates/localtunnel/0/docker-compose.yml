@@ -1,0 +1,12 @@
+tunnel:
+  restart: always
+  image: mediadepot/localtunnel:latest
+  environment:
+    - LOCALTUNNEL_LOCALHOST=external
+    - LOCALTUNNEL_PORT=$EXTERNAL_SERVICE_PORT
+    - CLOUDFLARE_DOMAIN=$CLOUDFLARE_DOMAIN
+    - CLOUDFLARE_DOMAIN_PREFIX=$CLOUDFLARE_DOMAIN_PREFIX
+    - CLOUDFLARE_EMAIL=$CLOUDFLARE_EMAIL
+    - CLOUDFLARE_KEY=$CLOUDFLARE_KEY
+  external_links:
+    - $EXTERNAL_SERVICE:external

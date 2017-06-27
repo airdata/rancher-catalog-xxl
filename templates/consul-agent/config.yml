@@ -1,0 +1,5 @@
+name: Consul Agent
+description: |
+  Consul agent cluster member.
+version: 0.4-pk4media1
+category: Config

@@ -1,0 +1,15 @@
+vault:
+  restart: always
+  tty: true
+  ports:
+    - 8200:8200
+  command: server -config=/config/vault.hcl
+  cap_add:
+    - IPC_LOCK
+  labels:
+    io.rancher.container.hostname_override: container_name
+    io.rancher.scheduler.affinity:host_label_soft: service=vault
+    io.rancher.container.pull_image: always
+  image: pk4media/vault:0.4
+  external_links:
+    - ${consul_agent_service}:consul-agent

@@ -1,0 +1,7 @@
+name: MadSonic
+description: Madsonic is a web-based media streamer and jukebox fork of Subsonic
+category: Media
+version: 1.0
+maintainer: Jason Kulatunga <jason@thesparktree.com>
+license: MIT
+projectURL: https://github.com/mediadepot/docker-madsonic

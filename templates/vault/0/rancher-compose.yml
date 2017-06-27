@@ -1,0 +1,22 @@
+.catalog:
+  name: "Vault Server"
+  version: "0.4-pk4media1"
+  description: |
+    Vault Server.
+  uuid: vault-server-0
+  minimum_rancher_version: v0.56.0
+  questions:
+    - variable: server_count
+      description: "Number of servers to bootstrap"
+      label: "Server Bootstrap Count"
+      type: "int"
+      required: true
+      default: 3
+    - variable: consul_agent_service
+      description: Consul Agent service name
+      label: Consul Agent Service
+      type: string
+      required: true
+      default: consul-agent/consul-agent
+vault:
+  scale: ${server_count}

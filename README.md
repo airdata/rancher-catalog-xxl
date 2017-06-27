@@ -1,1 +1,1 @@
-# rancher-catalog-xxl
+# rancher-catalog-dev

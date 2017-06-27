@@ -1,0 +1,58 @@
+.catalog:
+  name: Resolver
+  version: 1.0.6-rancher1
+  description: |
+    (Experimental) go-dnsmasq as dns resolver service.
+  minimum_rancher_version: v1.0.0
+  maintainer: "Raul Sanchez <rawmind@gmail.com>"
+  uuid: resolver-0
+  questions:
+    - variable: "resolver_scale"
+      description: "Resolver scale to deploy"
+      label: "Resolver scale:"
+      required: true
+      default: "3"
+      type: "int"
+    - variable: "resolver_verbose"
+      label: "Enable resolver verbose log:"
+      description: |
+        Enable resolver verbose log
+      default: true
+      required: true
+      type: boolean
+    - variable: "resolver_search"
+      label: "Enable resolver search:"
+      description: |
+        Enable resolver search feature
+      default: true
+      required: true
+      type: boolean
+    - variable: "resolver_search_domains"
+      description: "Resolver search domains"
+      label: "Resolver search domains:"
+      required: true
+      default: "rancher.internal"
+      type: "string"
+    - variable: "resolver_no_rec"
+      label: "Disable resolver forward:"
+      description: |
+        Disable resolver forward recursion
+      default: false
+      required: true
+      type: boolean
+    - variable: "resolver_nameservers"
+      description: "Resolver nameservers forwarders."
+      label: "Resolver nameservers:"
+      required: true
+      default: "8.8.8.8:53,8.8.4.4:53"
+      type: "string"
+resolver:
+  scale: ${resolver_scale}
+  retain_ip: true
+  health_check:
+    port: 53
+    interval: 5000
+    unhealthy_threshold: 3
+    request_line: ''
+    healthy_threshold: 2
+    response_timeout: 5000

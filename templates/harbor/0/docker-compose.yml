@@ -1,0 +1,156 @@
+version: '2'
+services:
+  harbor-setupwrapper:
+    image: mreferre/harbor-setupwrapper
+    container_name: harbor-setupwrapper
+    environment:
+      - HARBORHOSTNAME=${harbor_fqdn}
+      - HARBOR_ADMIN_PASSWORD=${harbor_pass}
+    volumes:
+      - /etc/registry
+      - /etc/ui
+      - /etc/jobservice
+      - /etc/nginx
+      - /configdb
+      - /configui
+      - /configjobservice
+    command: ["/harbor/harbor-setupwrapper.sh"]
+    network_mode: "none"
+    labels:
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.start_once: 'true'
+  log:
+    image: vmware/harbor-log:0.5.0
+    container_name: harbor-log
+    restart: always
+    volumes:
+      - /var/log/harbor/:/var/log/docker/
+    ports:
+      - 1514:514
+    labels:
+      io.rancher.scheduler.global: 'true'
+      io.rancher.scheduler.affinity:host_label: harbor-log=true
+      io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
+      io.rancher.container.hostname_override: container_name
+  registry:
+    image: library/registry:2.5.0
+    container_name: registry
+    restart: always
+    volumes:
+      - /data/registry:/storage
+    volumes_from:
+      - harbor-setupwrapper
+    environment:
+      - GODEBUG=netdns=cgo
+    command:
+      ["serve", "/etc/registry/config.yml"]
+    depends_on:
+      - log
+    logging:
+      driver: "syslog"
+      options:  
+        syslog-address: "tcp://127.0.0.1:1514"
+        tag: "registry"
+    labels:
+      io.rancher.container.hostname_override: container_name
+      io.rancher.sidekicks: harbor-setupwrapper
+  mysql:
+    image: vmware/harbor-db:0.5.0
+    container_name: harbor-db
+    restart: always
+    volumes:
+      - /data/database:/var/lib/mysql
+    volumes_from:
+      - harbor-setupwrapper
+    depends_on:
+      - log
+    logging:
+      driver: "syslog"
+      options:  
+        syslog-address: "tcp://127.0.0.1:1514"
+        tag: "mysql"
+    entrypoint:
+      - /bin/sh
+      - -c
+    command:
+      - /configdb/entrypointdb.sh
+    labels:
+      io.rancher.container.hostname_override: container_name
+      io.rancher.sidekicks: harbor-setupwrapper
+  ui:
+    image: vmware/harbor-ui:0.5.0
+    container_name: harbor-ui
+    restart: always
+    volumes:
+      - /data:/harbor_storage
+    volumes_from:
+      - harbor-setupwrapper
+    depends_on:
+      - log
+    logging:
+      driver: "syslog"
+      options:  
+        syslog-address: "tcp://127.0.0.1:1514"
+        tag: "ui"
+    entrypoint:
+      - /bin/sh
+      - -c
+    command:
+      - /configui/entrypointui.sh
+    external_links:
+      - registry
+      - mysql
+    labels:
+      io.rancher.container.hostname_override: container_name
+      io.rancher.sidekicks: harbor-setupwrapper
+  jobservice:
+    image: vmware/harbor-jobservice:0.5.0
+    container_name: harbor-jobservice
+    restart: always
+    volumes:
+      - /data/job_logs:/var/log/jobs
+    volumes_from:
+      - harbor-setupwrapper
+    external_links:
+      - registry:registry
+      - ui:ui
+    logging:
+      driver: "syslog"
+      options:  
+        syslog-address: "tcp://127.0.0.1:1514"
+        tag: "jobservice"
+    entrypoint:
+      - /bin/sh
+      - -c
+    command:
+      - /configjobservice/entrypointjobservice.sh
+    external_links:
+      - registry
+      - ui
+      - mysql
+    labels:
+      io.rancher.container.hostname_override: container_name
+      io.rancher.sidekicks: harbor-setupwrapper
+  proxy:
+    image: nginx:1.11.5
+    container_name: nginx
+    restart: always
+    volumes_from:
+      - harbor-setupwrapper
+    ports:
+      - 80:80
+      - 443:443
+    depends_on:
+      - log
+    external_links:
+      - registry
+      - ui
+    logging:
+      driver: "syslog"
+      options:  
+        syslog-address: "tcp://127.0.0.1:1514"
+        tag: "proxy"
+    labels:
+      io.rancher.container.hostname_override: container_name
+      io.rancher.sidekicks: harbor-setupwrapper
+

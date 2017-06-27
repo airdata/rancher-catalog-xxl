@@ -1,0 +1,9 @@
+.catalog:
+  name: "plexpy"
+  version: "1.0"
+  description: "PlexPy"
+  uuid: plexpy-0
+app:
+  scale: 1
+data:
+  scale: 1

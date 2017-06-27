@@ -1,0 +1,31 @@
+.catalog:
+  name: Etcd
+  version: 2.3.7-rancher1
+  description: |
+    (Experimental) Etcd cluster.
+  minimum_rancher_version: v0.59.0
+  maintainer: "Raul Sanchez <rawmind@gmail.com>"
+  uuid: etcd-0
+  questions:
+    - variable: "etcd_scale"
+      description: "Number of etcd nodes. Note: Recommended an odd number"
+      label: "etcd Nodes:"
+      required: true
+      default: 3
+      type: "int"
+    - variable: "etcd_data_dir"
+      description: "Directory where etcd store data"
+      label: "etcd data dir:"
+      required: true
+      default: "/opt/etcd/data"
+      type: "string"
+etcd:
+  scale: ${etcd_scale}
+  retain_ip: true
+  health_check:
+    port: 2379
+    interval: 5000
+    unhealthy_threshold: 3
+    request_line: ''
+    healthy_threshold: 2
+    response_timeout: 5000

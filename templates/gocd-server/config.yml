@@ -1,0 +1,9 @@
+name: gocd-server
+description: |
+  (Experimental) Gocd server
+version: 16.7.0-rancher1
+category: Continuous Integration
+maintainer: "Raul Sanchez <rawmind@gmail.com>"
+minimum_rancher_version: v0.59.0
+license: 
+projectURL: https://github.com/rawmind0/rancher-goserver

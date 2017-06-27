@@ -1,0 +1,9 @@
+.catalog:
+  name: "madsonic"
+  version: "1.0"
+  description: "Madsonic"
+  uuid: madsonic-0
+app:
+  scale: 1
+data:
+  scale: 1

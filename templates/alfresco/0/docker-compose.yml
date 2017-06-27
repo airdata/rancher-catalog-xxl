@@ -1,0 +1,16 @@
+myalfreso:
+  tty: true
+  image: docker.io/mikelasla/alfresco-standalone
+  ports:
+  - ${ALFRESCOPORT}:8080
+  links:
+    database: postgres
+  stdin_open: true
+database:
+  environment:
+    POSTGRES_PASSWORD: ${PGPASS}
+    POSTGRES_USER: ${PGUSER}
+    POSTGRES_DB: ${PGDBNAME}
+  tty: true
+  image: postgres
+  stdin_open: true

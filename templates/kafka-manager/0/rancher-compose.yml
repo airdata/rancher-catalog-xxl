@@ -1,0 +1,83 @@
+.catalog:
+  name: Kafka-manager
+  version: 1.3.1.8-rancher1
+  description: |
+    (Experimental) Kafka manager.
+  minimum_rancher_version: v0.59.0
+  maintainer: "Raul Sanchez <rawmind@gmail.com>"
+  uuid: kafka-manager-0
+  questions:
+    - variable: "kafka_mem"
+      description: "Amount of memory to config kafka manager."
+      label: "Broker Memory (mb):"
+      required: true
+      default: 1024 
+      type: "string"
+    - variable: "kafka_secret"
+      description: "Kafka manager secret"
+      label: "kafka manager secret:"
+      required: true
+      default: "^<csmm5Fx4d=r2HEX8pelM3iBkFVv?k[mc;IZE<_Qoq8EkX_/7@Zt6dP05Pzea4U"
+      type: "password"
+    - variable: "kafka_auth"
+      label: "Kafka manager auth:"
+      description: |
+        Enable basic auth in kafka manager.
+      default: false
+      required: true
+      type: enum
+      options:
+        - false
+        - true
+    - variable: "kafka_realm"
+      description: "Kafka manager realm basic auth"
+      label: "Kafka manager user:"
+      required: false
+      default: "Kafka-Manager"
+      type: "string"
+    - variable: "kafka_user"
+      description: "Kafka manager admin user"
+      label: "Kafka manager user:"
+      required: false
+      default: "admin"
+      type: "string"
+    - variable: "kafka_pass"
+      description: "Kafka manager password"
+      label: "Kafka manager password:"
+      required: false
+      default: "password"
+      type: "password"
+    - variable: "zk_link"
+      description: |
+        Choose the Zookeeper service to use. 
+      label: "Zookeeper stack/service"
+      default: "kafka-zk/zk"
+      required: true
+      type: "service"
+    - variable: "kafka_publish"
+      label: "Publish:"
+      description: "Publish service to traefik."
+      default: stack
+      required: true
+      type: enum
+      options:
+        - false
+        - true
+        - stack
+    - variable: "kafka_domain"
+      description: "Publish service domain"
+      label: "Publish domain:"
+      required: true
+      default: "dev.local"
+      type: "string"
+kafka-manager:
+  scale: 1
+  retain_ip: true
+  health_check:
+    port: 9000
+    interval: 5000
+    unhealthy_threshold: 3
+    request_line: ''
+    healthy_threshold: 2
+    response_timeout: 5000
+

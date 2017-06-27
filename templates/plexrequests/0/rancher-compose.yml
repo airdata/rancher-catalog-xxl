@@ -1,0 +1,9 @@
+.catalog:
+  name: "plexrequests"
+  version: "1.0"
+  description: "Plex Requests"
+  uuid: plexrequests-0
+app:
+  scale: 1
+data:
+  scale: 1

@@ -1,0 +1,142 @@
+.catalog:
+  name: Vamp
+  version: 0.9.2-rancher1
+  description: |
+    (Experimental) Vamp core.
+  minimum_rancher_version: v0.59.0
+  maintainer: "Raul Sanchez <rawmind@gmail.com>"
+  uuid: vamp-0
+  questions:
+    - variable: "vamp_mem"
+      description: "Vamp memory parameter in Gb"
+      label: "Vamp mem (Gb):"
+      required: true
+      default: 1
+      type: "int"
+    - variable: "vamp_driver" 
+      label: "Vamp driver:"
+      description: |
+        Vamp driver to use.
+      default: rancher
+      required: true
+      type: "enum"
+      options:
+        - rancher
+        - kubernetes
+        - mesos
+    - variable: "vamp_driver_url"
+      description: |
+        Vamp driver url to use. 
+        If vamp_driver=rancher , your only need to fill it with the <XXXXX> value of your current url:
+        http://<rancher_server>/env/XXXXX/catalog/ml:vamp?catalogId=ml
+      label: "Vamp driver env id"
+      default: "<XXXXX>"
+      required: false
+      type: "string"
+    - variable: "vamp_key_type"
+      label: "Vamp key type:"
+      description: |
+        Vamp key type to use.
+      default: zookeeper
+      required: true
+      type: "enum"
+      options:
+        - zookeeper
+        - etcd
+        - consul
+    - variable: "vamp_key_port"
+      description: "Vamp port to connect to key"
+      label: "Vamp key port:"
+      required: true
+      default: 2181
+      type: "int"
+    - variable: "vamp_key_path"
+      description: "Vamp key path to store data"
+      label: "Vamp key path:"
+      required: true
+      default: "/vamp"
+      type: "string"
+    - variable: "vamp_key"
+      description: |
+        Choose the key service to use.
+      label: "Vamp key stack/service"
+      default: "zookeeper/zk"
+      required: true
+      type: "service"
+    - variable: "vamp_db_type" 
+      label: "Vamp db type:"
+      description: |
+        Vamp db type to use.
+      default: elasticsearch
+      required: true
+      type: "enum"
+      options:
+        - elasticsearch
+    - variable: "vamp_db_port"
+      description: "Vamp port to connect to db"
+      label: "Vamp db port:"
+      required: true
+      default: 9200
+      type: "int"
+    - variable: "vamp_db"
+      description: |
+        Choose the elasticsearch service to use.
+      label: "Elasticsearch stack/service"
+      default: "elasticsearch/elasticsearch-masters"
+      required: true
+      type: "service"
+    - variable: "host_label"
+      description: "Host label where to run vamp gateway agent."
+      label: "Host label:"
+      required: true
+      default: "vga=true" 
+      type: "string"
+    - variable: "vamp_logstash"
+      description: |
+        Choose the logstash service to use.
+      label: "Logstash stack/service"
+      default: "logstash/logstash-collector"
+      required: true
+      type: "service"
+    - variable: "vamp_logstash_port"
+      description: "Vga port to connect to logstash"
+      label: "Vga logstash port:"
+      required: true
+      default: 10001
+      type: "int"
+    - variable: "vamp_publish"
+      label: "Publish:"
+      description: "Publish service to traefik."
+      default: true
+      required: true
+      type: enum
+      options:
+        - false
+        - true
+        - stack
+    - variable: "vamp_domain"
+      description: "Publish service domain"
+      label: "Publish domain:"
+      required: true
+      default: "dev.local"
+      type: "string"
+vamp-gateway:
+  retain_ip: true
+  health_check:
+    port: 1988
+    interval: 5000
+    unhealthy_threshold: 3
+    strategy: recreate
+    healthy_threshold: 2
+    response_timeout: 5000
+vamp:
+  scale: 1
+  retain_ip: true
+  health_check:
+    port: 8080
+    interval: 5000
+    unhealthy_threshold: 3
+    strategy: recreate
+    healthy_threshold: 2
+    response_timeout: 5000
+

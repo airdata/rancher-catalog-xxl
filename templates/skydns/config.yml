@@ -1,0 +1,8 @@
+name: Skydns
+description: |
+  (Experimental) Skydns 
+version: 2.5.3-rancher1
+category: Rancher Services
+maintainer: "Raul Sanchez <rawmind@gmail.com>"
+license: 
+projectURL: https://github.com/rawmind0/alpine-skydns

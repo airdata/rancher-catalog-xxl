@@ -1,0 +1,19 @@
+app:
+  restart: always
+  image: mediadepot/plexpy:latest
+  ports:
+   - "8181"
+  volumes_from:
+  - data
+  labels:
+    io.rancher.sidekicks: data
+    depot.lb.link: true
+    depot.lb.port: 8181
+    depot.app.type: plexpy
+data:
+  image: tianon/true
+  labels:
+    io.rancher.container.start_once: true
+  volumes:
+  - /srv/plexpy/config
+  - /srv/plexpy/data

@@ -1,0 +1,36 @@
+etcd:
+  tty: true
+  image: rawmind/alpine-etcd:2.3.7-4
+  volumes_from:
+    - etcd-volume
+    - etcd-conf
+  environment:
+    - ETCD_DATA_DIR=${etcd_data_dir}
+  labels: 
+    io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
+    io.rancher.container.hostname_override: container_name
+    io.rancher.sidekicks: etcd-volume, etcd-conf
+    service.etcd.role: server
+etcd-conf:
+  net: none
+  labels:
+    io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
+    io.rancher.container.hostname_override: container_name
+    io.rancher.container.start_once: true
+  image: rawmind/rancher-etcd:2.3.7-8
+  volumes:
+    - /opt/tools
+etcd-volume:
+  net: none
+  labels:
+    io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
+    io.rancher.container.hostname_override: container_name
+    io.rancher.container.start_once: true
+  environment:
+    - SERVICE_UID=10005
+    - SERVICE_GID=10005
+    - SERVICE_VOLUME=${etcd_data_dir}
+  volumes:
+    - ${etcd_data_dir}
+  volume_driver: local
+  image: rawmind/alpine-volume:0.0.2-1

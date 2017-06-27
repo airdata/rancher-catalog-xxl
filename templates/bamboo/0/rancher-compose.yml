@@ -1,0 +1,77 @@
+.catalog:
+  name: "Bamboo"
+  version: "v0.0.1"
+  description: "Bambo Server"
+  uuid: bamboo-0
+  minimum_rancher_version: v0.51.0
+  questions:
+    - variable: bamboo_version
+      description: "Version of Bamboo Server. Check https://www.atlassian.com/software/bamboo/download?os=linux for current version."
+      label: "Bamboo Version"
+      required: true
+      default: "5.14.1"
+      type: "string"
+    - variable: http_port
+      description: "HTTP port to access Bamboo Server UI"
+      label: "Bamboo HTTP Port"
+      required: true
+      default: "8085"
+      type: "int"
+    - variable: agent_port
+      description: "HTTP port to connect Bamboo Agents. Can be useful when connecting agents out of Rancher."
+      label: "Agent HTTP Port"
+      required: true
+      default: "54663"
+      type: "int"
+    - variable: scale
+      description: "Number of Bamboo Agents"
+      label: "Number of Bamboo Agents"
+      required: true
+      default: "1"
+      type: "int"
+    - variable: packages
+      description: "List of additional packages which should be installed on Bamboo Agent. Put pakcages separated with space."
+      label: "(EXPERIMENTAL) Packages to install on Agent."
+      required: false
+      default: ""
+      type: "string"
+    - variable: postgress_port
+      description: "Port for Postgres"
+      label: "Postgres Port"
+      required: true
+      default: "5432"
+      type: "int"
+    - variable: postgres_db
+      description: "Postgres Database"
+      label: "Postgres Database"
+      required: true
+      default: "bamboo"
+      type: "string"
+    - variable: postgres_user
+      description: "Postgres User"
+      label: "Postgres User"
+      required: true
+      default: "bamboo"
+      type: "string"
+    - variable: postgres_password
+      description: "Postgres Password"
+      label: "Postgres Password"
+      required: true
+      default: "bamboo"
+      type: "string"
+    - variable: http_proxy
+      description: "In case you are at corporate network, setup http_proxy variable"
+      label: "http_proxy"
+      required: false
+      default: ""
+      type: "string"
+    - variable: https_proxy
+      description: "In case you are at corporate network, setup https_proxy variable"
+      label: "https_proxy"
+      required: false
+      default: ""
+      type: "string"
+      
+bamboo-agent:
+  scale: ${scale}
+  retain_ip: true

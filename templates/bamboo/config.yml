@@ -1,0 +1,5 @@
+name: Bamboo
+description: |
+  Bamboo — continuous integration, deployment, and delivery.
+version: v0.0.1
+category: CI

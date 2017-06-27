@@ -1,0 +1,9 @@
+name: Etcd
+description: |
+  (Experimental) Etcd cluster
+version: 2.3.7-rancher1
+category: Clustering
+maintainer: "Raul Sanchez <rawmind@gmail.com>"
+minimum_rancher_version: v0.59.0
+license: 
+projectURL: https://github.com/rawmind0/alpine-etcd

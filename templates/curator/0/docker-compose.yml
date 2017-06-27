@@ -1,0 +1,10 @@
+curator:
+  links:
+  - ${elasticsearch_link}:elasticsearch
+  environment:
+      ELASTICSEARCH_HOST: elasticsearch
+      ELASTICSEARCH_PORT: 9200
+      MAX_INDEX_AGE: ${max_index_age}
+  image: sxmichael/curator-docker
+  tty: true
+  stdin_open: true

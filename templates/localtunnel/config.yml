@@ -1,0 +1,7 @@
+name: LocalTunnel
+description: Localtunnel allows you to easily share a local web service without messing with DNS, VPN and firewall settings.
+category: Remote
+version: 1.0
+maintainer: Jason Kulatunga <jason@thesparktree.com>
+license: MIT
+projectURL: https://localtunnel.github.io/www/
