@@ -9,8 +9,9 @@ services:
     volumes:
       - /backups:/backups \
       - /etc/localtime:/etc/localtime:ro \
-      --env="MARIADB_USER=zabbix" \
-      --env="MARIADB_PASS=zabbix" \
+    environment:
+      MARIADB_USER=zabbix
+      MARIADB_PASS=zabbix
   zabbix-server:
     image: monitoringartist/zabbix-xxl:latest
     environment:
