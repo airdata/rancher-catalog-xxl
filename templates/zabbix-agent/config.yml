@@ -1,7 +1,7 @@
-name: "Sona-nexus registry"
+name: zabbix-agent-xxl
 description: |
-  Docker-registry, npm, java and ruby server with permissions and authentication backend
-version: 3.3.2.0
-category: Applications
-maintainer: "Eugen Mayer <eugen.mayer@kontextwork.de>"
-projectURL: https://www.sonatype.com/nexus-repository-oss
+  Zabbix-Agent
+version: v0.3
+category: Santech
+maintainer: Santech DevOps Team
+projectURL: https://bitbucket.org/e-santech/infra
