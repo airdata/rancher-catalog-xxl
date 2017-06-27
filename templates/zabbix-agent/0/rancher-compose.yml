@@ -12,7 +12,6 @@ zabbix-agent:
     ZA_StartAgents: '10'
     ZA_Timeout: '30'
   stdin_open: true
-  network_mode: host
   volumes:
   - /:/rootfs
   - /var/run:/var/run
