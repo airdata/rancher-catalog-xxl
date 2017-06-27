@@ -10,8 +10,8 @@ services:
       - /backups:/backups \
       - /etc/localtime:/etc/localtime:ro \
     environment:
-      MARIADB_USER=zabbix
-      MARIADB_PASS=zabbix
+      MARIADB_USER: zabbix
+      MARIADB_PASS: zabbix
   zabbix-server:
     image: monitoringartist/zabbix-xxl:latest
     environment:
