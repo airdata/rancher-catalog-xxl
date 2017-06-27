@@ -1,7 +1,8 @@
-name: zabbix-agent-xxl
+name: Zabbix-Agent
 description: |
   Zabbix-Agent
-version: v0.3
-category: Santech
-maintainer: Santech DevOps Team
-projectURL: https://bitbucket.org/e-santech/infra
+version: 1.0.1
+category: Monitoring
+maintainer: Rumen Lishkov <rumen.lishkov@icloud.com>
+license: MIT
+projectURL: https://github.com/airdata/rancher-catalog-xxl

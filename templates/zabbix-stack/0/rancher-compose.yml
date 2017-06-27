@@ -1,5 +1,5 @@
 .catalog:
-  name: "zabbix-agent"
+  name: "Zabbix-Stack"
   version: "v0.1"
   description: "first test version"
   uuid: zabbix-agent
