@@ -3,9 +3,6 @@
   version: "v0.1"
   description: "first test version"
   uuid: zabbix-agent
-  zabbix-db-storage:
-    scale: 1
-    start_on_create: true
   zabbix-db:
     scale: 1
     start_on_create: true
