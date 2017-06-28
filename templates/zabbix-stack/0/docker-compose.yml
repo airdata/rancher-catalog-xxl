@@ -1,14 +1,7 @@
 version: '2'
 services:
-  zabbix-db-storage:
-    image: busybox:latest
-    volumes:
-      - /var/lib/mysql
   zabbix-db:
     image: monitoringartist/zabbix-db-mariadb
-    volumes:
-      - /backups:/backups \
-      - /etc/localtime:/etc/localtime:ro \
     environment:
       MARIADB_USER: zabbix
       MARIADB_PASS: zabbix
@@ -25,9 +18,8 @@ services:
     - /etc/localtime:/etc/localtime:ro
     tty: true
     ports:
-    - 10050:10050/tcp
     - 10051:10051/tcp
-    - 10053:80/tcp
+    - 10080:80/tcp
     labels:
       io.rancher.container.pull_image: always
   zabbix-agent:
