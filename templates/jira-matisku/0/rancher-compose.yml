@@ -1,0 +1,72 @@
+.catalog:
+  name: "JIRA"
+  version: "v0.0.1"
+  description: "JIRA Server"
+  uuid: jira-0
+  minimum_rancher_version: v1.2.0
+  questions:
+    - variable: jira_version
+      description: "Version of JIRA Server. Check https://www.atlassian.com/software/jira/download?os=linux for current version."
+      label: "JIRA Version"
+      required: true
+      default: "7.3.4"
+      type: "string"
+    - variable: lb_http_port
+      description: "HTTP port to access JIRA Server UI"
+      label: "JIRA LB HTTP Port"
+      required: true
+      default: 80
+      type: "int"
+    - variable: postgres_db
+      description: "Postgres Database"
+      label: "Postgres Database"
+      required: true
+      default: "jiradb"
+      type: "string"
+    - variable: postgres_user
+      description: "Postgres User"
+      label: "Postgres User"
+      required: true
+      default: "jira"
+      type: "string"
+    - variable: postgres_password
+      description: "Postgres Password"
+      label: "Postgres Password"
+      required: true
+      default: "jira"
+      type: "string"
+    - variable: http_proxy
+      description: "In case you are at corporate network, setup http_proxy variable"
+      label: "http_proxy"
+      required: false
+      default: ""
+      type: "string"
+    - variable: https_proxy
+      description: "In case you are at corporate network, setup https_proxy variable"
+      label: "https_proxy"
+      required: false
+      default: ""
+      type: "string"
+      
+version: '2'
+services:
+  jira-server-lb:
+    scale: 1
+    load_balancer_config:
+      haproxy_config: {}
+    health_check:
+      port: 42
+      interval: 2000
+      unhealthy_threshold: 3
+      healthy_threshold: 2
+      response_timeout: 2000
+  jira-server:
+    scale: 1
+    health_check:
+      port: 8080
+      interval: 5000
+      initializing_timeout: 60000
+      unhealthy_threshold: 5
+      strategy: none
+      healthy_threshold: 2
+      response_timeout: 5000

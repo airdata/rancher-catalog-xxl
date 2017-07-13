@@ -1,0 +1,68 @@
+.catalog:
+  name: "Drupal"
+  version: "v0.0.1"
+  description: "Drupal CMS"
+  uuid: drupal-0
+  minimum_rancher_version: v0.51.0
+  questions:
+    - variable: http_port
+      description: "HTTP port to access Drupal UI"
+      label: "Drupal HTTP Port"
+      required: true
+      default: "8033"
+      type: "int"
+    - variable: pma_port
+      description: "Port for PHPMyAdmin"
+      label: "PMA Port"
+      required: true
+      default: "8002"
+      type: "int"
+    - variable: mysql_port
+      description: "Port for MySQL"
+      label: "MySQL Port"
+      required: true
+      default: "3309"
+      type: "int"
+    - variable: mysql_host
+      description: "MySQL Host Name"
+      label: "MySQL Host Name"
+      required: true
+      default: "mysql"
+      type: "string"
+    - variable: mysql_database
+      description: "MySQL Database"
+      label: "MySQL Database"
+      required: true
+      default: "drupal"
+      type: "string"
+    - variable: mysql_root_password
+      description: "MySQL Root Password"
+      label: "MySQL Root Password"
+      required: true
+      default: "secret"
+      type: "string"
+    - variable: mysql_user
+      description: "MySQL User"
+      label: "MySQL User"
+      required: true
+      default: "drupal"
+      type: "string"
+    - variable: mysql_password
+      description: "MySQL Password"
+      label: "MySQL Password"
+      required: true
+      default: "drupal"
+      type: "string"
+    - variable: http_proxy
+      description: "In case you are at corporate network, setup http_proxy variable"
+      label: "http_proxy"
+      required: false
+      default: ""
+      type: "string"
+    - variable: https_proxy
+      description: "In case you are at corporate network, setup https_proxy variable"
+      label: "https_proxy"
+      required: false
+      default: ""
+      type: "string"
+

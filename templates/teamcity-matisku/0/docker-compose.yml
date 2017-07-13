@@ -1,0 +1,28 @@
+teamcity:
+    image: sjoerdmulder/teamcity:latest
+    ports:
+        - ${http_port}:8111
+    links:
+        - postgres:${postgress_container}
+    environment:
+        http_proxy: ${http_proxy}
+        https_proxy: ${https_proxy}
+
+postgres:
+    image: postgres:latest
+    ports:
+        - ${postgress_port}:5432
+    environment:
+        PGDATA: ${postgres_data}
+        POSTGRES_DB: ${postgres_db}
+        POSTGRES_USER: ${postgres_user}
+        POSTGRES_PASSWORD: ${postgres_password}
+    tty: true
+    stdin_open: true
+
+teamcity-agent:
+    image: sjoerdmulder/teamcity-agent:latest
+    links:
+        - teamcity:teamcity-server
+    environment:
+        TEAMCITY_SERVER: http://teamcity-server:8111

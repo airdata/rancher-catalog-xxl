@@ -1,0 +1,20 @@
+grafana:
+    image: grafana/grafana
+    ports: 
+        - ${http_port}:3000
+    environment:
+        GF_INSTALL_PLUGINS: ${plugins}
+        http_proxy: ${http_proxy}
+        https_proxy: ${https_proxy}
+    labels:
+        io.rancher.sidekicks: grafana-data
+    volumes_from:
+        - grafana-data
+
+grafana-data:
+    image: busybox
+    tty: true
+    volumes:
+        - /var/lib/grafana
+        - /var/log/grafana
+

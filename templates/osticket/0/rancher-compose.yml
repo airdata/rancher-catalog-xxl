@@ -1,0 +1,43 @@
+.catalog:
+  name: "osTicker"
+  version: "v0.0.1"
+  description: "osTicket Server"
+  uuid: osticket-0
+  minimum_rancher_version: v0.51.0
+  questions:
+    - variable: http_port
+      description: "HTTP port to access osTicket UI"
+      label: "osTicket HTTP Port"
+      required: true
+      default: "8082"
+      type: "int"
+    - variable: mysql_port
+      description: "Port for MySQL"
+      label: "MySQL Port"
+      required: true
+      default: "3306"
+      type: "int"
+    - variable: mysql_database
+      description: "MySQL Database"
+      label: "MySQL Database"
+      required: true
+      default: "osticket"
+      type: "string"
+    - variable: mysql_root_password
+      description: "MySQL Root Password"
+      label: "MySQL Root Password"
+      required: true
+      default: "osticket"
+      type: "string"
+    - variable: mysql_user
+      description: "MySQL User"
+      label: "MySQL User"
+      required: true
+      default: "osticket"
+      type: "string"
+    - variable: mysql_password
+      description: "MySQL Password"
+      label: "MySQL Password"
+      required: true
+      default: "secret"
+      type: "string"

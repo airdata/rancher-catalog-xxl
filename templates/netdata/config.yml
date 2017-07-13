@@ -1,0 +1,5 @@
+name: Netdata
+description: |
+  Real-time performance monitoring scaled out!
+version: v0.0.1
+category: Monitoring

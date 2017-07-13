@@ -1,0 +1,26 @@
+selenium-hub:
+    image: selenium/hub:${driver_version}
+    tty: true
+    ports: 
+        - ${http_port}:4444
+    environment:
+        GRID_NEW_SESSION_WAIT_TIMEOUT: ${grid_new_session_wait_timeout}
+        GRID_JETTY_MAX_THREADS: ${grid_jetty_max_threads}
+        GRID_NODE_POLLING:  ${grid_node_polling}
+        GRID_CLEAN_UP_CYCLE: ${grid_clean_up_cycle}
+        GRID_TIMEOUT: ${grid_timeout}
+        GRID_BROWSER_TIMEOUT: ${grid_browser_timeout}
+        GRID_MAX_SESSION: ${grid_max_session}
+        GRID_UNREGISTER_IF_STILL_DOWN_AFTER: ${grid_unregister_if_still_down_after}
+
+node-firefox:
+    image: selenium/node-firefox:${driver_version}
+    tty: true
+    links:
+        - selenium-hub:hub
+
+node-chrome:
+    image: selenium/node-chrome:${driver_version}
+    tty: true
+    links:
+        - selenium-hub:hub

@@ -1,0 +1,86 @@
+.catalog:
+  name: "Selenium Grid"
+  version: "v0.0.1"
+  description: "Selenium Grid Hub"
+  uuid: selenium-0
+  minimum_rancher_version: v0.51.0
+  questions:
+    - variable: driver_version
+      label: "Selenium Driver Version"
+      default: 2.53.0
+      required: true
+      type: enum
+      options:
+        - 2.53.0
+        - 2.52.0
+        - 2.50.0
+        - 2.49.1
+        - 2.48.2
+        - 2.48.1
+        - 2.47.1
+        - 2.46.0
+        - 2.45.0
+        - 2.44.0
+    - variable: http_port
+      label: "Selenium Grid Hub HTTP Port"
+      required: true
+      default: "4444"
+      type: "int"
+    - variable: scale_chrome
+      label: "Number of Selenium Chrome Nodes"
+      required: true
+      default: "1"
+      type: "int"
+    - variable: scale_firefox
+      label: "Number of Selenium Firefox Nodes"
+      required: true
+      default: "1"
+      type: "int"
+    - variable: grid_new_session_wait_timeout
+      label: "GRID_NEW_SESSION_WAIT_TIMEOUT"
+      required: true
+      default: "-1"
+      type: "int"
+    - variable: grid_jetty_max_threads
+      label: "GRID_JETTY_MAX_THREADS"
+      required: true
+      default: "-1"
+      type: "int"
+    - variable: grid_node_polling
+      label: "GRID_NODE_POLLING"
+      required: true
+      default: "5000"
+      type: "int"
+    - variable: grid_clean_up_cycle
+      label: "GRID_CLEAN_UP_CYCLE"
+      required: true
+      default: "5000"
+      type: "int"
+    - variable: grid_timeout
+      label: "GRID_TIMEOUT"
+      required: true
+      default: "30000"
+      type: "int"
+    - variable: grid_browser_timeout
+      label: "GRID_BROWSER_TIMEOUT"
+      required: true
+      default: "0"
+      type: "int"
+    - variable: grid_max_session
+      label: "GRID_MAX_SESSION"
+      required: true
+      default: "5"
+      type: "int"
+    - variable: grid_unregister_if_still_down_after
+      label: "GRID_UNREGISTER_IF_STILL_DOWN_AFTER"
+      required: true
+      default: "30000"
+      type: "int"
+
+node-chrome:
+  scale: ${scale_chrome}
+  retain_ip: true
+
+node-firefox:
+  scale: ${scale_firefox}
+  retain_ip: true

@@ -1,0 +1,80 @@
+.catalog:
+  name: "TeamCity"
+  version: "v0.0.3"
+  description: "TeamCity Server"
+  uuid: teamcity-2
+  minimum_rancher_version: v0.51.0
+  questions:
+    - variable: lb_http_port
+      description: "Load Balancer HTTP port to access TeamCity Server UI"
+      label: "LB TeamCity HTTP Port"
+      required: true
+      default: 8111
+      type: "int"
+    - variable: teamcity_version
+      description: "TeamCity version. Check https://hub.docker.com/r/sjoerdmulder/teamcity/tags/ for list of available versions."
+      label: "TeamCity Version."
+      required: true
+      default: "latest"
+      type: "string"
+    - variable: scale
+      description: "Number of TeamCity Agents"
+      label: "Number of TeamCity Agents"
+      required: true
+      default: 1
+      type: "int"
+    - variable: postgres_db
+      description: "Postgres Database"
+      label: "Postgres Database"
+      required: true
+      default: "teamcity"
+      type: "string"
+    - variable: postgres_user
+      description: "Postgres User"
+      label: "Postgres User"
+      required: true
+      default: "teamcity"
+      type: "string"
+    - variable: postgres_password
+      description: "Postgres Password"
+      label: "Postgres Password"
+      required: true
+      default: "teamcity"
+      type: "string"
+    - variable: http_proxy
+      description: "In case you are at corporate network, setup http_proxy variable"
+      label: "http_proxy"
+      required: false
+      default: ""
+      type: "string"
+    - variable: https_proxy
+      description: "In case you are at corporate network, setup https_proxy variable"
+      label: "https_proxy"
+      required: false
+      default: ""
+      type: "string"
+ 
+
+version: '2'
+services:
+  teamcity-server-lb:
+    scale: 1
+    load_balancer_config:
+      haproxy_config: {}
+    health_check:
+      port: 42
+      interval: 2000
+      unhealthy_threshold: 3
+      healthy_threshold: 2
+      response_timeout: 2000
+  teamcity-server:
+    scale: 1
+    health_check:
+      port: 8111
+      interval: 2000
+      unhealthy_threshold: 3
+      healthy_threshold: 2
+      response_timeout: 2000
+  teamcity-agent:
+    scale: ${scale}
+    retain_ip: true

@@ -1,0 +1,20 @@
+.catalog:
+  name: "netdata"
+  version: "v0.0.1"
+  description: "TeamCity Server"
+  uuid: netdata-0
+  minimum_rancher_version: v0.51.0
+  questions:
+    - variable: http_port
+      description: "HTTP port to access Netdata"
+      label: "Netdata HTTP Port"
+      required: true
+      default: "19999"
+      type: "int"
+    - variable: host_name 
+      description: "Define a hostname for internal container"
+      label: "Container Host Name"
+      required: true
+      default: "netdata"
+      type: "string"
+      

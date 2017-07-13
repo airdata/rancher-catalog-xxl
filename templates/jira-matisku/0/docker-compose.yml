@@ -1,0 +1,52 @@
+version: '2'
+services:
+  jira-server-lb:
+    image: rancher/load-balancer-service
+    links:
+      - jira-server
+    ports:
+      - ${lb_http_port}:8080
+
+  jira-data:
+    image: busybox
+    labels:
+      io.rancher.container.start_once: true
+    volumes:
+      - /home/jira
+
+  jira-server:
+    image: matisq/jira-server:latest
+    hostname: jira-server
+    extra_hosts:
+      - "jira-server:127.0.0.1"
+    links:
+      - postgres
+    environment:
+      http_proxy: ${http_proxy}
+      https_proxy: ${https_proxy}
+      JIRA_VERSION: ${jira_version}
+    labels:
+      io.rancher.sidekicks: jira-data
+    volumes_from:
+      - jira-data
+
+  postgres-data:
+    image: busybox
+    labels:
+      io.rancher.container.start_once: true
+    volumes:
+      - /var/lib/postgresql/data/pgdata
+
+  postgres:
+    image: postgres:latest
+    environment:
+      PGDATA: /var/lib/postgresql/data/pgdata
+      POSTGRES_DB: ${postgres_db}
+      POSTGRES_USER: ${postgres_user}
+      POSTGRES_PASSWORD: ${postgres_password}
+    tty: true
+    stdin_open: true
+    labels:
+      io.rancher.sidekicks: postgres-data
+    volumes_from:
+      - postgres-data

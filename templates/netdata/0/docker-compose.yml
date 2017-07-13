@@ -1,0 +1,12 @@
+netdata:
+    image: titpetric/netdata
+    tty: true
+    volumes:
+        - /var/run/docker.sock:/var/run/docker.sock
+        - /proc:/host/proc:ro
+        - /sys:/host/sys:ro
+    cap_add:
+        - SYS_PTRACE
+    ports:
+        - ${http_port}:19999
+    hostname: ${host_name}

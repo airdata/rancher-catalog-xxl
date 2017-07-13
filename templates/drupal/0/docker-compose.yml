@@ -1,0 +1,62 @@
+drupal-data:
+    image: busybox
+    net: none
+    labels:
+      io.rancher.container.start_once: true
+    volumes:
+        - /var/www/html/modules
+
+drupal:
+    image: drupal
+    ports:
+        - ${http_port}:80
+    links:
+        - mysql:${mysql_host}
+    environment:
+        http_proxy: ${http_proxy}
+        https_proxy: ${https_proxy}
+        MYSQL_ROOT_PASSWORD: ${mysql_root_password}
+        MYSQL_USER: ${mysql_user}
+        MYSQL_PASSWORD: ${mysql_password}
+        MYSQL_DATABASE: ${mysql_database}
+    labels:
+        io.rancher.sidekicks: drupal-data
+    volumes_from:
+        - drupal-data        
+
+mysql-data:
+    image: busybox
+    net: none
+    labels:
+      io.rancher.container.start_once: true
+    volumes:
+        - /var/lib/mysql
+
+mysql:
+    image: mariadb
+    ports:
+        - ${mysql_port}:3306
+    environment:
+        MYSQL_ROOT_PASSWORD: ${mysql_root_password}
+        MYSQL_USER: ${mysql_user}
+        MYSQL_PASSWORD: ${mysql_password}
+        MYSQL_DATABASE: ${mysql_database}
+    tty: true
+    stdin_open: true
+    labels:
+        io.rancher.sidekicks: mysql-data
+    volumes_from:
+        - mysql-data
+
+pma:
+    image: phpmyadmin/phpmyadmin
+    environment:
+      PMA_HOST: mysql
+      PMA_USER: root
+      PMA_PASSWORD: ${mysql_root_password}
+      PHP_UPLOAD_MAX_FILESIZE: 1G
+      PHP_MAX_INPUT_VARS: 1G
+    ports:
+     - ${pma_port}:80
+    depends_on:
+     - mysql

@@ -1,0 +1,5 @@
+name: JIRA Server
+description: |
+  JIRA Server - flexible issue and project tracking with best-in-class agile tooling for software teams.
+version: v0.0.1
+category: Project Tracking

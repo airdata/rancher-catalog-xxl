@@ -1,0 +1,7 @@
+name: Docker Monitor
+description: |
+  (Experimental) Telegraf, InfluxDB, Grafana for docker monitoring. 
+version: v0.0.1
+maintainer: "Mateusz Trojak <matisq@op.pl>"
+minimum_rancher_version: v0.51.0
+category: Monitoring

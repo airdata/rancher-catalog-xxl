@@ -1,0 +1,5 @@
+name: Grafana
+description: |
+  Beautiful metric & analytic dashboards
+version: v0.0.1
+category: Monitoring
