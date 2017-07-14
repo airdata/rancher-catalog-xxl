@@ -1,9 +1,9 @@
 .catalog:
   name: "Prometheus"
-  version: "1.0.3"
+  version: "1.1.0"
   description: "Prometheus Monitoring Solution"
-  uuid: prometheus-1
-  minimum_rancher_version: v0.56.0
+  uuid: prometheus-2
+  minimum_rancher_version: v0.59.0
   questions:
 
 ranch-eye:
@@ -15,8 +15,6 @@ node-exporter:
     start_first: true
 
 prometheus:
-  upgrade_strategy:
-    start_first: true
   scale: 1
   health_check:
     port: 9090
@@ -27,8 +25,6 @@ prometheus:
     response_timeout: 5000
 
 influxdb:
-  upgrade_strategy:
-    start_first: true
   scale: 1
   health_check:
     port: 8086
@@ -39,8 +35,6 @@ influxdb:
     response_timeout: 5000
 
 grafana:
-  upgrade_strategy:
-    start_first: true
   scale: 1
   health_check:
     port: 3000
@@ -50,10 +44,10 @@ grafana:
     healthy_threshold: 2
     response_timeout: 5000
 
-rancher-api-integration:
+prometheus-rancher-exporter:
+  scale: 1
   upgrade_strategy:
     start_first: true
-  scale: 1
   health_check:
     port: 9010
     interval: 5000

@@ -1,0 +1,93 @@
+version: '2'
+services:
+  node-exporter:
+    image: prom/node-exporter:latest
+    stdin_open: true
+    tty: true
+    labels:
+      io.rancher.scheduler.global: 'true'
+  prom-conf:
+    image: infinityworks/prom-conf:17
+    network_mode: none
+    volumes:
+    - /etc/prom-conf/
+    tty: true
+    links:
+    - node-exporter:node-exporter
+    - cadvisor:cadvisor
+  grafana:
+    image: monitoringartist/grafana-xxl
+    tty: true
+    links:
+    - prometheus:prometheus
+    - prometheus-rancher-exporter:prometheus-rancher-exporter
+    volumes_from:
+    - graf-db
+    ports:
+    - 3000:3000/tcp
+    labels:
+      io.rancher.sidekicks: graf-db
+  cadvisor:
+    image: google/cadvisor:latest
+    stdin_open: true
+    volumes:
+    - /:/rootfs:ro
+    - /var/run:/var/run:rw
+    - /sys:/sys:ro
+    - /var/lib/docker/:/var/lib/docker:ro
+    tty: true
+    ports:
+    - 3001:8080/tcp
+    labels:
+      io.rancher.scheduler.global: 'true'
+  prometheus-rancher-exporter:
+    image: infinityworks/prometheus-rancher-exporter:latest
+    environment:
+      CATTLE_ACCESS_KEY: 28D5CE786ED542FC9E52
+      CATTLE_SECRET_KEY: Tk1jCJo4MaDBrKaQakVCfbcFvs6DZA2qQ3ZVPrvq
+      CATTLE_URL: http://cattle.lab.santech.fr/v2-beta
+      HIDE_SYS: 'true'
+    stdin_open: true
+    tty: true
+    expose:
+    - 9173:9173
+    labels:
+      io.rancher.container.agent.role: environment
+      io.rancher.container.create_agent: 'true'
+  prometheus:
+    image: prom/prometheus:v1.4.1
+    tty: true
+    links:
+    - node-exporter:node-exporter
+    - cadvisor:cadvisor
+    volumes_from:
+    - prom-conf
+    ports:
+    - 9090:9090/tcp
+    command:
+    - -alertmanager.url=http://alertmanager:9093
+    - -config.file=/etc/prom-conf/prometheus.yml
+    - -storage.local.path=/prometheus
+    - -web.console.libraries=/etc/prometheus/console_libraries
+    - -web.console.templates=/etc/prometheus/consoles
+    labels:
+      io.rancher.sidekicks: prom-conf
+  graf-db:
+    image: infinityworks/graf-db:10
+    network_mode: none
+    volumes:
+    - /var/lib/grafana/
+    tty: true
+    links:
+    - prometheus:prometheus
+    - prometheus-rancher-exporter:prometheus-rancher-exporter
+    command:
+    - cat
+  influxdb:
+    image: tutum/influxdb:0.10
+    environment:
+      GRAPHITE_BINDING: :2003
+      GRAPHITE_DB: rancher
+      PRE_CREATE_DB: grafana;prometheus;rancher
+    ports:
+    - 2003:2003/tcp

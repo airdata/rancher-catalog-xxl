@@ -1,34 +1,32 @@
-ranch-eye:
-  ports:
-  - 9104:9104/tcp
+cadvisor:
   labels:
     io.rancher.scheduler.global: 'true'
-    io.rancher.container.dns: true
   tty: true
-  image: rucknar/ranch-eye:01
+  image: google/cadvisor:latest
   stdin_open: true
-  net: "host"
+  volumes:
+    - "/:/rootfs:ro"
+    - "/var/run:/var/run:rw"
+    - "/sys:/sys:ro"
+    - "/var/lib/docker/:/var/lib/docker:ro"
 
 node-exporter:
-  ports:
-    - 9100:9100
   labels:
     io.rancher.scheduler.global: 'true'
-    io.rancher.container.dns: true
   tty: true
   image: prom/node-exporter:latest
   stdin_open: true
-  net: "host"
 
 prom-conf:
     tty: true
-    image: rucknar/prom-conf:08
+    image: infinityworks/prom-conf:16
     volumes:
       - /etc/prom-conf/
+    net: none
 
 prometheus:
     tty: true
-    image: prom/prometheus:0.17.0
+    image: prom/prometheus:v1.3.1
     command: -alertmanager.url=http://alertmanager:9093 -config.file=/etc/prom-conf/prometheus.yml -storage.local.path=/prometheus -web.console.libraries=/etc/prometheus/console_libraries -web.console.templates=/etc/prometheus/consoles
     ports:
       - 9090:9090
@@ -37,16 +35,13 @@ prometheus:
     volumes_from:
        - prom-conf
     links:
-      - ranch-eye:ranch-eye
+      - cadvisor:cadvisor
       - node-exporter:node-exporter
-      - rancher-api-integration:rancher-api-integration
+      - prometheus-rancher-exporter:prometheus-rancher-exporter
 
 influxdb:
   image: tutum/influxdb:0.10
   ports:
-    - 8083:8083
-    - 8086:8086
-    - 8090:8090
     - 2003:2003
   environment:
     - PRE_CREATE_DB=grafana;prometheus;rancher
@@ -55,14 +50,15 @@ influxdb:
 
 graf-db:
     tty: true
-    image: rucknar/graf-db:02
+    image: infinityworks/graf-db:09
     command: cat
     volumes:
       - /var/lib/grafana/
+    net: none
 
 grafana:
     tty: true
-    image: monitoringartist/grafana-xxl
+    image: grafana/grafana:3.0.1
     ports:
       - 3000:3000
     labels:
@@ -71,16 +67,11 @@ grafana:
        - graf-db
     links:
       - prometheus:prometheus
-      - rancher-api-integration:rancher-api-integration
+      - prometheus-rancher-exporter:prometheus-rancher-exporter
 
-rancher-api-integration:
+prometheus-rancher-exporter:
     tty: true
-    stdin_open: true
-    environment:
-      - CATTLE_ACCESS_KEY="28D5CE786ED542FC9E52"
-      - CATTLE_SECRET_KEY="Tk1jCJo4MaDBrKaQakVCfbcFvs6DZA2qQ3ZVPrvq"
-      - CATTLE_URL="http://cattle.lab.santech.fr/v2-beta"
-      - HIDE_SYS=true
-    expose:
-      - 9010:9010
-    image: infinityworks/prometheus-rancher-exporter:latest
+    labels:
+      io.rancher.container.create_agent: true
+      io.rancher.container.agent.role: environment
+    image: infinityworks/prometheus-rancher-exporter:10
