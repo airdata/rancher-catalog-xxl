@@ -1,2 +1,0 @@
-{{range ls "/services/datanode/containers"}}{{ $containerName := getv (printf "/services/datanode/containers/%s" .)}}{{getv (printf "/containers/%s/primary_ip" $containerName)}}
-{{end}}

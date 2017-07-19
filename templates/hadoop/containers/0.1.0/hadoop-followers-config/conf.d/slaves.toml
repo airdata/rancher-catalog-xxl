@@ -1,9 +1,0 @@
-[template]
-src = "slaves.tmpl"
-dest = "/etc/hadoop/slaves"
-owner = "hadoop"
-mode = "0644"
-keys = [
-    "/services",
-    "/containers",
-]
