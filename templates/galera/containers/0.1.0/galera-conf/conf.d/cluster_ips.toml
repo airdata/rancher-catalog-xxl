@@ -1,7 +1,0 @@
-[template]
-src="cluster_ips.tmpl"
-dest="/opt/rancher/cluster_ips"
-keys = [
-  "/self",
-  "/containers",
-]
