@@ -1,0 +1,4 @@
+name: ElasticFence 2.4
+description: "ElasticFence (Elasticsearch+Plugins)"
+version: "2.4.1-rancher1"
+category: ELK

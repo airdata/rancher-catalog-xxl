@@ -1,0 +1,24 @@
+.catalog:
+  name: "Kibi"
+  version: "4.6.4-rancher1"
+  description: "Kibi: Explore & Visualize Your Data"
+  questions:
+    - variable: "elasticsearch_source"
+      description: "Link to elasticsearch service or stack/service"
+      label: "Elasticsearch source"
+      type: "service"
+      required: true
+      default: "es/elasticsearch-clients"
+    - variable: "public_port"
+      label: "Public Port"
+      description: "Unique public port for Kibi"
+      type: "int"
+      default: 80
+      required: true
+
+nginx-proxy:
+  metadata:
+    nginx:
+      conf:
+        servername: "kibi"
+        upstream_port: 5606

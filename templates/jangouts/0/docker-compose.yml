@@ -1,0 +1,31 @@
+jangouts-vip:
+  image: rancher/load-balancer-service
+  ports:
+  # HTTPS mandatory for webRTC!
+  - "${public_port}:443"
+  links:
+  - jangouts
+  external_links:
+  labels:
+    io.rancher.loadbalancer.target.jangouts: ${domain_name}:${public_port}/janus=8088
+    io.rancher.loadbalancer.target.jangouts: ${domain_name}:${public_port}/jangouts=8080
+jangouts:
+  image: qxip/docker-jangouts
+  ports:
+  - "7889:7889"
+  - "7089:7089"
+  - "8089:8089"
+  - "7088:7088"
+  - "8088:8088"
+  - "8000:8000"
+  - "8080:8080"
+  - "${port_range}:${port_range}/udp"
+  restart: always
+  tty: true
+  labels:
+    io.rancher.container.hostname_override: container_name
+  environment:
+  - DOMAIN_NAME: ${domain_name}
+  - PUBLIC_PORT: ${public_port}
+  - PORT_RANGE: ${port_range}
+  - EVAPI_URL: ${evapi_url}

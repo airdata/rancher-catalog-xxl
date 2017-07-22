@@ -1,0 +1,26 @@
+ES-curator:
+  image: elasticfence/docker-curator
+  environment:
+    ELASTICSEARCH_AUTH: "${es_user}:${es_pass}"
+    INTERVAL_IN_HOURS: "${interval}"
+    OLDER_THAN_IN_DAYS: "${days}"
+    ELASTICSEARCH_HOST: es1
+  stdin_open: true
+  tty: true
+  links:
+  - elasticfence:es1
+  labels:
+    io.rancher.container.pull_image: always
+    io.rancher.container.hostname_override: container_name
+elasticfence:
+  image: elasticfence/docker-elasticfence
+  tty: true
+  environment:
+    ELASTICSEARCH_USER: "${es_user}"
+    ELASTICSEARCH_PASS: "${es_pass}"
+  ports:
+  - "${public_port}:9200"
+  - "${kibi_port}:5606"
+  labels:
+    io.rancher.container.pull_image: always
+    io.rancher.container.hostname_override: container_name
