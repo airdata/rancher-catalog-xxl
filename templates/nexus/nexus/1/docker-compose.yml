@@ -1,5 +1,5 @@
 nexus:
-  image: sonatype/nexus:2.13.0-01
+  image: sonatype/nexus:2.14.1-01
   ports:
     - 8081:8081/tcp
   volumes_from:
@@ -15,4 +15,4 @@ nexus-datavolume:
   volumes:
     - /sonatype-work
   labels:
-    io.rancher.container.start_once: true
+    io.rancher.container.start_once: trueue

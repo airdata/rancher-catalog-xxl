@@ -1,7 +1,7 @@
-name: Nexus
+name: Nexus3
 description: |
   A repository manager.
-version: 2.14.2-01
+version: 3.3.2-01
 category: Continuous Integration
 maintainer: Grant Zukel admin@idevops.io
 license: Apache2

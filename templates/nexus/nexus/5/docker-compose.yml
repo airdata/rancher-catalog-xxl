@@ -1,5 +1,5 @@
 nexus:
-  image: sonatype/nexus:2.13.0-01
+  image: sonatype/nexus:3.0.0-03
   ports:
     - 8081:8081/tcp
   volumes_from:
