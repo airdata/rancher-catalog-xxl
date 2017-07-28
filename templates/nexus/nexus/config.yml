@@ -1,8 +1,0 @@
-name: Nexus3
-description: |
-  A repository manager.
-version: 3.3.2-01
-category: Continuous Integration
-maintainer: Grant Zukel admin@idevops.io
-license: Apache2
-projectURL: http://automation.gmacon.solutions:10080/idevops/OPENLDAP365
