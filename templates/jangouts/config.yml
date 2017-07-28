@@ -1,0 +1,4 @@
+name: Jangouts
+description: "Janus WebRTC Gateway Hangouts"
+version: "0.2.3-rancher1"
+category: Real-Time

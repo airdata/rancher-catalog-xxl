@@ -1,0 +1,29 @@
+.catalog:
+  name: "Elassandra"
+  version: "2.4.2-rancher1"
+  description: "Strapdata Elassandra"
+  maintainer: "Lorenzo Mangani <lorenzo.mangani@gmail.com>"
+  uuid: elassandra-2
+  questions:
+    - variable: "cluster_name"
+      description: "Cluster to participate in (no spaces)"
+      label: "Cluster Name:"
+      required: true
+      default: "cluster01"
+      type: "string"
+    - variable: "public_port"
+      label: "Public Port"
+      description: "Unique public port for ES API"
+      type: "int"
+      default: 9200
+      required: true
+elassandra:
+  scale: 1
+  retain_ip: true
+  health_check:
+    port: 9042
+    interval: 2000
+    initializing_timeout: 3600000
+    unhealthy_threshold: 5
+    strategy: recreate
+    response_timeout: 2000

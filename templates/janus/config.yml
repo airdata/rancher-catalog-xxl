@@ -1,0 +1,4 @@
+name: Janus Gateway
+description: "Janus WebRTC Gateway from Meetecho"
+version: "0.2.3-rancher1"
+category: Real-Time

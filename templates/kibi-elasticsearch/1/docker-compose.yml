@@ -1,0 +1,118 @@
+version: '2'
+services:
+  elasticsearch-datavolume-clients:
+    image: thebennos/docker-kibi
+    entrypoint:
+    - /bin/true
+    volumes:
+    - /opt/rancher/bin
+    - /usr/share/elasticsearch/config
+    - /usr/share/elasticsearch/data
+    links:
+    - elasticsearch-masters:es-masters
+    labels:
+      io.rancher.container.start_once: 'true'
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.pull_image: always
+      elasticsearch.datanode.config.version: '0'
+  elasticsearch-datanodes:
+    image: rancher/elasticsearch-conf:v0.5.0
+    links:
+    - elasticsearch-masters:es-masters
+    volumes_from:
+    - elasticsearch-datavolume-datanode
+    labels:
+      io.rancher.sidekicks: elasticsearch-base-datanode,elasticsearch-datavolume-datanode
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.pull_image: always
+      io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
+  elasticsearch-base-datanode:
+    image: thebennos/docker-kibi
+    entrypoint:
+    - /opt/rancher/bin/run.sh
+    network_mode: container:elasticsearch-datanodes
+    links:
+    - elasticsearch-masters:es-masters
+    volumes_from:
+    - elasticsearch-datavolume-datanode
+    labels:
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.pull_image: always
+      elasticsearch.datanode.config.version: '0'
+  elasticsearch-datavolume-datanode:
+    image: thebennos/docker-kibi
+    entrypoint:
+    - /bin/true
+    volumes:
+    - /opt/rancher/bin
+    - /usr/share/elasticsearch/config
+    - /usr/share/elasticsearch/data
+    links:
+    - elasticsearch-masters:es-masters
+    labels:
+      io.rancher.container.start_once: 'true'
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.pull_image: always
+      elasticsearch.datanode.config.version: '0'
+  elasticsearch-datavolume-masters:
+    image: thebennos/docker-kibi
+    entrypoint:
+    - /bin/true
+    volumes:
+    - /opt/rancher/bin
+    - /usr/share/elasticsearch/config
+    - /usr/share/elasticsearch/data
+    labels:
+      io.rancher.container.start_once: 'true'
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.pull_image: always
+      elasticsearch.datanode.config.version: '0'
+  elasticsearch-clients:
+    image: rancher/elasticsearch-conf:v0.5.0
+    links:
+    - elasticsearch-masters:es-masters
+    volumes_from:
+    - elasticsearch-datavolume-clients
+    labels:
+      io.rancher.sidekicks: elasticsearch-base-clients,elasticsearch-datavolume-clients
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.pull_image: always
+  esha:
+    image: rancher/lb-service-haproxy:v0.4.9
+    ports:
+    - 9200:9200/tcp
+    labels:
+      io.rancher.container.agent.role: environmentAdmin
+      io.rancher.container.create_agent: 'true'
+  elasticsearch-masters:
+    image: rancher/elasticsearch-conf:v0.5.0
+    volumes_from:
+    - elasticsearch-datavolume-masters
+    labels:
+      io.rancher.sidekicks: elasticsearch-base-master,elasticsearch-datavolume-masters
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.pull_image: always
+  elasticsearch-base-clients:
+    image: thebennos/docker-kibi
+    entrypoint:
+    - /opt/rancher/bin/run.sh
+    network_mode: container:elasticsearch-clients
+    links:
+    - elasticsearch-masters:es-masters
+    volumes_from:
+    - elasticsearch-datavolume-clients
+    labels:
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.pull_image: always
+      elasticsearch.client.config.version: '0'
+  elasticsearch-base-master:
+    image: thebennos/docker-kibi
+    entrypoint:
+    - /opt/rancher/bin/run.sh
+    network_mode: container:elasticsearch-masters
+    volumes_from:
+    - elasticsearch-datavolume-masters
+    labels:
+      elasticsearch.master.config.version: '0'
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.pull_image: always

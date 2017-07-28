@@ -1,0 +1,4 @@
+name: Elassandra 2.x
+description: "Elassandra (Cassandra+Elasticsearch)"
+version: "2.4.2-rancher1"
+category: ELK

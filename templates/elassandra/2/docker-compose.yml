@@ -1,0 +1,21 @@
+elassandra:
+  image: strapdata/elassandra
+  volumes_from:
+  - elassandra-volume
+  ports:
+  - ${public_port}:9200
+  restart: always
+  tty: true
+  labels:
+    io.rancher.container.hostname_override: container_name
+    io.rancher.sidekicks: elassandra-volume
+elassandra-volume:
+  net: none
+  labels:
+    io.rancher.container.hostname_override: container_name
+    io.rancher.container.start_once: true
+  volumes:
+  - /var/lib/cassandra
+  - /var/log/cassandra
+  entrypoint: /bin/true
+  image: busybox
