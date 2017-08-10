@@ -1,0 +1,48 @@
+.catalog:
+  name: nzbget
+  version: v0.1
+  description: nzbget
+  questions:
+    - variable: "nzbget"
+      type: "string"
+      label: "nzbget PORT"
+      description: Frontend Port of nzbget (UN= nzbget, PW=tegbzn6789)
+      default: 6789
+    - variable: "PATHCONFIGNZBGET"
+      type: "string"
+      label: "nzbget config Path"
+      description: Config-Path
+      default: "/media/confignzbget"
+    - variable: "PATHDOWNLOADSNZBGET"
+      type: "string"
+      label: "nzbget download Path"
+      description: Download-Path
+      default: "/media/downloadsnzbget"
+    - variable: "sickbeard"
+      type: "string"
+      label: "sickbeard PORT"
+      description: Frontend Port of sickbeard
+      default: 8081
+    - variable: "PATHCONFIGSICKBEARD"
+      type: "string"
+      label: "sickbeard config Path"
+      description: Config-Path
+      default: "/media/confignsickbeard"
+    - variable: "PATHDOWNLOADSICKBEARD"
+      type: "string"
+      label: "sickbeard download Path"
+      description: Download-Path
+      default: "/media/downloadsickbeard"
+    - variable: "PUID"
+      type: "string"
+      label: "PUID"
+      description: GroupID (not required)
+    - variable: "PGID"
+      type: "string"
+      label: "PGID"
+      description: PGID (not required)
+
+nzbget:
+  scale: 1
+sickbeard:
+  scale: 1

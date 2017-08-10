@@ -1,0 +1,82 @@
+.catalog:
+  name: Drone
+  version: 0.5-rancher3
+  description: |
+    Drone Server version 0.5
+
+  questions:
+    - variable: "dronerc_contents"
+      type: "multiline"
+      required: true
+      label: >-
+        Drone server configs to be inserted into /etc/drone/dronerc"
+      description: >-
+        Contents of /etc/drone/dronerc per the instructions at http://readme.drone.io/0.5/
+
+    - variable: "public_port"
+      type: int
+      required: true
+      label: "Public Port"
+      default: 8000
+      description: >-
+        Port that the load balancer will listen on. Must be accessible to remote driver for webhooks.
+
+    - variable: "default_cert"
+      type: certificate
+      required: true
+      label: "SSL certificate for Drone Server UI"
+      required: true
+      description: >-
+        Required SSL certificate used for encryption of the traffic between web browsers and the Drone Server UI.
+    
+    - variable: "database_service"
+      type: "service"
+      label: "Database Service"
+      description: >-
+        Service to link to for database. For instance if using the default Rancher Galera cluster select galera/galera-lb.
+      default: "galera/galera-lb"
+
+    - variable: "host_affinity"
+      type: "string"
+      default: ''
+      require: false
+      label: "host label(s) for cluster scheduling node affinity"
+      description: >-
+        Specificy a host label for node scheduling affinity. Example: If you have labelled the node(s) on which you would like
+        Drone Server to live 'ci.role=drone_server' specify 'ci.role=drone_server' here.
+
+    - variable: "debug_mode"
+      type: "string"
+      required: false
+      default: ""
+      label: "Enable verbose logging during container initialization"
+      description: >-
+        Enable verbose logging mode during container initialization and startup. Be warned that debug mode may log
+        sensitive information including credentials.
+
+drone-lb:
+  scale: 1
+  load_balancer_config:
+    haproxy_config: {}
+  default_cert: "${default_cert}"
+  health_check:
+    port: 42
+    interval: 2000
+    unhealthy_threshold: 3
+    healthy_threshold: 2
+    response_timeout: 2000
+
+drone-server:
+  scale: 1
+  metadata:
+    dronerc_contents: "${dronerc_contents}"
+    public_port: "${public_port}"
+    database_service: "${database_service}"
+  health_check:
+    port: 1620
+    interval: 2000
+    unhealthy_threshold: 3
+    strategy: recreate
+    request_line: GET /ping HTTP/1.0
+    healthy_threshold: 2
+    response_timeout: 2000

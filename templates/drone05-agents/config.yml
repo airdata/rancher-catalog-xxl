@@ -1,0 +1,9 @@
+name: Drone Agent node(s) for Drone 0.5
+description: >-
+  Drone Agent 0.5 node(s)
+version: 0.5-rancher3
+minimum_rancher_version: v1.1.1
+category: Continuous Integration
+maintainer: Nathan Valentine <nathan@rancher.com>
+license: Apache 2
+projectURL: https://github.com/rancher/community-catalog/templates/drone_agents_v05

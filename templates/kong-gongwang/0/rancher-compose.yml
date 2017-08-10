@@ -1,0 +1,7 @@
+.catalog:
+  name: "Kong"
+  version: "v1-postgres:9.4"
+  description: "kong use postgres"
+  uuid: kong-0
+kong:
+  scale: 1

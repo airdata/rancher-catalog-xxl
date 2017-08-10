@@ -1,0 +1,10 @@
+.catalog:
+  name: "NFS Server"
+  version: "1.0.0"
+  description: "Exports the specified directories as NFS"
+  questions:
+    - variable: "EXPORTS"
+      type: "string"
+      label: "Exported directories, space separated"
+      required: false
+      default: "/vol /vol2 /vol3 /vol4"

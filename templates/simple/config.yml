@@ -1,0 +1,8 @@
+name: simple # Name of the Catalog Entry
+description: |
+ Description of the Catalog Entry
+version: 0.1 # Version of the Catalog to be used
+category: test # Category to be used for searching catalog entries
+maintainer: s1rxploit@gmail.com # The maintainer of the catalog entry
+license: # The license
+projectURL: # A URL related to the catalog entry

@@ -1,0 +1,5 @@
+name: laravel
+description: |
+  Running Laravel project with Microservices Architecture
+version: v1.0
+category: Server

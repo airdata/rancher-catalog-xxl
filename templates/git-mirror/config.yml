@@ -1,0 +1,6 @@
+name: Git Mirror
+description: >
+  Mirror a set of git repositories
+version: 0.5
+category: Git
+maintainer: james@rancher.com

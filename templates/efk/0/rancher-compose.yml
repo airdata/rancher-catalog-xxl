@@ -1,0 +1,11 @@
+.catalog:
+  name: "EFK"
+  version: "v1.0"
+  description: "Elasticsearch+fluentd+kibana"
+  uuid: efk
+fluentd:
+  scale: 1
+kibana:
+  scale: 1
+elasticsearch:
+  scale: 1

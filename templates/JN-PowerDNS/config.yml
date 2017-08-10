@@ -1,0 +1,5 @@
+name: PowerDNS External JN
+description: |
+  Rancher External DNS service for PowerDNS on JN LAB Infrastructure for the 4.0.3 PowerDNS
+version: v0.6.0
+category: Rancher Services

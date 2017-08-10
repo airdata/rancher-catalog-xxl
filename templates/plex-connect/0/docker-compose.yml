@@ -1,0 +1,7 @@
+plexconnect:
+  image: wasserball/plexconnect:latest
+  ports:
+    - 80:80
+  net: "host"
+  hostname: name
+

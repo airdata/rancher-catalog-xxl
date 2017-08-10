@@ -1,0 +1,60 @@
+gluster-node:
+  image: janeczku/gluster-nfs-sk:dev9
+  command: glusterd -p /var/run/gluster.pid --no-daemon --log-file=- --log-format=no-msg-id --log-level=WARNING
+  cap_add:
+    - SYS_ADMIN
+  volumes_from:
+    - gluster-data
+  labels:
+    io.rancher.container.hostname_override: container_name
+    io.rancher.sidekicks: gluster-peering,gluster-data,gluster-volume,gluster-health
+    io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack.name=$${stack_name}
+gluster-peering:
+  image: janeczku/gluster-nfs-sk:dev8
+  command: giddyup leader elect --proxy-tcp-port=2160 /opt/rancher/peerprobe.sh
+  volumes_from:
+    - gluster-data
+  net: "container:gluster-node"
+  labels:
+    io.rancher.container.hostname_override: container_name
+gluster-volume:
+  image: janeczku/gluster-nfs-sk:dev9
+  command: /opt/rancher/replicated_volume_create.sh
+  volumes_from:
+    - gluster-data
+  net: "container:gluster-node"
+  labels:
+    io.rancher.container.start_once: true
+    io.rancher.container.hostname_override: container_name
+gluster-health:
+  image: janeczku/gluster-nfs-sk:dev9
+  command: giddyup health --check-command /opt/rancher/health_check.sh
+  net: "container:gluster-node"
+  volumes_from:
+    - gluster-data
+  labels:
+    io.rancher.container.hostname_override: container_name
+
+gluster-nfs:
+  image: janeczku/gluster-nfs-sk:dev9
+  command: /opt/rancher/start_nfs.sh gluster-node
+  labels:
+    io.rancher.container.hostname_override: container_name
+    io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack.name=$${stack_name}
+
+#
+# WARNING -- DO NOT CHANGE ANYTHING BELOW
+# DATA LOSS!!!! CAN OCCURR DURING UPGRADE
+#
+
+gluster-data:
+  image: busybox
+  command: /bin/true
+  net: none
+  volumes:
+    - /var/run
+    - /var/lib/glusterd
+    - ${HOST_MOUNT}/data/glusterfs/brick1
+  labels:
+    io.rancher.container.start_once: true
+    io.rancher.container.hostname_override: container_name

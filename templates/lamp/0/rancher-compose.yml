@@ -1,0 +1,71 @@
+.catalog:
+  name: Klangs Lamp Stack
+  version: 5.6
+  description: |
+    Linux Apache MySql Php[-fpm]
+  minimum_rancher_version: v0.56.0
+  maintainer: "AndreKlang"
+  uuid: lamp-0
+  questions:
+
+    - variable: "STACK_NAME"
+      description: "Has to be exactly as the stack's name (see issue #3393)"
+      label: "Stack Name:"
+      required: true
+      default: "lamp"
+      type: "string"
+
+    - variable: "web_hostname"
+      description: "Web hostname"
+      label: "Hostname:"
+      required: true
+      default: "myproject.andreklang.se"
+      type: "string"
+
+    - variable: "sql_db"
+      description: "Database name"
+      label: "Mysql database:"
+      required: true
+      default: "project_db"
+      type: "string"
+
+    - variable: "sql_user"
+      description: "Database username"
+      label: "Mysql username:"
+      required: true
+      default: "project_user"
+      type: "string"
+
+    - variable: "sql_pass"
+      description: "Database pass"
+      label: "Mysql pass:"
+      required: true
+      default: "SomethingSecretThatIsHardToGuess"
+      type: "string"
+
+web:
+  scale: 3
+  retain_ip: true
+
+redis:
+  scale: 1
+  retain_ip: true
+
+phpmyadmin:
+  scale: 1
+  retain_ip: true
+
+mysql:
+  scale: 1
+  retain_ip: true
+
+web-balance:
+  scale: 1
+  load_balancer_config:
+    haproxy_config: {}
+  health_check:
+    port: 42
+    interval: 2000
+    unhealthy_threshold: 3
+    healthy_threshold: 2
+    response_timeout: 2000

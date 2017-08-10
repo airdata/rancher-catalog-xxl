@@ -1,0 +1,12 @@
+plex:
+  image: linuxserver/plex
+  environment:
+    - VERSION=latest
+    - PUID=${PUID}
+    - PGID=${PGID}
+  ports:
+    - ${PORT}:32400
+  volumes:
+    - ${PATHCONFIG}:/config
+    - ${PATHMEDIA}:/data
+  net: ${NET}

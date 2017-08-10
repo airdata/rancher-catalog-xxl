@@ -1,0 +1,5 @@
+name: flocker
+description: |
+  Open source volume management tool
+version: v0.1
+category: flocker

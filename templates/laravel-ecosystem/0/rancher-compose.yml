@@ -1,0 +1,51 @@
+.catalog:
+  name: "Laravel-Ecosystem"
+  version: "v0.1"
+  description: "Laravel applications ecosystem"
+  uuid: Laravel-Ecosystem-0
+  minimum_rancher_version: v0.51.0
+  questions:
+    - variable: db_name
+      description: "Postgres Database Name - to use in the application setup"
+      label: "Postgres Database Name"
+      required: true
+      default: "APP_DB_NAME"
+      type: "string"
+    - variable: db_username
+      description: "Postgres Username - to use in the application setup"
+      label: "Postgres Username"
+      required: true
+      default: "APP_DB_USER"
+      type: "string"
+    - variable: db_password
+      description: "Postgres password for the above user - to use in the application setup"
+      label: "Postgres Password"
+      required: true
+      default: "password"
+      type: "string"
+    - variable: db_data_location
+      description: "Location on the host for the database files"
+      label: "DB Data Location"
+      required: true
+      default: "APP_DB_DATA"
+      type: "string"
+    - variable: volume_driver
+      description: "Volume Driver for the persistant data locations requires docker 1.7"
+      label: "Volume Driver"
+      type: "string"
+    - variable: app_source
+      description: "Laravel application source code"
+      label: "Laravel application directory"
+      required: true
+      default: "/var/www/laravel"
+      type: "string"
+    - variable: app_volume_dir
+      description: "Laravel application source code on stack volume"
+      label: "Laravel application stack directory"
+      required: true
+      default: "/var/www/laravel"
+      type: "string"
+Postgres:
+  scale: 1
+Php-fpm:
+  scale: 1

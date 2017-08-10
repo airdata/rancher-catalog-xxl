@@ -1,0 +1,26 @@
+Postgres:
+  environment:
+    POSTGRES_DB: ${db_name}
+    POSTGRES_USER: ${db_username}
+    POSTGRES_PASSWORD: ${db_password}
+  labels:
+    io.rancher.container.pull_image: always
+  tty: true
+  image: postgres
+  volumes:
+    - ${db_data_location}:/var/lib/postgresql
+  stdin_open: true
+  volume_driver: ${volume_driver}
+  ports:
+    - "5432:5432"
+
+Php-fpm:
+  environment:
+    INSTALL_XDEBUG: "false"
+    INSTALL_MONGO: "false"
+    INSTALL_ZIP_ARCHIVE: "false"
+  image: antic.website:5000/laravel-rancher-test:latest
+  volumes:
+    - ${app_source}:/var/www/${app_volume_dir}
+  expose:
+    - "9000"

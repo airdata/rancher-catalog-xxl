@@ -1,0 +1,8 @@
+name: NFS Server
+description: |
+  Exports directories as NFS
+version: 1.0.0
+category: storage # Category to be used for searching catalog entries
+maintainer: # The maintainer of the catalog entry
+license: # The license
+projectURL: # A URL related to the catalog entry

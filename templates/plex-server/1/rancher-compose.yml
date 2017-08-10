@@ -1,0 +1,40 @@
+.catalog:
+  name: Plex Server
+  version: v0.2
+  description: Plex Media Server
+  questions:
+    - variable: "PORT"
+      type: "string"
+      label: "PORT"
+      description: Frontend Port of Plex
+      default: 32400
+    - variable: "PATHCONFIG"
+      type: "string"
+      label: "Config Path"
+      description: persistang Path to your Plex Config (/home/nick/plex, ...)
+      default: '/home'
+    - variable: "PATHMEDIA"
+      type: "string"
+      label: "Media Path"
+      description: the Path to your library (/media, or a nfs mount /mnt, ...)
+      default: '/media'
+    - variable: "PUID"
+      type: "string"
+      label: "PUID"
+      description: GroupID (not required)
+    - variable: "PGID"
+      type: "string"
+      label: "PGID"
+      description: PGID (not required)
+    - variable: NET
+      description: "select Network type"
+      label: "Network"
+      type: enum
+      options:
+        - host
+        - managed
+        - none
+      required: true
+      default: "host"
+plex:
+  scale: 1

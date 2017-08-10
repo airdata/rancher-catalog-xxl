@@ -1,0 +1,39 @@
+.catalog:
+    name: "Convoy GlusterFS"
+    version: "v0.5"
+    description: "Convoy GlusterFS - Docker volume plugin"
+    questions:
+     - variable: "VOLUME_POOL"
+       description: "Name of the GlusterFS Volume"
+       label: "GlusterFS Volume"
+       required: true
+       type: "string"
+       default: brick1
+     - variable: "GLUSTERFS_SERVERS"
+       label: "GlusterFS Servers"
+       type: "string"
+       required: true
+       default: "glusterfs-server.glusterfs"
+       description: Specify either the DNS name of the GlusterFS service or a comma-separated list of IP addresses (without any spaces)
+
+convoy-gluster:
+    metadata:
+        volume_pool: "${VOLUME_POOL}"
+        servers: "${GLUSTERFS_SERVERS}"
+    health_check:
+        request_line: GET /healthcheck HTTP/1.0
+        port: 10241
+        interval: 2000
+        response_timeout: 2000
+        unhealthy_threshold: 3
+        healthy_threshold: 2
+
+convoy-gluster-storagepool:
+    scale: 1
+    health_check:
+        request_line: GET /healthcheck HTTP/1.0
+        port: 10241
+        interval: 2000
+        response_timeout: 2000
+        unhealthy_threshold: 3
+        healthy_threshold: 2

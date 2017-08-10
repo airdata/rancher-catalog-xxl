@@ -1,0 +1,37 @@
+letsencrypt:
+  labels:
+    io.rancher.container.create_agent: 'true'
+    io.rancher.container.agent.role: 'environment'
+    io.rancher.container.hostname_override: container_name
+    io.rancher.sidekicks: cron,letsencrypt-datavolume
+    io.rancher.container.pull_image: always
+  image: bringnow/nginx-letsencrypt
+  ports:
+    - "80:80"
+    - "443:443"
+  net: "host"
+  dns_search:
+    - "webhosting.coop"
+  volumes_from:
+    - letsencrypt-datavolume
+cron:
+  image: bringnow/letsencrypt-manager:latest
+  labels:
+    io.rancher.sidekicks: letsencrypt-datavolume
+  volumes_from:
+    - letsencrypt-datavolume
+  command: cron-auto-renewal
+  restart: always
+letsencrypt-datavolume:
+  labels:
+    io.rancher.container.hostname_override: container_name
+    io.rancher.container.start_once: true
+    io.rancher.container.pull_image: always
+  volume_driver: ${VOLUME_DRIVER}
+  volumes:
+    - LE_NGINX:/etc/nginx
+    - LE_ETC:/etc/letsencrypt
+    - LE_ACME:/var/acme-webroot
+    - LE_DHPARAM:/etc/nginx/dhparam
+  image: busybox
+  command: /bin/true

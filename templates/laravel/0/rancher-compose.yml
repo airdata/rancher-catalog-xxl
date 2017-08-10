@@ -1,0 +1,50 @@
+.catalog:
+  name: "laravel"
+  version: "v1.0"
+  description: "Running Laravel project with Microservices Architecture"
+  uuid: laravel-0
+  minimum_rancher_version: v0.51.0
+  questions:
+    - variable: application_name
+      description: "Application short name. This MUST be diffirent with other laravel stack created"
+      label: "Application Name"
+      required: true
+      type: "string"
+    - variable: application_image
+      description: "The link to application image in Docker Hub or your own private Registry. You can insert tag name"
+      label: "Application Image"
+      required: true
+      type: "string"
+    - variable: public_port
+      description: "Public port to access the web server"
+      label: "Public Port"
+      required: true
+      default: "80"
+      type: "int"
+    - variable: mysql_database
+      description: "Database in Mysql"
+      label: "Mysql Database"
+      required: true
+      default: "application"
+      type: "string"
+    - variable: mysql_user
+      description: "Username for Mysql"
+      label: "Mysql Username"
+      required: true
+      default: "appuser"
+      type: "string"
+    - variable: mysql_password
+      description: "Password for Mysql"
+      label: "Mysql Password"
+      required: true
+      default: "secret"
+      type: "string"
+    - variable: mysql_root_password
+      description: "Root Password for Mysql"
+      label: "Mysql Root Password"
+      required: true
+      default: "root"
+      type: "string"
+
+application:
+  scale: 2

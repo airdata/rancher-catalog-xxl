@@ -1,0 +1,42 @@
+.catalog:
+  name: registry
+  version: 2.3.0-rancher1
+  description: |
+    Docker registry service
+  minimum_rancher_version: v0.59.0
+  uuid: registry-0
+  questions:
+    - variable: "volume_data"
+      description: "Volume to persist registry images"
+      label: "Data volume:"
+      required: true
+      default: "/var/lib/docker/registry-data" 
+      type: "string"
+    - variable: "volume_driver" 
+      label: "Driver volume:"
+      description: |
+        Choose the volume driver to use.
+      default: local
+      required: true
+      type: enum
+      options:
+        - local
+        - convoy-gluster
+    - variable: "redis_link"
+      description: |
+        Choose the Redis service to use. 
+      label: "Redis stack/service"
+      default: "redis/master"
+      required: true
+      type: "service"
+registry:
+  scale: 1
+  retain_ip: true
+  health_check:
+    port: 5000
+    interval: 5000
+    unhealthy_threshold: 3
+    request_line: GET / HTTP/1.0
+    healthy_threshold: 2
+    response_timeout: 5000
+

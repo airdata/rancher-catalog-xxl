@@ -1,0 +1,23 @@
+nzbget:
+  image: linuxserver/nzbget
+  environment:
+    - PUID=${PUID}
+    - PGID=${PGID}
+  ports:
+    - ${nzbget}:6789
+  volumes:
+    - ${PATHCONFIGNZBGET}:/config
+    - ${PATHDOWNLOADSNZBGET}:/downloads
+  net: "host"
+sickbeard:
+  image: linuxserver/sickbeard
+  environment:
+    - PUID=${PUID}
+    - PGID=${PGID}
+  ports:
+    - ${sickbeard}:8081
+  volumes:
+    - ${PATHCONFIGSICKBEARD}:/config
+    - ${PATHDOWNLOADSICKBEARD}:/downloads
+  net: "host"
+

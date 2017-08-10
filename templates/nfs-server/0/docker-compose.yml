@@ -1,0 +1,8 @@
+nfs-server:
+  image: vincent99/nfs-server
+  command: ${EXPORTS}
+  privileged: true
+  volumes:
+  - /sbin/modprobe:/sbin/modprobe
+  - /dev:/dev
+  - /lib/modules:/lib/modules

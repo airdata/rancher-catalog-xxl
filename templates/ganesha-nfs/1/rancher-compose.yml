@@ -1,0 +1,39 @@
+.catalog:
+  name: "Ganesha NFS"
+  version: "v0.2.1"
+  description: "Ganesha NFS"
+  minimum_rancher_version: v0.44.0
+  questions:
+    - variable: "EXPORT_1_NAME"
+      label: "Export 1 Name"
+      description: "Choose the name of NFS export 1 to create"
+      type: "string"
+      required: true
+      default: "volumes"
+    - variable: "EXPORT_2_NAME"
+      label: "Export 2 Name"
+      description: "Choose the name of NFS export 2 to create"
+      type: "string"
+      required: true
+      default: "backup"
+    - variable: "EXPORT_BASE_PATH"
+      label: "Export Base Path"
+      description: "Choose the path in which the exports are created"
+      type: "string"
+      required: true
+      default: "/data/nfs"
+    - variable: "HOST_MOUNT"
+      label: "Host Mount (Optional)"
+      description: |
+        You can use a host bind mount to use as NFS storage instead of a Docker volume.
+        Enter the host path suffixed with a colon (:), e.g. "/exports/nfs:". This will mount
+        "/export/nfs" to the export path in the container.
+      required: false
+      type: "string"
+
+ganesha-nfs:
+  retain_ip: true
+  metadata:
+    export_1_name: "${EXPORT_1_NAME}"
+    export_2_name: "${EXPORT_2_NAME}"
+    export_base_path: "${EXPORT_BASE_PATH}"

@@ -1,0 +1,24 @@
+.catalog:
+    name: "Longhorn"
+    version: "v0.2.0"
+    description: "Rancher Block Storage"
+driver:
+    health_check:
+        request_line: GET /healthcheck HTTP/1.0
+        port: 10241
+        interval: 2000
+        response_timeout: 2000
+        unhealthy_threshold: 3
+        healthy_threshold: 2
+    metadata:
+        VOLUME_STACK_IMAGE: rancher/longhorn:dev-69a4565
+
+storagepool:
+    scale: 1
+    health_check:
+        request_line: GET /healthcheck HTTP/1.0
+        port: 10241
+        interval: 2000
+        response_timeout: 2000
+        unhealthy_threshold: 3
+        healthy_threshold: 2

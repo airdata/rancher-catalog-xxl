@@ -1,0 +1,15 @@
+plex:
+  image: linuxserver/plex
+  environment:
+    - VERSION=latest
+    - PUID=${PUID}
+    - PGID=${PGID}
+  ports:
+    - ${PORT}:32400
+  volumes:
+    - ${PATHCONFIG}:/config
+    - ${PATHMEDIA}:/data
+  net: ${NET}
+  labels:
+    io.rancher.container.pull_image: always
+    io.rancher.container.dns: 'true'

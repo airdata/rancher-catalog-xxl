@@ -1,0 +1,37 @@
+.catalog:
+  name: "Ganesha NFS"
+  version: "v0.2.0"
+  description: "Ganesha NFS"
+  minimum_rancher_version: v0.44.0
+  questions:
+    - variable: "EXPORT_NAME"
+      label: "Export Name"
+      description: "Choose the name of the NFS export to create"
+      type: "string"
+      required: true
+      default: "rancher-nfs"
+    - variable: "HOST_MOUNT"
+      label: "Host Mount (Optional)"
+      description: |
+        You can use a host bind mount to use as NFS storage instead of a Docker volume.
+        Enter the host path suffixed with a colon (:), e.g. "/exports/nfs:".
+      required: false
+      type: "string"
+    - variable: "SQUASH_MODE"
+      label: "User Squashing (NFSv3 only)"
+      description: |
+        What kind of user ID squashing should be performed. Users are squashed to the Anonymous UID and Anonymous GID.
+        No_Root_Squash => No user ID squashing is performed, Root_Squash => UID 0 and GID 0 are squashed, All_Squash => All users are squashed.
+      default: No_Root_Squash
+      required: true
+      type: enum
+      options:
+        - No_Root_Squash
+        - Root_Squash
+        - All_Squash
+
+ganesha-nfs:
+  retain_ip: true
+  metadata:
+    export_name: "${EXPORT_NAME}"
+    squash_mode: "${SQUASH_MODE}"

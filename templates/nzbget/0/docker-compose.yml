@@ -1,0 +1,27 @@
+nzbget-app:
+  ports:
+    - 36789:6789
+  environment:
+    PUID: '5000'
+    PGID: '5000'
+  labels:
+    io.rancher.container.pull_image: always
+    io.rancher.scheduler.affinity:host_label: config_store=true
+    nn.type: 'app'
+  tty: true
+  image: linuxserver/nzbget
+  volumes:
+    - ${nzbget_config_volume}:/config
+    - ${nzbget_downloads_volume}:/downloads
+nzbget-lb:
+  ports:
+    - ${nzbget_ip}:443:6789
+  labels:
+    io.rancher.loadbalancer.ssl.ports: '443'
+    io.rancher.scheduler.affinity:host_label: lb_host=true
+    nn.type: 'lb'
+  tty: true
+  image: rancher/load-balancer-service
+  links:
+    - nzbget-app:nzbget-app
+  stdin_open: true

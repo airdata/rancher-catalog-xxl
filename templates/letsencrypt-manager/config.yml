@@ -1,0 +1,8 @@
+name: Let's Encrypt - Manager
+description: |
+  Trusted SSL certificates at zero cost
+version: 0.1.4
+category: Security
+maintainer: Josh Cox <josh@webhosting.coop>
+license: The MIT License
+projectURL: http://www.webhosting.coop/

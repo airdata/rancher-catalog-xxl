@@ -1,0 +1,23 @@
+vault-conf:
+  image: rplan/vault-config
+  labels:
+    io.rancher.container.pull_image: always
+    io.rancher.container.hostname_override: container_name
+  volumes_from:
+  - vault
+  net: "container:vault"
+vault:
+  image: rplan/vault
+  labels:
+    io.rancher.container.pull_image: always
+    io.rancher.container.hostname_override: container_name
+    io.rancher.sidekicks: vault-conf
+  cap_add:
+  - IPC_LOCK
+  command:
+  - server
+  - -config=/config/config.hcl
+  volumes:
+  - /config
+  external_links:
+  - ${consul_service}:consul

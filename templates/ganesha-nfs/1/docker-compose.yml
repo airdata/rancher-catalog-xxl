@@ -1,0 +1,9 @@
+ganesha-nfs:
+  image: janeczku/rancher-ganesha-nfs:dev8
+  command: /opt/rancher/start_nfs.sh
+  privileged: true
+  labels:
+    io.rancher.container.hostname_override: container_name
+    io.rancher.container.pull_image: always
+  volumes:
+    - ${HOST_MOUNT}${EXPORT_BASE_PATH}

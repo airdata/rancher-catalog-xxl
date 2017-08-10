@@ -1,0 +1,64 @@
+.catalog:
+  name: Drone Agent node(s)
+  version: 0.5-rancher3
+  description: >-
+        Drone Agent node(s) with configurable scale and anti-affinity.
+        This template deploys Drone Agents version >= 0.5.
+  minimum_rancher_version: v1.1.1
+  maintainer: Nathan Valentine < nathan@rancher.com | nrvale0@gmail.com >
+
+  questions:
+    - variable: "drone_service"
+      type: service
+      label: Drone Server
+      description: "Link to the Drone Service. Maps to DRONE_SERVER."
+      required: true
+      default: "drone/drone-server"
+
+    - variable: "drone_service_tcp_port"
+      type: int
+      label: "Drone service TCP port."
+      description: "Drone Service TCP port"
+      required: true
+      default: 8000
+
+    - variable: "dronerc_contents"
+      type: multiline
+      required: true
+      label: >-
+        Drone Agent configs to be inserted into /etc/drone/dronerc.
+        Do not specify DRONE_SERVER here.
+
+    - variable: "drone_agent_count"
+      type: int
+      require: true
+      default: 1
+      label: >-
+        Number of Drone Agents to spin. Agents will be spun with soft anti-affinity. See http://docs.rancher.com/rancher/latest/en/cattle/scheduling/ for more information.
+        
+    - variable: "host_affinity"
+      type: "string"
+      default: ''
+      required: false
+      label: "host label(s) for cluster scheduling node affinity"
+      description: >-
+        Specificy a host label for node scheduling affinity. Example: If you have labelled the node(s) on which you would like
+        Drone Agent to live 'ci.role=drone_agent' specify 'ci.role=drone_agent' here.
+
+    - variable: "debug_mode"
+      type: "string"
+      required: false
+      label: "Enable verbose logging during container initialiation"
+      description: >-
+        Enable verbose logging of container startup as well as DRONE_DEBUG in the spun Drone Agents.
+        Beware enabling this option may expose credentials and other sensitive information in Rancher
+        log files and container stdout/stderr.
+      default: ""
+
+drone-agent:
+  scale: "${drone_agent_count}"
+  metadata:
+    drone_service: "${drone_service}"
+    drone_service_tcp_port: "${drone_service_tcp_port}"
+    dronerc_contents: "${dronerc_contents}"
+    debug_mode: "${debug_mode}"

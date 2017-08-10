@@ -1,0 +1,7 @@
+.catalog:
+  name: "IsAwesome"
+  version: "v1.0"
+  description: "IsAwesome"
+  uuid: isawesome-0
+  minimum_rancher_version: v0.44.0
+

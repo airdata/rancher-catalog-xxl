@@ -1,0 +1,59 @@
+# Php & Apache
+web:
+  image: php:5.6-apache
+  hostname: ${web_hostname}/
+  domainname: ${web_hostname}
+  tty: true
+  labels:
+    se.andreklang.discover.domainname: ${web_hostname}
+  links:
+    - mysql:mysql
+    - redis:redis
+  volumes:
+    - /home/docker/${STACK_NAME}/html:/var/www/html
+  depends_on:
+    - redis
+    - mysql
+  environment:
+    REDIS_HOST: redis
+    MYSQL_HOST: mysql
+    MYSQL_DATABASE: ${sql_db}
+    MYSQL_USER: ${sql_user}
+    MYSQL_PASSWORD: ${sql_pass}
+
+web-balance:
+  ports:
+    - 80
+  tty: true
+  image: rancher/load-balancer-service
+  links:
+    - web:web
+  stdin_open: true
+
+# redis
+redis:
+  image: redis
+  volumes:
+    - /home/docker/${STACK_NAME}/redis:/data
+
+# phpMyAdmin
+phpmyadmin:
+  image: nazarpc/phpmyadmin
+  environment:
+    MYSQL_ROOT_PASSWORD: root
+    MYSQL_HOST: mysql
+  links:
+    - mysql:mysql
+  depends_on:
+    - mysql
+
+# MySql
+mysql:
+  image: mariadb
+  volumes:
+    - /home/docker/${STACK_NAME}/mysql:/var/lib/mysql
+  environment:
+    MYSQL_ROOT_PASSWORD: "root"
+    MYSQL_DATABASE: project
+    MYSQL_USER: project_user
+    MYSQL_PASSWORD: ThisShouldBeKindOfSecretYouKnow

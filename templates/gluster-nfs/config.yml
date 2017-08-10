@@ -1,0 +1,5 @@
+name: GlusterFS
+description: |
+  Deploy a Replicated Gluster Storage Volume
+version: 3.7-0.2
+category: Storage

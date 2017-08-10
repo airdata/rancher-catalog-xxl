@@ -1,0 +1,5 @@
+name: EFK
+description: |
+   EFK service to help you store / query logging messages in your applications. All you have to do is tell your docker containers to forward log messages to running fluend (by using --log-driver=fluentd). That's it
+version: v1.0
+category: log and monitor

@@ -1,0 +1,44 @@
+.catalog:
+  name: "Vault-Consul"
+  version: "1.0.0"
+  description: |
+    This template create a Vault credential store with Consul as backend. It needs to be pointed to an already running consul cluster.
+  minimum_rancher_version: "1.0.2"
+  questions:
+  - variable: "consul_service"
+    label: "Consul service"
+    description: "Point this to a running Consul node"
+    required: true
+    type: "service"
+  - variable: "consul_port"
+    label: "Consul port"
+    description: "Port on the Consul node which provides the service"
+    required: true
+    default: 8500
+    type: "int"
+  - variable: "consul_path"
+    label: "Consul path"
+    description: "Path prefix under which Vault stores its data on Consul"
+    required: true
+    default: "vault"
+    type: "string"
+  - variable: "vault_port"
+    label: "Vault port"
+    description: "Port on which the Vault service should be made accessible"
+    required: true
+    default: 8200
+    type: "int"
+vault:
+  scale: 1
+  metadata:
+    config.hcl: |
+      backend "consul" {
+        address = "consul:${consul_port}"
+        path = "${consul_path}"
+        advertise_addr = "http://127.0.0.1"
+      }
+
+      listener "tcp" {
+        address = "0.0.0.0:${vault_port}"
+        tls_disable = 1
+      }

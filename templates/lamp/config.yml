@@ -1,0 +1,5 @@
+name: Klangs Lamp Stack
+description: |
+  Linux Apache MySql Php[-fpm]
+version: 5.6
+category: Web

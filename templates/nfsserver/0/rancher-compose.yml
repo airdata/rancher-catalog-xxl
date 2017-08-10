@@ -1,0 +1,13 @@
+.catalog:
+  name: "NFS-server"
+  version: "v2.2"
+  description: "NFS server"
+  uuid: nfs-server-0
+  minimum_rancher_version: v0.44.0
+  questions:
+    - variable: server_ip
+      description: "Unique ip to assign to your nfsserver."
+      label: "server ip"
+      type: "string"
+      required: true
+      default: "10.42.1.1"

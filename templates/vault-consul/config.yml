@@ -1,0 +1,7 @@
+name: "Vault-Consul"
+description: |
+  Vault credential store from HashiCorp based on Consul as backend.
+version: "1.0.0"
+category: "Security"
+maintainer: "thrucker"
+license: "custom"

@@ -1,0 +1,6 @@
+.catalog:
+  name: Plex Connect
+  version: v0.1
+  description: Plex Connect for Apple Tv
+plexconnect:
+  scale: 1

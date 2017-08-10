@@ -1,0 +1,58 @@
+.catalog:
+  name: "GlusterFS"
+  version: "3.7-0.1"
+  description: "Replicated Gluster Storage Volume"
+  questions:
+    - variable: "VOLUME_NAME"
+      label: "Volume Name"
+      description: "Unique name to give the Gluster volume"
+      required: true
+      default: "rancher_vol"
+      type: "string"
+    - variable: "REPLICA_COUNT"
+      label: "Replica Count"
+      description: |
+        Choose the number of replicas for this volume (2x replication is recommended for best I/O performance).
+      required: true
+      type: "enum"
+      default: "2"
+      options:
+        - "2"
+        - "3"
+    - variable: "HOST_LABEL_RULE"
+      label: "Host Scheduling (Not Implemented)"
+      description: |
+        To start the gluster nodes on specific hosts, enter a host label rule in the format <label>=<value>,
+        e.g. "storage=true". Make sure that the number of hosts with matching label is equal or more the number of replicas.
+      required: false
+      type: "string"
+    - variable: "HOST_MOUNT"
+      label: "Host Mount (Optional)"
+      description: |
+        You can use a host bind mount as brick for the Gluster volume instead of a Docker volume.
+        Enter the host path suffixed with a colon (:), e.g. "/exports/brick1:".
+      required: false
+      type: "string"
+gluster-node:
+  scale: ${REPLICA_COUNT}
+  retain_ip: true
+  metadata:
+    volume_name: "${VOLUME_NAME}"
+    with_pnfs: "false"
+  health_check:
+    port: 1620
+    interval: 5000
+    response_timeout: 3000
+    unhealthy_threshold: 3
+    healthy_threshold: 2
+    request_line: GET /ping HTTP/1.0
+    strategy: none
+    #strategy: recreateOnQuorum
+    #recreate_on_quorum_strategy_config:
+      #quorum: 1
+
+gluster-nfs:
+  retain_ip: true
+  metadata:
+    volume_name: "${VOLUME_NAME}"
+    with_pnfs: "false"

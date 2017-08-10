@@ -1,0 +1,7 @@
+.catalog:
+  name: "Kong"
+  version: "v1-cassandra:2.2"
+  description: "kong use cassandra"
+  uuid: kong-0
+kong:
+  scale: 1

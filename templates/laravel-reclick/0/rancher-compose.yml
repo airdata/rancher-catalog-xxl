@@ -1,0 +1,44 @@
+.catalog:
+  name: "laravel-reclick"
+  version: "v1.0"
+  description: "Running Laravel project on the ReClick infrastructure"
+  uuid: laravel-0
+  minimum_rancher_version: v0.51.0
+  questions:
+    - variable: application_name
+      description: "Application domainname. This MUST be diffirent with other laravel stack created"
+      label: "Application Name"
+      required: true
+      type: "string"
+    - variable: public_port
+      description: "Public port to access the web server"
+      label: "Public Port"
+      required: true
+      default: "80"
+      type: "int"
+    - variable: mysql_database
+      description: "Database in Mysql"
+      label: "Mysql Database"
+      required: true
+      default: "application"
+      type: "string"
+    - variable: mysql_user
+      description: "Username for Mysql"
+      label: "Mysql Username"
+      required: true
+      default: "appuser"
+      type: "string"
+    - variable: mysql_password
+      description: "Password for Mysql"
+      label: "Mysql Password"
+      required: true
+      default: "secret"
+      type: "string"
+    - variable: mysql_root_password
+      description: "Root Password for Mysql"
+      label: "Mysql Root Password"
+      required: true
+      default: "root"
+      type: "string"
+application:
+  scale: 1

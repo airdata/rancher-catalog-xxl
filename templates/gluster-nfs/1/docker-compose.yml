@@ -1,0 +1,35 @@
+gluster-node:
+  image: janeczku/gluster-nfs-aio:dev8
+  cap_add:
+    - SYS_ADMIN
+  volumes_from:
+    - gluster-data
+  labels:
+    io.rancher.container.hostname_override: container_name
+    io.rancher.sidekicks: gluster-data
+    io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack.name=$${stack_name}
+    #io.rancher.scheduler.affinity:host_label: ${HOST_LABEL_RULE}
+
+gluster-nfs:
+  image: janeczku/gluster-nfs-aio:dev8
+  entrypoint: /opt/rancher/start_nfs.sh gluster-node
+  labels:
+    io.rancher.container.hostname_override: container_name
+    io.rancher.scheduler.affinity:container_label_soft_ne: io.rancher.stack.name=$${stack_name}
+
+#
+# WARNING -- DO NOT CHANGE ANYTHING BELOW
+# DATA LOSS!!!! CAN OCCURR DURING UPGRADE
+#
+
+gluster-data:
+  image: busybox
+  command: /bin/true
+  net: none
+  volumes:
+    - /var/run
+    - /var/lib/glusterd
+    - ${HOST_MOUNT}/data/glusterfs/brick1
+  labels:
+    io.rancher.container.start_once: true
+    io.rancher.container.hostname_override: container_name

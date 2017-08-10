@@ -1,0 +1,29 @@
+fluentd:
+  ports:
+  - 24224:24224/tcp
+  labels:
+    io.rancher.container.pull_image: always
+  tty: true
+  image: renhuiyang/fluentd:v0.1
+  links:
+  - elasticsearch:elasticsearch
+kibana:
+  ports:
+  - 5601:5601/tcp
+  labels:
+    io.rancher.container.pull_image: always
+  tty: true
+  image: renhuiyang/kibana:v0.5
+  links:
+  - elasticsearch:elasticsearch
+elasticsearch:
+  ports:
+  - 9200:9200/tcp
+  - 9300:9300/tcp
+  labels:
+    io.rancher.container.pull_image: always
+  tty: true
+  command:
+  - elasticsearch
+  - -Des.network.host=0.0.0.0
+  image: renhuiyang/elasticsearch:2.4

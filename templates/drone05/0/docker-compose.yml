@@ -1,0 +1,64 @@
+drone-lb:
+  ports:
+  - "${public_port}:8000"
+  tty: true
+  image: rancher/load-balancer-service
+  links:
+  - drone-server:drone-server
+  stdin_open: true
+  labels:
+    io.rancher.container.pull_image: always
+    io.rancher.loadbalancer.ssl.ports: "${public_port}"
+    io.rancher.scheduler.global: true
+    io.rancher.scheduler.affinity:host_label: "${host_affinity}"
+
+drone-server:
+  image: rancher/drone-config:v0.5-dec16-1
+  tty: true
+  volumes_from:
+    - drone-data-volume
+  labels: 
+    io.rancher.sidekicks: drone-data-volume,drone-daemon, drone-healthcheck
+    io.rancher.container.pull_image: always
+    io.rancher.scheduler.affinity:host_label_soft: "${host_affinity}"
+  external_links:
+    - "${database_service}:database"
+  environment:
+    DEBUG: "${debug_mode}"
+
+drone-healthcheck:
+  image: rancher/drone-config:v0.5-dec16-1
+  tty: true
+  labels:
+    io.rancher.container.pull_image: always
+  net: 'container:drone-server'
+  volumes_from:
+    - drone-data-volume
+  entrypoint: "/giddyup health"
+
+drone-daemon:
+  image: rancher/drone:v0.5-dec16-1
+  tty: true
+  labels: 
+    io.rancher.container.pull_image: always
+  net: 'container:drone-server'
+  volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+  volumes_from:
+    - drone-data-volume
+  environment:
+    DEBUG: "${debug_mode}"
+  entrypoint:
+    - /opt/rancher/scripts/rancher_drone_entrypoint.sh
+    - server
+
+## Do not change below. Could cause data loss in upgrade.
+drone-data-volume:
+  image: busybox
+  net: none
+  command: /bin/true
+  labels:
+    io.rancher.container.start_once: 'true'
+  volumes:
+    - /var/lib/drone
+    - /etc/drone

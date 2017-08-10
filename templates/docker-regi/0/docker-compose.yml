@@ -1,0 +1,23 @@
+registry:
+  image: registry:2.3.0
+  environment:
+    REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY: /data
+    REGISTRY_STORAGE_CACHE_BLOBDESCRIPTOR: redis
+    REGISTRY_REDIS_ADDR: redis:6379
+  volumes_from:
+  - registry-volume
+  external_links:
+  - ${redis_link}:redis
+  labels:
+    io.rancher.container.hostname_override: container_name
+    io.rancher.sidekicks: registry-volume
+registry-volume:
+  net: none
+  labels:
+    io.rancher.container.hostname_override: container_name
+    io.rancher.container.start_once: true
+  volumes:
+    - ${volume_data}:/data
+  volume_driver: ${volume_driver}
+  entrypoint: /bin/true
+  image: busybox
