@@ -1,57 +1,33 @@
 .catalog:
-  name: sonarqube-cognotekt
-  version: "0.0.1"
+  name: Sonarqube
+  version: 5.6.1
   description: |
-    Sonarqube instance with optional plugins to download
-  uuid: sonarqube-cognotekt-0
+    SonarQube is an open source platform for continuous inspection of code quality.
   questions:
-
-    - variable: sonarqube_image
-      label: Sonarqube docker image
-      required: true
-      default: flypenguin/sonarqube
-      type: string
-
-    - variable: pluginlist
-      label: Install plugin list
-      description: "Format: PLUGIN_URL FILENAME [ ; PLUGINURL2 FILENAME2 ; ... ]"
-      required: false
-      type: multiline
-
-    - variable: jdbc_url
-      label: JDBC URL
-      description: "jdbc:<DBTYPE>://<HOST>/<DBNAME> (type: postgresql, h2:tcp, mysql)"
-      required: true
-      default: "jdbc:h2:tcp://localhost/sonar"
-      type: string
-
-    - variable: jdbc_user
-      label: JDBC user name
-      description: "'sonar' for H2 database"
-      required: false
-      default: sonar
-      type: string
-
-    - variable: jdbc_pass
-      label: JDBC user password
-      description: "'sonar' for H2 database"
-      required: false
-      default: sonar
-      type: string
-
-    - variable: exposed_port_0
-      label: Port to open on Rancher host
-      required: true
-      default: 9000
-      type: int
-
-    # - variable: exposed_port_1
-    #   label: Public port which binds to container:9092
-    #   required: true
-    #   default: 9092
-    #   type: int
-
+  - variable: "sonarqube_db_login"
+    description: "Sonarqube database login"
+    label: "Database login"
+    type: "string"
+    required: true
+    default: "sonarqube"
+  - variable: "sonarqube_db_password"
+    description: "Sonarqube database password"
+    label: "Database password"
+    type: "password"
+    required: true
+    default: "sonarqube_password"
+  - variable: "sonarqube_port"
+    description: "Sonarqube port"
+    label: "Sonarqube port"
+    type: "string"
+    required: true
+    default: "80"
+  - variable: "postgres_link"
+    description: |
+      stack/service link or external service link to postgres.
+    label: "Postgres stack/service"
+    default: "postgresql/postgresql-master"
+    required: true
+    type: "service"
 sonarqube:
   scale: 1
-  metadata:
-    pluginlist: "${pluginlist}"

@@ -1,4 +1,5 @@
 name: Jenkins
-description: 'Continuous Integration'
-category: Forge
-version: latest
+description: |
+  Jenkins CI server (LTS)
+version: 2.60.2-with-docker
+category: Continuous Integration

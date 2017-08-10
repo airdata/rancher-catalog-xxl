@@ -1,8 +1,5 @@
 name: InfluxDB
 description: |
-  Create a new instance of InfluxDB.
-version: 0
-category: Monitoring
-maintainer: Marco Vito Moscaritolo <mavimo@gmail.com>
-license: MIT
-projectURL: https://docs.influxdata.com/influxdb/
+  InfluxDB is a time series database built from the ground up to handle high write and query loads.
+version: 1.3.1
+category: Databases

@@ -15,4 +15,4 @@ nexus-datavolume:
   volumes:
     - /sonatype-work
   labels:
-    io.rancher.container.start_once: trueue
+    io.rancher.container.start_once: true
