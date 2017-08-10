@@ -1,0 +1,5 @@
+name: Glusterfs
+description: |
+  glusterfs
+version: latest
+category: fs
