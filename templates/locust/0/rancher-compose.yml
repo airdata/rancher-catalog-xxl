@@ -8,9 +8,9 @@
   uuid: legendary-locust-1
   questions:
     - variable: "target_url"
-      description: "Es werden sowohl HTTP und HTTPS unterstützt."
-      label: "Bitte hier die Domain eingeben:"
-      required: true
+      description: "Both HTTP and HTTPS are supported."
+      label: "Please enter the domain name:"
+      required: false
       default: "http://www.example.com"
       type: "string"
 
