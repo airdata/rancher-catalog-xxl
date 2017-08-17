@@ -61,13 +61,6 @@ LB:
       service: foreman
       source_port: 80
       target_port: 80
-    - hostname: sonar.lab
-      path: ''
-      priority: 10
-      protocol: http
-      service: sonar
-      source_port: 80
-      target_port: 9000
     - hostname: run.lab
       path: ''
       priority: 11
