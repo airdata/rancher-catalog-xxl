@@ -18,6 +18,17 @@ zabbix-server:
 rundeck:
   scale: 1
   start_on_create: true
+adminer:
+  scale: 1
+  start_on_create: true
+  health_check:
+    healthy_threshold: 2
+    response_timeout: 2000
+    port: 80
+    unhealthy_threshold: 2
+    interval: 3000
+    strategy: recreate
+    request_line: GET "/" "HTTP/1.0"
 janitor:
   start_on_create: true
 zabbix-agent:

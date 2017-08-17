@@ -25,6 +25,10 @@ volumes:
     external: true
     driver: rancher-nfs
 services:
+ adminer:
+    image: clue/adminer:latest
+    ports:
+      - 33801:80/tcp
   rancher-cli:
     image: nexus.lab:8860/rancher-cli
     environment:
