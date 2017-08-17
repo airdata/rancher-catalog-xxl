@@ -1,8 +1,8 @@
 .catalog:
-  name: "SYS-OPS"
-  version: "0.5"
-  description: "System OPS"
-  uuid: sys-ops
+  name: "SYS"
+  version: "0.1"
+  description: "System Services"
+  uuid: sys
 version: '2'
 services:
   rancher-cli:
