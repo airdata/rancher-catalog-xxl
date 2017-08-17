@@ -3,7 +3,6 @@
   version: "0.1"
   description: "System Services"
   uuid: sys
-version: '2'
 services:
   rancher-cli:
     scale: 1
