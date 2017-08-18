@@ -1,5 +1,5 @@
 .catalog:
-    name: "存储网关-ceph"
+    name: "Ceph"
     version: "v1.0.0"
     description: "存储网关-ceph - 支持CEPH存储卷的存储网关"
     questions:
