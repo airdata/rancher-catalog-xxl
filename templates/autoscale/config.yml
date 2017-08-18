@@ -1,0 +1,8 @@
+name: AutoScale
+description: |
+  特定条件下支持自动扩容服务
+version: 1.0.0
+category: 扩容
+maintainer: "有容云"
+license:
+

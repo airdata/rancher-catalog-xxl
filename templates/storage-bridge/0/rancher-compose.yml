@@ -1,0 +1,50 @@
+.catalog:
+    name: "存储网关-ceph"
+    version: "v1.0.0"
+    description: "存储网关-ceph - 支持CEPH存储卷的存储网关"
+    questions:
+     - variable: "CEPH_MONITOR"
+       description: "CEPH监控节点的IP地址和端口, 如: 192.168.15.13:6789"
+       label: "Ceph监控节点IP:PORT"
+       required: true
+       type: "string"
+     - variable: "CEPH_DEFAULT_VOLUME_POOL"
+       label: "Ceph存储池"
+       description: "用来创建ceph存储卷的ceph存储池,如: rep-pool"
+       type: "string"
+       required: true
+     - variable: "CEPH_DEFAULT_VOLUME_SIZE"
+       label: "Ceph默认卷大小"
+       description: "创建ceph存储卷时的默认卷大小，如果在创建卷时不指定卷大小则使用该默认卷大小来创建卷, 如: 10g"
+       type: "string"
+     - variable: "CEPH_DEFAULT_FORMAT_FILESYSTEM"
+       label: "Ceph格式化文件系统类型"
+       description: "用来格式化ceph存储卷映射后的块设备文件系统类型, 如: xfs"
+       type: "string"
+
+storage-bridge:
+    metadata:
+        ceph_monitor: "${CEPH_MONITOR}"
+        ceph_default_volume_pool: "${CEPH_DEFAULT_VOLUME_POOL}"
+        ceph_default_volume_size: "${CEPH_DEFAULT_VOLUME_SIZE}"
+        ceph_default_format_filesystem: "${CEPH_DEFAULT_FORMAT_FILESYSTEM}"
+    health_check:
+        request_line: GET /healthcheck HTTP/1.0
+        port: 10241
+        interval: 2000
+        response_timeout: 2000
+        unhealthy_threshold: 3
+        healthy_threshold: 2
+
+storage-bridge-storagepool:
+    metadata:
+        ceph_monitor: "${CEPH_MONITOR}"
+        ceph_default_volume_pool: "${CEPH_DEFAULT_VOLUME_POOL}"
+    scale: 1
+    health_check:
+        request_line: GET /healthcheck HTTP/1.0
+        port: 10241
+        interval: 2000
+        response_timeout: 2000
+        unhealthy_threshold: 3
+        healthy_threshold: 2

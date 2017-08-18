@@ -1,0 +1,7 @@
+name: WebSphere integrates IHS
+description: |
+  包含IHS，应用服务器和管理控制台的WebSphere集群。 
+version: 1.0.0
+category: 中间件
+maintainer: "有容云"
+

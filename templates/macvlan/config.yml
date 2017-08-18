@@ -1,0 +1,6 @@
+name: Macvlan
+description: |
+  Docker支持的一项虚拟网络技术(试验)
+version: 1.0.0
+category: 网络
+maintainer: "有容云"

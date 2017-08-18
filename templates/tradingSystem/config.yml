@@ -1,0 +1,9 @@
+name: tradingSystem
+description: |
+  (Experimental) tradingSystem
+version: 1.0
+category: Demo
+maintainer: "brank <brank@.163com>"
+minimum_rancher_version: v1.0.0
+license:
+

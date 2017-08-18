@@ -1,0 +1,68 @@
+.catalog:
+  name: AutoScale
+  version: 1.0.0
+  description: |
+      Auto scale container when condition meet
+  questions:
+    - variable: "URL"
+      label: "Appsoar服务器IP"
+      required: true
+      type: "string"
+    - variable: "ACCESS_KEY"
+      description: "AppSoar API key访问用户名"
+      label: "API key用户名"
+      required: true
+      type: "string"
+    - variable: "SECRET_KEY"
+      description: "AppSoar API访问密码"
+      label: "API密码"
+      required: true
+      type: "string"
+    - variable: "CPU_SCALE_PERCENT"
+      description: "触发自动扩容的CPU阈值(%)"
+      label: "CPU阈值(%)"
+      required: true
+      default: 20
+      type: "int"
+    - variable: "MEMORY_SCALE_VALUE"
+      description: "触发自动扩容的内存阈值(MB)"
+      label: "内存阈值(MB)"
+      required: true
+      default: 560
+      type: "int" 
+    - variable: "SCALE_RULE"
+      description: "OR表示CPU和内存只要有一个达到阈值就触发扩容：AND表示CPU和内存同时达到阈值再触发扩容"
+      label: "触发扩容规则"
+      required: true
+      type: "enum"
+      default: OR
+      options: 
+        - OR
+        - AND
+    - variable: "SCAN_INTERVAL"
+      description: "多少秒检查一次是否满足扩容条件"
+      label: "检查间隔(秒)"
+      required: true
+      default: 10
+      type: "int"
+    - variable: "SCALE_MIN_MATCH_TIMES"
+      description: "当连续满足触发扩容条件多少次再触发，避免抖动的问题"
+      label: "连续满足阈值次数"
+      required: true
+      default: 2
+      type: "int"
+    - variable: "SCALE_SIZE"
+      description: "每次扩容的时候新启动多少个容器"
+      label: "扩容个数"
+      required: true
+      default: 1
+      type: "int"
+    - variable: "MONITOR_SERVICE"
+      description: "选择需要对其进行监控和扩容的服务"
+      label: "被监控服务名"
+      required: true
+      type: "service"
+      
+      
+autoscale:
+  scale: 1

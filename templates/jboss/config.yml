@@ -1,0 +1,6 @@
+name: JBoss
+description: |
+  JBoss应用服务器集群 
+version: 1.0.0
+category: 中间件
+maintainer: "有容云"

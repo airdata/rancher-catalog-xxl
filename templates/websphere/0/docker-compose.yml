@@ -1,0 +1,37 @@
+ihs:
+  labels:
+    io.rancher.container.pull_image: always
+    io.rancher.scheduler.affinity:host_label: ${ihshost}
+  tty: true
+  image: index.youruncloud.com/catalog/was_full_install:v1.0.0
+  ports:
+  - 80:80/tcp
+  command:
+  - /home/ihsBash/run.sh
+  links:
+  - WasNode:WasNode
+  privileged: true
+  stdin_open: true
+WasNode:
+  labels:
+    io.rancher.container.pull_image: always
+  tty: true
+  command:
+  - /home/wasNodeBash/run.sh
+  image: index.youruncloud.com/catalog/was_full_install:v1.0.0
+  links:
+  - dmgr:dmgr
+  privileged: true
+  stdin_open: true
+dmgr:
+  labels:
+    io.rancher.scheduler.affinity:host_label: ${dmgrhost}
+    io.rancher.container.pull_image: always
+  ports:
+  - 9043:9043/tcp
+  command:
+  - /home/dmgrBash/run.sh
+  tty: true
+  image: index.youruncloud.com/catalog/was_full_install:v1.0.0
+  privileged: true
+  stdin_open: true

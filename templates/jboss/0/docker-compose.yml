@@ -1,0 +1,18 @@
+jbosslb:
+  ports:
+  - ${lb_port}:8080
+  tty: true
+  labels:
+    io.rancher.scheduler.affinity:host_label: ${host_label}
+  image: rancher/load-balancer-service
+  links:
+  - jboss:jboss
+  stdin_open: true
+jboss:
+  environment:
+    WAR_URL: ${war_url}
+  labels:
+    io.rancher.container.pull_image: always
+  tty: true
+  image: index.youruncloud.com/catalog/jboss:v1.0.0
+  stdin_open: true

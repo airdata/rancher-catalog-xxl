@@ -1,0 +1,20 @@
+macvlan:
+  environment:
+    SUBNET: '${SUBNET}'
+    GATEWAY: '${GATEWAY}'
+    PARENT: '${PARENT}'
+    NETWORK: '${NETWORK}'
+  log_driver: ''
+  net: host
+  privileged: true
+  volumes:
+  - /var/run/docker.sock:/var/run/docker.sock
+  labels:
+    io.rancher.scheduler.global: true
+    io.rancher.container.pull_image: always
+  tty: true
+  command:
+  - /home/run.sh
+  log_opt: {}
+  image: index.youruncloud.com/catalog/macvlan:v1.0.0
+  stdin_open: true

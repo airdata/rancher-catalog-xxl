@@ -1,0 +1,8 @@
+name: 存储网关-ceph 
+description: |
+  支持ceph卷的存储网关  
+version: v1.0.0
+category: 存储
+maintainer: 有容云
+
+

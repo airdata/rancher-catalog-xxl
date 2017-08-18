@@ -1,0 +1,35 @@
+.catalog:
+  name: WebSphere integrates IHS 
+  version: 1.0.0
+  description: |
+      WebSphere integrates IHS by Cloudsoar
+  questions:
+    - variable: "wasnodescale"
+      description: "部署该catalog的时候希望第一次启动多少个应用服务器"
+      label: "应用服务器节点个数"
+      required: true
+      default: 2
+      type: "int"
+    - variable: "dmgrhost"
+      description: "指定管理控制台部署到哪一台主机上"
+      label: "管理控制台主机"
+      required: true
+      default: "hostname=host1"
+      type: "string"
+    - variable: "ihshost"
+      description: "指定IHS部署到哪一台主机上"
+      label: "IHS主机"
+      required: true
+      default: "hostname=host1"
+      type: "string"
+
+
+ihs:
+  scale: 1
+
+WasNode:
+  scale: ${wasnodescale}
+
+dmgr:
+  scale: 1
+

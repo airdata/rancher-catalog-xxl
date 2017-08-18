@@ -1,0 +1,45 @@
+.catalog:
+   name: ci-demo
+   version: 1.0.0-Yourun Cloud
+   description: |
+    Yourun Cloud ci-demo flask Web
+   questions:
+       - variable: "scale_redis"
+         description: "Number of redis nodes."
+         label: "Number of redis Nodes:"
+         required: true
+         default: "1"
+         type: "int"
+       - variable: "scale_pyapp"
+         description: "Number of pyapp nodes."
+         label: "Number of pyapp Nodes:"
+         required: true
+         default: "2"
+         type: "int"
+       - variable: "Build_Number"
+         description: "Build version of pyapp."
+         label: "Build version of pyapp:"
+         required: true
+         default: "1"
+         type: "int"
+       - variable: "Port_Number"
+         description: "Port of pyapp."
+         label: "Port of pyapp:"
+         required: true
+         default: "5000"
+         type: "int"
+
+redis:
+  scale: ${scale_redis}
+
+pyapp:
+  scale: ${scale_pyapp}
+    
+pyapplb:
+  scale: 1
+  health_check:
+    port: 42
+    interval: 2000
+    unhealthy_threshold: 3
+    healthy_threshold: 2
+    response_timeout: 2000

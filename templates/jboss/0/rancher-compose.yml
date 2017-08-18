@@ -1,0 +1,46 @@
+.catalog:
+  name: "jboss"
+  version: "1.0.0"
+  description: "JBOSS 7.1.1 with your application deployed"
+  questions:
+    - variable: war_url
+      description: "一个http的url，从该url中可以下载到web应用的war包"
+      label: "war包下载地址"
+      type: "string"
+      required: true
+      default: "http://tomcat.apache.org/tomcat-5.5-doc/appdev/sample/sample.war"
+    - variable: jboss_scale
+      description: "JBoss服务包含的节点个数"
+      label: "JBoss节点个数"
+      required: true
+      default: 3
+      type: "int"
+    - variable: lb_port
+      description: "指定负载均衡服务对外暴露的端口号"
+      label: "JBoss网页访问端口"
+      type: "int"
+      required: true
+      default: 8092
+    - variable: "host_label" 
+      description: "指定负载均衡服务在哪台机器上运行" 
+      label: "部署JBoss的主机标签"
+      required: true
+      default: "hostname=host1"
+      type: "string"
+
+jbosslb:
+  scale: 1
+  load_balancer_config:
+    lb_cookie_stickiness_policy:
+      cookie: wlscookie
+      domain: ''
+      mode: insert
+    haproxy_config: {}
+  health_check:
+    port: 42
+    interval: 2000
+    unhealthy_threshold: 3
+    healthy_threshold: 2
+    response_timeout: 2000
+jboss:
+  scale: ${jboss_scale}

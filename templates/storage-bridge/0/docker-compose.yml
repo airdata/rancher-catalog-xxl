@@ -1,0 +1,26 @@
+storage-bridge:
+  labels:
+    io.rancher.container.create_agent: 'true'
+    io.rancher.scheduler.global: 'true'
+  privileged: true
+  pid: host
+  ipc: host
+  volumes:
+    - /var/run/docker/:/host/var/run/docker
+    - /usr:/host/usr
+    - /etc:/host/etc
+    - /lib/modules:/host/lib/modules:ro
+    - /dev:/host/dev
+    - /boot:/host/boot:ro
+    - /var/lib/:/host/var/lib/
+    - /var/run/:/host/var/run/
+  image: index.youruncloud.com/catalog/comet-storage-bridge:v1.0.0 
+  command: volume-driver-ceph
+
+storage-bridge-storagepool:
+  labels:
+    io.rancher.container.create_agent: 'true'
+  image: index.youruncloud.com/catalog/comet-storage-bridge:v1.0.0 
+  volumes:
+    - /var/run:/host/var/run
+  command: storagepool-agent

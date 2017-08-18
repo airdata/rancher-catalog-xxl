@@ -1,0 +1,22 @@
+autoscale:
+  environment:
+    URL: ${URL}
+    USER_NAME: ${ACCESS_KEY}
+    KEY: ${SECRET_KEY}
+    STACK_SERVICE_NAME: ${MONITOR_SERVICE}
+    SCALE_SIZE: ${SCALE_SIZE}
+    CPU_SCALE_PERCENT: '${CPU_SCALE_PERCENT}'
+    MEM_SCALE_VALUE: '${MEMORY_SCALE_VALUE}'
+    SCAN_INTERVAL: '${SCAN_INTERVALE}'
+    SCALE_RULE: ${SCALE_RULE}
+    SCALE_MIN_MATCH_TIME: '${SCALE_MIN_MATCH_TIMES}'
+  log_driver: ''
+  labels:
+    io.rancher.container.pull_image: always
+  tty: true
+  command:
+  - python
+  - /home/autoscale.py
+  log_opt: {}
+  image: index.youruncloud.com/catalog/autoscale:v1.0.0
+  stdin_open: true

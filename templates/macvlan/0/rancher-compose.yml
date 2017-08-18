@@ -1,0 +1,28 @@
+.catalog:
+  name: Macvlan
+  version: 1.0.0
+  description: |
+      Macvlan is a new twist on the tried and true network virtualization technique.
+  questions:
+    - variable: "SUBNET"
+      description: "设置一个Macvlan网络的子网(例如 192.168.14.0/24)"
+      label: "Macvlan子网"
+      required: true
+      type: "string"
+    - variable: "GATEWAY"
+      description: "设置一个Macvlan网络的网关(例如 192.168.14.1)"
+      label: "Macvlan网关"
+      required: true
+      type: "string"
+    - variable: "PARENT"
+      description: "设置Macvlan的网卡名称(即主机的网卡名称，例如 eth0)"
+      label: "Macvlan网卡"
+      required: true
+      type: "string"
+    - variable: "NETWORK"
+      description: "给Macvlan网络设置一个名称"
+      label: "Macvlan网络名称"
+      required: true
+      type: "string"
+macvlan:
+  scale: 1
