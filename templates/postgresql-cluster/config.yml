@@ -1,0 +1,5 @@
+name: Postgresql Cluster
+description: |
+  Postgresql Cluster Stack 
+version: 9.6
+category: Persistence
