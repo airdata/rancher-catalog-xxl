@@ -1,0 +1,23 @@
+version: '2'
+services: 
+
+  volume:
+    image: busybox
+    volumes:
+      - /var/norikra
+    network_mode: "none"
+    labels: 
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.start_once: true
+
+  norikra:
+    image: tokyohomesoc/norikra:v1.4.0
+    ports:
+      - ${PUBLIC_PORT}:26578
+    labels: 
+      io.rancher.scheduler.affinity:host_label_soft_ne: role=server
+      io.rancher.scheduler.affinity:host_label_soft: host=host02
+      io.rancher.container.hostname_override: container_name
+      io.rancher.sidekicks: volume
+    volumes_from:
+      - volume

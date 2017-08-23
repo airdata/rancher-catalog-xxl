@@ -1,0 +1,32 @@
+.catalog:
+  name: "Mackerel"
+  version: "0.43.2-rancher"
+  description: "Docker image for mackerel-agent"
+  uuid: "mackerel-agent-0.43.2"
+  minimum_rancher_version: "v1.4.1"
+  questions:
+    - variable: "MACKEREL_API_KEY"
+      label: "Mackerel API Key"
+      description: "Your Mackerel API Key"
+      required: true
+      type: "password"
+    - variable: ENABLE_DOCKER_PLUGIN
+      label: "Enable Docker Plugin"
+      description: "Enable Docker Plugin"
+      required: true
+      type: "boolean"
+      default: true
+    - variable: OPTION_PARAMETER
+      label: "Mackerel option parameter"
+      description: "Mackerel option parameter `-role=<service>:<role>`, `-v`"
+      type: "string"
+      default: ""
+    - variable: global_service
+      label: "Global Service"
+      description: |
+        Enable this option to run an instance of the Mackerel Agent on every host.
+        If you merely want a StatsD aggregator to which other services can send
+        metrics, then you may uncheck this and instead enable the Standalone mode.
+      type: "boolean"
+      required: true
+      default: true

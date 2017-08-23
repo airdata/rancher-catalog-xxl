@@ -1,0 +1,5 @@
+name: "Norikra"
+description: " Schemaless Stream Processing (Complex Event Processing) Server with SQL"
+version: "v1.4.0-rancher"
+category: "Monitoring"
+maintainer: "Naoki Aoyama <github@homesoc.tokyo>"

@@ -1,0 +1,5 @@
+name: "Mackerel"
+description: "Docker image for mackerel-agent"
+version: "0.43.2-rancher"
+category: "Monitoring"
+maintainer: "Naoki Aoyama <github@homesoc.tokyo>"

@@ -1,0 +1,60 @@
+version: '2'
+services:
+
+  crowi:
+    image: bakudankun/crowi:latest
+    links:
+      - mongo:db
+      - redis:redis
+      - elasticsearch:es
+    depends_on:
+      - mongo
+      - redis
+      - elasticsearch
+    ports:
+      - "${HTTP_PORT}:3000"
+    volumes:
+      - crowi_data:/data
+    labels:
+      io.rancher.container.hostname_override: container_name
+
+  mongo:
+    image: mongo:latest
+    volumes:
+      - mongo_configdb:/data/configdb
+      - mongo_db:/data/db
+    labels:
+      io.rancher.container.hostname_override: container_name
+
+  redis:
+    image: redis:alpine
+    volumes:
+      - redis_data:/data
+    labels:
+      io.rancher.container.hostname_override: container_name
+
+  elasticsearch:
+    image: elasticsearch:2
+    entrypoint:
+      - bash
+      - -c
+      - >-
+        bin/plugin list | grep -q analysis-kuromoji
+        || bin/plugin install analysis-kuromoji
+        && exec /docker-entrypoint.sh $$0 $$@
+    command: elasticsearch
+    volumes:
+      - es_data:/usr/share/elasticsearch/data
+      - es_plugins:/usr/share/elasticsearch/plugins
+      - es_config:/usr/share/elasticsearch/config
+    labels:
+      io.rancher.container.hostname_override: container_name
+
+volumes:
+  crowi_data:
+  mongo_configdb:
+  mongo_db:
+  redis_data:
+  es_data:
+  es_plugins:
+  es_config:

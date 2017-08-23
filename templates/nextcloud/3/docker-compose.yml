@@ -1,0 +1,57 @@
+version: '2'
+services:
+
+  nextcloud:
+    image: wonderfall/nextcloud:11.0
+    links:
+    - nextcloud-db:nextcloud-db
+    - redis:redis
+    environment:
+      UID: "${UID}"
+      GID: "${GID}"
+      UPLOAD_MAX_SIZE: "${UPLOAD_MAX_SIZE}"
+      APC_SHM_SIZE: "${APC_SHM_SIZE}"
+      OPCACHE_MEM_SIZE: ${OPCACHE_MEM_SIZE}
+      CRON_PERIOD: "${CRON_PERIOD}"
+      TZ: "${TZ}"
+      ADMIN_USER: "${ADMIN_USER}"
+      ADMIN_PASSWORD: "${ADMIN_PASSWORD}"
+      DOMAIN: "${DOMAIN}"
+      DB_TYPE: "${DB_TYPE}"
+      DB_NAME: "${DB_NAME}"
+      DB_USER: "${DB_USER}"
+      DB_PASSWORD: "${DB_PASSWORD}"
+      DB_HOST: nextcloud-db
+      REDIS_MAX_MEMORY: "${REDIS_MAX_MEMORY}"
+    volumes:
+    - /data
+    - /config
+    - /apps2
+    - /nextcloud/themes
+    labels:
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.pull_image: always
+
+  # If using MySQL
+  nextcloud-db:
+    image: mariadb:${DB_VERSION}
+    volumes:
+    - /var/lib/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: "${DB_ROOT_PASSWORD}"
+      MYSQL_DATABASE: "${DB_NAME}"
+      MYSQL_USER: "${DB_USER}"
+      MYSQL_PASSWORD: "${DB_PASSWORD}"
+    labels:
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.pull_image: always
+
+  # If using Redis
+  redis:
+    image: redis:alpine
+    container_name: redis
+    volumes:
+    - /var/lib/mysql
+    labels:
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.pull_image: always

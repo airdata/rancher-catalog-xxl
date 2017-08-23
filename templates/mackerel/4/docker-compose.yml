@@ -1,0 +1,22 @@
+version: '2'
+services:
+
+  agent:
+    image: mackerel/mackerel-agent:0.43.2
+    environment:
+      apikey: ${MACKEREL_API_KEY}
+      enable_docker_plugin: ${ENABLE_DOCKER_PLUGIN}
+      opts: ${OPTION_PARAMETER}
+    network_mode: "host"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - agent_data:/var/lib/mackerel-agent
+    volumes_from:
+      - volume
+    labels:
+      io.rancher.container.hostname_override: container_name
+      io.rancher.container.pull_image: always
+      io.rancher.scheduler.global: ${global_service}
+
+volumes:
+  agent_data:

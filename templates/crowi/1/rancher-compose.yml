@@ -1,0 +1,14 @@
+.catalog:
+  name: "Crowi"
+  version: "v1.5.1-rancher"
+  description: "The Simple & Powerful Communication Tool Based on Wiki"
+  uuid: "crowi-v1.5.1-rancher"
+  minimum_rancher_version: "v1.4.1"
+  questions:
+
+    - variable: "HTTP_PORT"
+      label: "HTTP Port"
+      description: "HTTP Port"
+      required: true
+      type: "int"
+      default: "80"

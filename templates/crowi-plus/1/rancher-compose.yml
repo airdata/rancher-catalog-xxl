@@ -1,0 +1,22 @@
+.catalog:
+  name: "crowi-plus"
+  version: "v1.2.8-rancher"
+  description: "crowi-plus - Enhanced Crowi"
+  uuid: "crowi-plus-v1.2.8-rancher"
+  minimum_rancher_version: "v1.4.1"
+  questions:
+
+    - variable: "HTTP_PORT"
+      label: "HTTP Port"
+      description: "HTTP Port"
+      required: true
+      type: "int"
+      default: "80"
+
+    - variable: "PASSWORD_SEED"
+      label: "Password seed"
+      description: "Password seed"
+      required: true
+      type: "string"
+      default: "changeme"
+

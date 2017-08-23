@@ -1,0 +1,64 @@
+version: '2'
+services:
+  crowi-plus:
+    image: weseek/crowi-plus:1.2.8
+    ports:
+      - "${HTTP_PORT}:3000"
+    links:
+      - mongo:mongo
+      - redis:redis
+      - elasticsearch:elasticsearch
+    depends_on:
+      - mongo
+      - redis
+      - elasticsearch
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/crowi
+      - REDIS_URL=redis://redis:6379/crowi
+      - ELASTICSEARCH_URI=http://elasticsearch:9200/crowi
+      - PASSWORD_SEED="${PASSWORD_SEED}"
+    volumes:
+      - crowi_data:/data
+    labels:
+      io.rancher.container.hostname_override: container_name
+
+  mongo:
+    image: mongo:3.4
+    volumes:
+      - mongo_configdb:/data/configdb
+      - mongo_db:/data/db
+    labels:
+      io.rancher.container.hostname_override: container_name
+
+  redis:
+    image: redis:3-alpine
+    volumes:
+      - redis_data:/data
+    labels:
+      io.rancher.container.hostname_override: container_name
+
+  elasticsearch:
+    image: elasticsearch:5.3-alpine
+    environment:
+      ES_JAVA_OPTS: "-Xms256m -Xmx256m"
+    command:
+      - sh
+      - -c
+      - "./bin/elasticsearch-plugin list | grep -q analysis-kuromoji || ./bin/elasticsearch-plugin install analysis-kuromoji;
+        ./bin/elasticsearch-plugin list | grep -q analysis-icu || ./bin/elasticsearch-plugin install analysis-icu;
+        /docker-entrypoint.sh elasticsearch"
+    volumes:
+      - es_data:/usr/share/elasticsearch/data
+      - es_plugins:/usr/share/elasticsearch/plugins
+      - es_config:/usr/share/elasticsearch/config
+    labels:
+      io.rancher.container.hostname_override: container_name
+
+volumes:
+  crowi_data:
+  mongo_configdb:
+  mongo_db:
+  redis_data:
+  es_data:
+  es_plugins:
+  es_config:
