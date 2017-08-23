@@ -1,5 +1,8 @@
-name: LetsEncrypt
+name: Let's Encrypt
 description: |
-  "Let’s Encrypt is a new Certificate Authority: https://letsencrypt.org"
-version: latest
-category: "Security"
+  Trusted SSL certificates at zero cost
+version: 0.5.0
+category: Security
+maintainer: Jan Bruder <jan@rancher.com>
+license: The MIT License
+projectURL: http://www.github.com/janeczku/rancher-letsencrypt

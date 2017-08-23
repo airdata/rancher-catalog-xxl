@@ -1,6 +1,6 @@
 .catalog:
   name: "LetsEncrypt"
-  version: "latest"
+  version: 0.1.7
   description: |
     "Let’s Encrypt is a new Certificate Authority: https://letsencrypt.org"
   uuid: letsencrypt-0
