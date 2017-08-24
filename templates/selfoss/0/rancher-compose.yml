@@ -1,0 +1,9 @@
+.catalog:
+  name: selfoss
+  version: 2.14
+  description: "The new multipurpose rss reader, live stream, mashup, aggregation web application
+"
+  uuid: selfoss-1
+
+selfoss:
+  scale: 1

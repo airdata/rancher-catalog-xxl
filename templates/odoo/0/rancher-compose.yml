@@ -1,0 +1,31 @@
+.catalog:
+  name: "Data Essential Odoo"
+  version: 0.1
+  description: "All-in-one management software. "
+  uuid: odoo-0.1-0
+  questions:
+    - variable: "DB_PORT_5432_TCP_ADDR"
+      description: "Postgres Database Hostname or IP address"
+      label: "Database name"
+      required: true
+      type: "string"
+    - variable: "DB_PORT_5432_TCP_PORT"
+      description: "Postgres Database Port"
+      label: "Database port"
+      required: true
+      default: "5432"
+      type: "int"
+    - variable: "DB_ENV_POSTGRES_USER"
+      description: "Postgres Database User"
+      label: "Database user"
+      default: "odoo"
+      required: true
+      type: "string"
+    - variable: "DB_ENV_POSTGRES_PASSWORD"
+      description: "Postgres Database User Password"
+      label: "Database password"
+      required: true
+      type: "string"
+
+crm:
+  scale: 1

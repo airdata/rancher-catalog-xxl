@@ -1,0 +1,13 @@
+nodered-server:
+  image: nodered/node-red-docker
+  ports:
+    - "${HTTP_PORT}:1880"
+  expose:
+    - "80"
+  volumes:
+    - ${DATA_VOLUME}:/data
+  environment:
+    - VIRTUAL_HOST=${VHOST_DOMAIN_NAME}
+    - VIRTUAL_PORT=1880
+    - LETSENCRYPT_HOST=${VHOST_DOMAIN_NAME}
+    - LETSENCRYPT_EMAIL=${LETSENCRYPT_EMAIL}

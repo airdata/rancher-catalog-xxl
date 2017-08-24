@@ -1,0 +1,5 @@
+name: Gitlab Runner
+description: |
+  Gitlab Runner
+version: 8.8.2-0
+category: SCM

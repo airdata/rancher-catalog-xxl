@@ -1,0 +1,10 @@
+neon:
+  image: kaixhin/cuda-neon:latest
+  tty: true
+  stdin_open: true
+  entrypoint:
+  - /bin/sh
+  volumes:
+    - /var/lib/nvidia-docker/volumes/nvidia_driver/361.45.18:/usr/local/nvidia:ro
+    - ${volume_name}:${volume_mount_path}
+  volume_driver: ${VOLUME_DRIVER}

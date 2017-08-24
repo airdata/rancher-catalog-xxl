@@ -1,0 +1,7 @@
+name: Azkaban
+description: |
+  Azkaban是个简单的批处理调度器，用来构建和运行Hadoop作业或其他脱机过程。
+version: v1
+category: BigData
+maintainer: huangpeng <huangpeng1984101@163.com>
+minimum_rancher_version: v1.0.0

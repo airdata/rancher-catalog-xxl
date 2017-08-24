@@ -1,0 +1,5 @@
+name: Watchtower
+description: |
+  Automatically update running Docker containers
+version: v0.0.1-watchtower
+category: "Rancher services"

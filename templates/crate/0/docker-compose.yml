@@ -1,0 +1,31 @@
+crate-nodes:
+  image: jannishuebl/crate-conf:0.0.1
+  labels:
+    io.rancher.container.hostname_override: container_name
+    io.rancher.sidekicks: crate-base-node,crate-datavolume-node
+    io.rancher.scheduler.affinity:container_label_ne: io.rancher.stack_service.name=$${stack_name}/$${service_name}
+    io.rancher.container.pull_image: always
+  volumes_from:
+    - crate-datavolume-node
+crate-datavolume-node:
+  labels:
+    crate.node.config.version: '0'
+    io.rancher.container.hostname_override: container_name
+    io.rancher.container.start_once: true
+  volumes:
+    - /crate/config
+    - /data
+    - /opt/rancher/bin
+  entrypoint: /bin/sleep 10
+  image: crate:latest
+crate-base-node:
+  labels:
+    crate.node.config.version: '0'
+    io.rancher.container.hostname_override: container_name
+  image: crate:latest
+  entrypoint: /bin/sh -c '/bin/sleep 10 && /bin/sh /opt/rancher/bin/run.sh'
+  volumes_from:
+    - crate-datavolume-node
+  ports:
+    - "4200:4200"
+  net: "container:crate-nodes"

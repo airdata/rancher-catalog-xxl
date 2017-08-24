@@ -1,0 +1,14 @@
+load-balancer:
+  ports:
+  - "443:443"
+  labels:
+    io.rancher.loadbalancer.ssl.ports: "443"
+    io.rancher.loadbalancer.target.rancher-server: "${rancher_domain}=8080"
+    io.rancher.scheduler.affinity:container: "${rancher_container}"
+  tty: true
+  image: "rancher/load-balancer-service"
+  links:
+  - "rancher-server:rancher-server"
+  stdin_open: true
+rancher-server:
+  image: "rancher/external-service"

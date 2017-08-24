@@ -1,0 +1,24 @@
+.catalog:
+  name: Dynamic HTTP Proxy
+  version: 0.1
+  description: |
+    Dynamic HTTP Proxy designed to handle traffic and domains in front of web applications.
+  questions:
+    - variable: "HTTP_PORT"
+      label: "HTTP port"
+      required: true
+      type: "int"
+      default: 80
+      description: "HTTP port"
+    - variable: "HTTPS_PORT"
+      label: "HTTPS port"
+      type: "int"
+      required: true
+      default: 443
+      description: "HTTPS port"
+    - variable: "AFF_HOST_LABELS"
+      label: "Affinity host labels"
+      type: "string"
+      required: true
+      default: "key1=value1,key2=value2"
+      description: "Example: key1=value1,key2=value2, etc..."

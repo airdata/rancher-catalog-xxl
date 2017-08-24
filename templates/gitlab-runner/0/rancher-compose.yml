@@ -1,0 +1,26 @@
+.catalog:
+  name: Gitlab Community
+  version: 8.8.2-0
+  description: |
+    Gitlab CE is a free GitHub alternative
+  minimum_rancher_version: v0.56.0
+  maintainer: "David Verholen <david@verholen.com>"
+  uuid: gitlab-0
+  questions:
+    - variable: "name"
+      description: "Gitlab Runner Unique Name"
+      label: "Name"
+      required: true
+      default: "docker-default-runner"
+      type: "string"
+
+gitlab-runner:
+  scale: 1
+  retain_ip: true
+  health_check:
+    port: 80
+    interval: 30000
+    unhealthy_threshold: 3
+    strategy: recreate
+    response_timeout: 2000
+    healthy_threshold: 2

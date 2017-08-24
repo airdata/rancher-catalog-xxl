@@ -1,0 +1,14 @@
+.catalog:
+  name: emby
+  version: stable
+  description: Emby Media Browser
+  uuid: emby-0
+  questions:
+    - variable: EMBY_TIMEZONE
+      label: Timezone
+      description: Specify the timezone used by the application
+      required: true
+      type: string
+      default: "Europe/Madrid"
+emby:
+  scale: 1

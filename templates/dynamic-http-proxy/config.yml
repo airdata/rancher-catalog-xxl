@@ -1,0 +1,5 @@
+name: Dynamic HTTP Proxy
+description: |
+  Dynamic HTTP Proxy designed to handle traffic and domains in front of web applications
+version: 0.1
+category: Networking

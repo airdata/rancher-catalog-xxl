@@ -1,0 +1,4 @@
+name: nginx-Proxy
+description: |
+  Nginx reverse proxy with let's encrypt
+version: 1.0.0

@@ -1,0 +1,9 @@
+torch:
+  image: kaixhin/cuda-torch:latest
+  ports:
+    - ${public_port}:8888/tcp
+  privileged: true
+  volumes:
+    - /var/lib/nvidia-docker/volumes/nvidia_driver/361.45.18:/usr/local/nvidia:ro
+    - ${volume_name}:${volume_mount_path}
+  volume_driver: ${VOLUME_DRIVER}

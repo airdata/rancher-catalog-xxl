@@ -1,0 +1,18 @@
+.catalog:
+  name: redmine
+  version: 3.1
+  description: "Redmine Project Manager"
+  uuid: redmine-0
+  questions:
+    - variable: REDMINE_SECRET_KEY
+      label: Redmine Secret Key
+      description: This variable is used to create an initial config/secrets.yml and set the secret_key_base value, which is "used by Rails to encode cookies storing session data thus preventing their tampering. Generating a new secret token invalidates all existing sessions after restart" (session store). If you do not set this variable or provide a secrets.yml one will be generated using rake generate_secret_token
+      required: false
+      type: "string"
+    - variable: REDMINE_NO_DB_MIGRATE
+      label: REDMINE_NO_DB_MIGRATE
+      description: This variable allows you to control if rake db:migrate is run on container start. Just set the variable to 1 and the migrate script will not automatically run on container start.
+      required: false
+      type: "int"
+redmine:
+  scale: 1

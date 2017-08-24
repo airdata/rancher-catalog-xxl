@@ -1,0 +1,6 @@
+selfoss:
+  labels:
+    io.rancher.container.pull_image: always
+  image: jenserat/selfoss
+  volumes:
+  - /var/www/html/data

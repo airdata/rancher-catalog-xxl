@@ -1,0 +1,7 @@
+name: rename 
+description: Its designed to take data from any source and search
+category: Kibana
+version: 1.2
+maintainer: Rancher
+license: Apache
+projectURL: https://github.com/prachidamle/rancher-catalog-service/

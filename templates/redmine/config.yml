@@ -1,0 +1,5 @@
+name: Redmine
+description: |
+  Redmine is a flexible project management web application. Written using the Ruby on Rails framework, it is cross-platform and cross-database.
+version: v0.1.0
+category: Agile

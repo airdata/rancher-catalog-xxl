@@ -1,0 +1,27 @@
+nginx-ssl-proxy:
+  image: nginx:1.11.1
+  ports:
+    - "443:443"
+  environment:
+    - SERVER_NAME_1=${server_name_1}
+    - SERVER_NAME_2=${server_name_2}
+    - SERVER_NAME_3=${server_name_3}
+    - SERVER_NAME_4=${server_name_4}
+    - SERVER_NAME_5=${server_name_5}
+    - SERVICE_LINK_1=${service_link_1}
+    - SERVICE_LINK_2=${service_link_2}
+    - SERVICE_LINK_3=${service_link_3}
+    - SERVICE_LINK_4=${service_link_4}
+    - SERVICE_LINK_5=${service_link_5}
+    - SERVICE_PORT_1=${service_port_1}
+    - SERVICE_PORT_2=${service_port_2}
+    - SERVICE_PORT_3=${service_port_3}
+    - SERVICE_PORT_4=${service_port_4}
+    - SERVICE_PORT_5=${service_port_5}
+  volumes:
+    - ${nginx_path}/conf.d:/etc/nginx/conf.d
+    - ${nginx_path}/certs:/etc/nginx/certs
+  labels:
+    io.rancher.scheduler.affinity:host_label: ${HOSTLABEL}
+    io.rancher.container.start_once: 'true'
+  command: /bin/bash -c "cd /etc/nginx/conf.d && export SERVICE_HOST_1=`echo $${SERVICE_LINK_1/\\//.} | awk '{n=split($$0,A,\".\");S=A[n];{for(i=n-1;i>0;i--)S=S\".\"A[i]}}END{print S}'` && export SERVICE_HOST_2=`echo $${SERVICE_LINK_2/\\//.} | awk '{n=split($$0,A,\".\");S=A[n];{for(i=n-1;i>0;i--)S=S\".\"A[i]}}END{print S}'` && export SERVICE_HOST_3=`echo $${SERVICE_LINK_3/\\//.} | awk '{n=split($$0,A,\".\");S=A[n];{for(i=n-1;i>0;i--)S=S\".\"A[i]}}END{print S}'` && export SERVICE_HOST_4=`echo $${SERVICE_LINK_4/\\//.} | awk '{n=split($$0,A,\".\");S=A[n];{for(i=n-1;i>0;i--)S=S\".\"A[i]}}END{print S}'` && export SERVICE_HOST_5=`echo $${SERVICE_LINK_5/\\//.} | awk '{n=split($$0,A,\".\");S=A[n];{for(i=n-1;i>0;i--)S=S\".\"A[i]}}END{print S}'` && evars=$$(env | while read line ; do echo -n \"\\$$$${line%%=*} \" ; done) && if ls *.template 1> /dev/null 2>&1; then for file in *.template; do envsubst \"$$evars\" < $$file > $${file:0:-8}conf; done; else echo 'Template files not found' && exit 127; fi && nginx -g 'daemon off;'"

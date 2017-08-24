@@ -1,0 +1,52 @@
+nginx:
+  image: nginx
+  tty: true
+  stdin_open: true
+  ports:
+    - "8082:80"
+  volumes:
+    - ${main_path}/conf.d:/etc/nginx/conf.d
+  volumes_from:
+    - www-data
+  labels:
+    io.rancher.scheduler.affinity:host_label: ${HOSTLABEL}
+    io.rancher.sidekicks: php,mysql,www-data,mysql-data
+  links:
+    - php:php
+php:
+  image: registry.sarrc.ru/php-kbr2
+  tty: true
+  stdin_open: true
+  volumes_from:
+    - www-data
+  links:
+    - mysql:mysql
+mysql:
+  image: mariadb
+  environment:
+    MYSQL_DATABASE: kbr-consalting
+    MYSQL_ROOT_PASSWORD: ${ROOTPASSWORD}
+    MYSQL_USER: kbr-consalting
+    MYSQL_PASSWORD: ${DBPASSWORD}
+  tty: true
+  stdin_open: true
+  volumes:
+    - ${main_path}/mysql-dump:/docker-entrypoint-initdb.d
+  volumes_from:
+    - mysql-data
+www-data:
+  image: busybox
+  net: none
+  command: /bin/true
+  labels:
+    io.rancher.container.start_once: 'true'
+  volumes:
+    - ${main_path}/www:/var/www/html
+mysql-data:
+  image: busybox
+  net: none
+  command: /bin/true
+  labels:
+    io.rancher.container.start_once: 'true'
+  volumes:
+    - ${main_path}/mysql-data:/var/lib/mysql

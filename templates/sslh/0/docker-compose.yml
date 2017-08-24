@@ -1,0 +1,20 @@
+sslh:
+  restart: until-stopped
+  environment:
+    LISTEN_IP: 0.0.0.0
+    LISTEN_PORT: 443
+    SSH_HOST: ${ssh_host}
+    SSH_PORT: ${ssh_port}
+    OPENVPN_HOST: ${ovpn_host}
+    OPENVPN_PORT: ${ovpn_port}
+    HTTPS_HOST: ${https_host}
+    HTTPS_PORT: ${https_port}
+  image: oorabona/sslh
+  ports:
+    - "${listen_hostport}:443"
+  command:
+    - -f
+  labels:
+    io.rancher.container.network: true
+    io.rancher.container.hostname_override: container_name
+    io.rancher.scheduler.affinity:host_label: ${affinity}

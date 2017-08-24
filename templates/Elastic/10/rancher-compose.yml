@@ -1,0 +1,26 @@
+myService:
+ scale: 3
+.catalog:
+ name: 1.2
+ version: 1.2
+ description: This is the default stable version
+ uuid: b3b06150-6db0-44f4-9198-c8724dbb0e1d
+ minimum_rancher_version: v1.1.0
+ questions:
+  - label: What is Question1?
+    description: This is Question1
+    type: string
+  - label: What is Question2?
+    description: This is Question2
+    type: int
+  - label: What is Question3?
+    description: This is Question3
+    type: boolean
+  - label: What is Question4?
+    description: This is Question4
+    type: enum
+    options:
+     - option1
+     - option2
+ output:
+  url: http://${stack["mycoolservice"].fqdn}:8080

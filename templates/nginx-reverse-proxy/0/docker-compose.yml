@@ -1,0 +1,16 @@
+nginx:
+  image: oorabona/nginx-rancher-rp
+  labels:
+    io.rancher.container.network: true
+    io.rancher.container.hostname_override: container_name
+    io.rancher.scheduler.affinity:host_label: ${affinity}
+  environment:
+    RANCHER_METADATA_HOST: ${rancher_host}
+    IP_FIELD: ${ip_field_policy}
+  ports:
+   - "80:80"
+   - "443:443"
+  volumes:
+    - '${base_dir}/certs:/etc/nginx/certs:ro'
+    - '${base_dir}/nginx/vhosts.d:/etc/nginx/vhosts.d'
+    - '${base_dir}/nginx/html:/usr/share/nginx/html'

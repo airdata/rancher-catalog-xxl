@@ -1,0 +1,31 @@
+.catalog:
+  name: "nginx-reverse-proxy"
+  version: "latest-custom"
+  description: "Automatic reverse proxy for your Web containers deployed in Rancher"
+  questions:
+    - variable: base_dir
+      description: "Base directory for configuration files."
+      label: "Base directory"
+      type: "string"
+      required: true
+      default: "/srv"
+    - variable: affinity
+      label: "Rancher scheduler affinity, based on hosts labels!"
+      description: "Can be any key=value pair..."
+      type: "string"
+      required: true
+      default: "fq.label=value"
+    - variable: rancher_host
+      label: "Rancher Server Hostname"
+      description: "URL of Rancher host"
+      type: "string"
+      required: true
+      default: "http://rancher-metadata:8080"
+    - variable: ip_field_policy
+      label: "Select which field in data.fields metadata should be the source of remote IP"
+      description: "Select among the supported possibilities"
+      type: "enum"
+      default: primaryIpAddress
+      options:
+        - dockerIp
+        - primaryIpAddress

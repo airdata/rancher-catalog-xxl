@@ -1,0 +1,72 @@
+.catalog:
+  name: Azkaban
+  version: v1
+  questions:
+  - variable: MYSQL_USER
+    description: Azkaban数据库用户名
+    label: 数据库用户名
+    required: true
+    type: string
+  - variable: MYSQL_PASSWORD
+    description: Azkaban数据库密码
+    label: 数据库密码
+    required: true
+    type: string
+  - variable: MYSQL_DATABASE
+    description: Azkaban数据库名称
+    label: 数据库名称
+    type: string
+    default: azkaban
+  - variable: MYSQL_ROOT_PASSWORD
+    description: 数据库ROOT用户密码
+    label: ROOT密码
+    required: true
+    type: string
+  - variable: MYSQL_PORT
+    description: 数据库端口
+    label: MYSQL_PORT
+    required: true
+    type: int
+  - variable: WEBSERVER_PORT
+    description: WEBSERVER_PORT
+    label: WEBSERVER_PORT
+    required: true
+    type: int
+    default: 8443
+mysql:
+  health_check:
+    port: ${MYSQL_PORT}
+    interval: 3000
+    unhealthy_threshold: 2
+    healthy_threshold: 2
+    request_line: '/metrics/snapshot'
+    response_timeout: 2000
+executor:
+  health_check:
+    port: 12321
+    interval: 5000
+    unhealthy_threshold: 2
+    healthy_threshold: 2
+    request_line: ''
+    response_timeout: 3000
+webserver-initdb:
+  metadata:
+    mysql: 
+      port: ${MYSQL_PORT}
+      user: ${MYSQL_USER}
+      password: ${MYSQL_PASSWORD}
+      database: ${MYSQL_DATABASE}
+webserver:
+  metadata:
+    mysql: 
+      port: ${MYSQL_PORT}
+      user: ${MYSQL_USER}
+      password: ${MYSQL_PASSWORD}
+      database: ${MYSQL_DATABASE}
+  health_check:
+    port: ${WEBSERVER_PORT}
+    interval: 3000
+    unhealthy_threshold: 2
+    healthy_threshold: 2
+    request_line: '/metrics/snapshot'
+    response_timeout: 2000

@@ -1,0 +1,23 @@
+.catalog:
+  name: nginx-proxy
+  version: 1.0.0
+  description: |
+    Nginx reverse proxy with let's encrypt
+  minimum_rancher_version: v0.56.0
+  uuid: nginx-0
+  questions:
+    - variable: "hostname"
+      description: "NGINX default hostname"
+      label: "Hostname:"
+      required: true
+      default: "example.com"
+      type: "string"
+      required: true
+
+nginx-proxy:
+  scale: 1
+  retain_ip: true
+
+nginx-proxy-letsencrypt:
+  scale: 1
+  retain_ip: true

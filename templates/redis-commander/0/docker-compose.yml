@@ -1,0 +1,9 @@
+redis_commander:
+  image: tenstartups/redis-commander
+  command: --redis-host redis
+  depends_on:
+    - redis
+    - proxy
+  environment:
+    VIRTUAL_HOST: "redis-commander.docker"
+    VIRTUAL_PORT: "8080"

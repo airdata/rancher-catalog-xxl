@@ -1,0 +1,5 @@
+name: Docker UI
+description: |
+  UI for Docker
+version: v0.1.0
+category: Applications

@@ -1,0 +1,120 @@
+.catalog:
+  name: Nginx SSL Proxy
+  version: 1.11.1
+  description: |
+    Nginx is a free web server and proxy
+  minimum_rancher_version: v0.56.0
+  uuid: nginx-ssl-proxy-0
+  questions:
+    - variable: "nginx_path"
+      description: "Path to conf.d and certs"
+      label: "Path to conf.d and certs:"
+      required: true
+      default: "/rancher/nginx-ssl-proxy"
+      type: "string"
+    - variable: "server_name_1"
+      description: "Server name (load cert files: server_name.key server_name.pem)"
+      label: "Server name 1:"
+      required: true
+      default: "registry.sarrc.ru"
+      type: "string"
+    - variable: "service_link_1"
+      description: "Service link 1"
+      label: "Service link 1"
+      required: true
+      default: "registry/registry"
+      type: "service"
+    - variable: "service_port_1"
+      description: "Service port"
+      label: "Service port 1:"
+      required: true
+      default: "5000"
+      type: "int"
+    - variable: "server_name_2"
+      description: "Server name (load cert files: server_name.key server_name.pem)"
+      label: "Server name 2:"
+      required: false
+      default: "auth.registry.sarrc.ru"
+      type: "string"
+    - variable: "service_link_2"
+      description: "Service link 2"
+      label: "Service link 2"
+      required: false
+      default: "registry/portus"
+      type: "service"
+    - variable: "service_port_2"
+      description: "Service port"
+      label: "Service port 2:"
+      required: false
+      default: "3000"
+      type: "int"
+    - variable: "server_name_3"
+      description: "Server name (load cert files: server_name.key server_name.pem)"
+      label: "Server name 3:"
+      required: false
+      default: "rancher.sarrc.ru"
+      type: "string"
+    - variable: "service_link_3"
+      description: "Service link 3"
+      label: "Service link 3"
+      required: false
+      default: "rancher/server"
+      type: "service"
+    - variable: "service_port_3"
+      description: "Service port"
+      label: "Service port 3:"
+      required: false
+      default: "8080"
+      type: "int"
+    - variable: "server_name_4"
+      description: "Server name (load cert files: server_name.key server_name.pem)"
+      label: "Server name 4:"
+      required: false
+      default: ""
+      type: "string"
+    - variable: "service_link_4"
+      description: "Service link 4"
+      label: "Service link 4"
+      required: false
+      default: ""
+      type: "service"
+    - variable: "service_port_4"
+      description: "Service port"
+      label: "Service port 4:"
+      required: false
+      default: ""
+      type: "int"
+    - variable: "server_name_5"
+      description: "Server name (load cert files: server_name.key server_name.pem)"
+      label: "Server name 5:"
+      required: false
+      default: ""
+      type: "string"
+    - variable: "service_link_5"
+      description: "Service link 5"
+      label: "Service link 5"
+      required: false
+      default: ""
+      type: "service"
+    - variable: "service_port_5"
+      description: "Service port"
+      label: "Service port 5:"
+      required: false
+      default: ""
+      type: "int"
+    - variable: "HOSTLABEL"
+      description: "Run on host with this label "
+      label: "Host label:"
+      required: true
+      default: "hostname=rancher"
+      type: "string"
+nginx-ssl-proxy:
+  scale: 1
+  health_check: 
+    port: 443
+    request_line: GET / HTTP/1.1
+    interval: 10000
+    unhealthy_threshold: 2
+    strategy: none
+    response_timeout: 4000
+    healthy_threshold: 2

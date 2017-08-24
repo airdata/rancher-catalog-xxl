@@ -1,0 +1,8 @@
+terraria:
+  environment:
+    FOO: bar
+  tty: true
+  stdin_open: true
+  ports:
+    - ${PORT}:7777/tcp
+  image: ryshe/terraria:latest

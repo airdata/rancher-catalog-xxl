@@ -1,0 +1,44 @@
+.catalog:
+  name: "Rancher Load Balancer"
+  version: "1.0.0"
+  description: |
+    This template creates a load balancer, that should be scheduled on the host
+    running Rancher itself to perform TLS termination on its behalf. To achieve
+    this, the rancher host is represented as an external service.
+  minimum_rancher_version: "1.0.2"
+  questions:
+  - variable: "certificate_name"
+    label: "Certificate Name"
+    description: "Name of the certificate to use."
+    required: true
+    type: "string"
+  - variable: "rancher_ip"
+    label: "Rancher IP"
+    description: "IP the rancher UI is available at."
+    required: true
+    type: "string"
+  - variable: "rancher_domain"
+    label: "Rancher Domain"
+    description: "Domain the rancher UI should be made available at."
+    required: true
+    type: "string"
+  - variable: "rancher_container"
+    label: "Rancher Container Name"
+    description: "Name of the Rancher container."
+    required: true
+    default: "rancher"
+    type: "string"
+load-balancer:
+  scale: 1
+  load_balancer_config:
+    haproxy_config: {}
+  default_cert: "${certificate_name}"
+  health_check:
+    port: 42
+    interval: 2000
+    unhealthy_threshold: 3
+    healthy_threshold: 2
+    response_timeout: 2000
+rancher-server:
+  external_ips:
+  - "${rancher_ip}"

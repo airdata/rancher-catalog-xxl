@@ -1,0 +1,8 @@
+name: "Rancher Load Balancer"
+description: |
+  A load balancer for the rancher server.
+version: "1.0.0"
+category: "Load Balancing"
+maintainer: "Actano RPLAN Next Team"
+license: "custom"
+projectURL: "http://docs.rancher.com/rancher/latest/en/concepts/#load-balancer"

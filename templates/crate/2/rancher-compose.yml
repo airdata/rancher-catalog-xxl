@@ -1,0 +1,25 @@
+.catalog:
+  name: "Crate"
+  version: "2.2.2-rancher1"
+  description: "THE SIMPLY SCALABLE SQL DATABASE"
+  questions:
+    - variable: cluster_name
+      description: "Unique name to assign to your Crate cluster."
+      label: "Cluster Name"
+      type: "string"
+      required: true
+      default: "crate"
+    - variable: "crate_port"
+      label: "Public Port"
+      description: "Unique public port for crate"
+      type: "int"
+      default: 4200
+      required: true
+crate-nodes:
+  metadata:
+    crate:
+      yml:
+        cluster.name: "${cluster_name}"
+        node.name: "$${HOSTNAME}"
+        http.enabled: "false"
+        network.host: "_site_"

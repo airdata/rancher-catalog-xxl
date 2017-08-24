@@ -1,0 +1,23 @@
+elasticsearch-clients:
+ scale: 1
+.catalog:
+ name: 1.3
+ version: 1.3
+ description: This is the next version
+ uuid: dfac9a26-bc93-4e0b-8251-479260a7b42b
+ questions:
+  - name: What is Question1?
+    description: This is Question1
+    type: string
+  - name: What is Question2?
+    description: This is Question2
+    type: int
+  - name: What is Question3?
+    description: This is Question3
+    type: boolean
+  - name: What is Question4?
+    description: This is Question4
+    type: enum
+    options:
+     - option1
+     - option2     

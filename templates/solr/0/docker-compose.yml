@@ -1,0 +1,22 @@
+solr:
+  tty: true
+  image: codingbunch/rancher-solr:5.4.1
+  volumes:
+    - /opt/solr
+  volumes_from:
+    - solr-data-volume
+  environment:
+    - CONFD_INTERVAL=${reconf_interval}
+    - ZK_SERVICE=${zk_link}
+  external_links:
+    - ${zk_link}:zk
+
+## Do not change below. Could cause data loss in upgrade.
+solr-data-volume:
+  image: busybox
+  net: none
+  command: /bin/true
+  labels:
+    io.rancher.container.start_once: true
+  volumes:
+    - /var/solr

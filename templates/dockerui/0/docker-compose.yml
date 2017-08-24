@@ -1,0 +1,8 @@
+dockerui:
+  image: uifd/ui-for-docker
+  ports:
+    - 9000
+  environment:
+    VIRTUAL_HOST: "dockerui.docker"
+  volumes:
+    - /var/run/docker.sock:/var/run/docker.sock

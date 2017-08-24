@@ -1,0 +1,5 @@
+name: Theano
+description: |
+  Deep Learning Framework
+version: Latest (CUDA)
+category: Deep Learning

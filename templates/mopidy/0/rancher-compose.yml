@@ -1,0 +1,32 @@
+.catalog:
+  name: "Mopidy"
+  version: "v1"
+  description: "The extensible music server"
+  uuid: mopidy-0
+  questions:
+    - variable: ICECAST_SOURCE_PASSWORD
+      label: Icecast source password
+      description:
+      required: true
+      type: "string"
+    - variable: ICECAST_ADMIN_PASSWORD
+      label: Icecast admin password
+      description:
+      required: true
+      type: "string"
+    - variable: ICECAST_PASSWORD
+      label: Icecast password
+      description:
+      required: true
+      type: "string"
+    - variable: ICECAST_RELAY_PASSWORD
+      label: Icecast relay password
+      description:
+      required: true
+      type: "string"
+icecast:
+  scale: 1
+mopidy:
+  scale: 1
+mopidydata:
+  scale: 1

@@ -1,0 +1,15 @@
+toran-proxy:
+  expose:
+    - 80
+  hostname: ${host}
+  environment:
+    - VIRTUAL_HOST=${host}
+    - VIRTUAL_PROTO=https
+    - LETSENCRYPT_HOST=${host}
+    - LETSENCRYPT_EMAIL=${mail}
+    - TORAN_CRON_TIMER=minutes
+    - PHP_TIMEZONE=Europe/Berlin
+    - TORAN_HOST=${host}
+  image: bankiru/toran-proxy:1.4.4
+  volumes:
+    - ${host}-data:/data/toran-proxy

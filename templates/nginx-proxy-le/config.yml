@@ -1,0 +1,5 @@
+name: "NGINX-based proxy with LetsEncrypt"
+description: |
+  A NGINX-based HTTP and HTTPS proxy with letsencrypt auto-generation support.
+version: 0 
+category: Networking

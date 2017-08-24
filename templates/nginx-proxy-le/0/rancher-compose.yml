@@ -1,0 +1,9 @@
+.catalog:
+  name: "NGINX-based proxy with LetsEncrypt"
+  version: 0 
+  description: |
+    A NGINX-based HTTP and HTTPS proxy with letsencrypt auto-generation support.
+nginx-proxy:
+  scale: 1
+letsencrypt-nginx-proxy-companion:
+  scale: 1

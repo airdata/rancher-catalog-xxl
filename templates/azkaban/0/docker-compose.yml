@@ -1,0 +1,66 @@
+mysql:
+  image: mysql:latest
+  restart: always
+  environment:
+    MYSQL_PORT: ${MYSQL_PORT}
+    MYSQL_USER: ${MYSQL_USER}
+    MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+    MYSQL_DATABASE: ${MYSQL_DATABASE}
+    MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+  ports:
+  - "${MYSQL_PORT}:${MYSQL_PORT}"
+  labels:
+    io.rancher.container.hostname_override: container_name
+    azkaban: db
+  volumes:
+  - /var/lib/mysql
+executor:
+  image: puckel/azkaban-executor
+  restart: always
+  labels:
+    azkaban: executor
+  links:
+  - mysql
+webserver-config:
+  restart: always
+  image: helk/azkaban-webserver-conf:v0.4
+  labels:
+    io.rancher.container.start_once: true
+    azkaban: webserver-config
+webserver-initdb:
+  restart: no
+  image: helk/azkaban-webserver-initdb:v0.1
+  volumes_from:
+  - webserver-config
+  labels:
+    io.rancher.container.start_once: true
+    io.rancher.sidekicks: webserver-config
+    azkaban: webserver-initdb
+  links:
+  - mysql
+webserver-config-proxy:
+  restart: always
+  image: helk/azkaban-webserver-conf-proxy:v1.0.9
+  labels:
+    io.rancher.container.start_once: true
+    azkaban: webserver-config-proxy
+webserver:
+  restart: always
+  image: helk/azkaban-webserver:v2.0
+  volumes_from:
+  - webserver-config-proxy
+  labels:
+    io.rancher.sidekicks: webserver-config-proxy
+    azkaban: webserver
+  ports:
+  - "${WEBSERVER_PORT}:${WEBSERVER_PORT}"
+  links:
+  - mysql 
+  
+  
+  
+  
+  
+  
+  
+  

@@ -1,0 +1,7 @@
+emby:
+  image: emby/embyserver:latest
+  net: host
+  environment:
+    TZ: "${EMBY_TIMEZONE}"
+  volumes:
+    - /srv/docker/emby:/config

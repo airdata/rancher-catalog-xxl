@@ -1,15 +1,61 @@
-tvtime-xidan:
-  labels:
-    io.rancher.container.pull_image: always
-  image: registry.cntv.net/xinming/tvtime-php:v0.82
-  stdin_open: true
-slbtime:
-  ports:
-  - 80:80
-  labels:
-    io.rancher.scheduler.global: 'true'
-  tty: true
-  image: rancher/load-balancer-service
-  links:
-  - tvtime-xidan:tvtime-xidan
-  stdin_open: true
+flocker-certificate-service:
+    labels:
+        io.rancher.sidekicks: flocker-control-volume
+        io.rancher.scheduler.affinity:host_label: master=true
+    image: clusterhq/flocker-certificate-service:latest
+    net: host
+    volumes:
+         - /var/lib/flocker:/var/lib/flocker
+
+flocker-control-volume:
+    labels:
+        io.rancher.scheduler.affinity:host_label: master=true
+    image: clusterhq/flocker-control-service:latest
+    net: host
+    command: 
+        - true
+    volumes:
+        - /var/lib/flocker
+    links:
+        - flocker-certificate-service
+
+flocker-control-service:
+    labels:
+        io.rancher.sidekicks: flocker-control-volume
+        io.rancher.scheduler.affinity:host_label: master=true
+    image: clusterhq/flocker-control-service:latest
+    net: host
+    volumes:
+        - /etc/flocker
+    volumes-from:
+        - flocker-control-volume
+    links:
+        - flocker-certificate-service
+
+flocker-dataset-agent:
+    labels:
+        io.rancher.scheduler.global: true
+    image: clusterhq/flocker-dataset-agent:latest
+    volumes:
+         - /flocker:/flocker
+         - /:/host
+         - /dev:/dev
+         - /etc/flocker
+    net: host
+    privileged: true
+    restart: always
+    links:
+         - flocker-certificate-service
+
+flocker-container-agent:
+    labels:
+        io.rancher.scheduler.global: true
+    image: clusterhq/flocker-container-agent:latest
+    volumes:
+        - /etc/flocker
+        - /var/run/docker.sock:/var/run/docker.sock
+    restart: always
+    net: host
+    privileged: true
+    links:
+        - flocker-certificate-service

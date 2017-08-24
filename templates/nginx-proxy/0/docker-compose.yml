@@ -1,0 +1,25 @@
+nginx-proxy:
+  image: jwilder/nginx-proxy
+  restart: always
+  volumes:
+      - /var/www:/usr/share/nginx/html:ro
+      - /var/www/htpasswd:/etc/nginx/htpasswd
+      - /etc/nginx/vhost.d
+      - /etc/ssl/private:/etc/nginx/certs
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+  environment:
+      - DEFAULT_HOST=${hostname}
+  restart: always
+  image: registry:2
+  volumes:
+      - /srv/docker-registry/registry:/var/lib/registry
+      - /srv/docker-registry/certs:/certs
+      - /srv/docker-registry/auth:/auth
+
+nginx-proxy-letsencrypt:
+  image: jrcs/letsencrypt-nginx-proxy-companion
+  restart: always
+  volumes:
+      - /etc/ssl/private:/etc/nginx/certs:rw
+  volumes_from:
+      - nginx-proxy

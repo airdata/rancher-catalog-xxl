@@ -1,0 +1,88 @@
+.catalog:
+  name: Solr
+  version: 5.4.1-rancher1
+  description: |
+    (Experimental) SolrCloud cluster
+  uuid: solr-0
+  minimum_rancher_version: v0.56.0
+  maintainer: "Alberto Gregoris <aguean.atbelor@gmail.com>"
+  questions:
+    - variable: "solr_scale"
+      description: "Number of Solr nodes. Note: Recommended an odd number"
+      label: "Number of Solr Nodes:"
+      required: true
+      default: 3
+      type: "int"
+    - variable: "solr_heap"
+      description: "Increase Java Heap as needed to support your indexing / query needs"
+      label: "Java Heap:"
+      required: false
+      default: "512m"
+      type: "string"
+    - variable: "solr_java_mem"
+      description: |
+        Expert: If you want finer control over memory options, specify them directly
+        This overrides SOLR_HEAP if you are using this though, that takes precedence
+      label: "Java Memory:"
+      required: false
+      default: "-Xms512m -Xmx512m"
+      type: "string"
+    - variable: "zookeeper_link"
+      description: |
+        Choose the Zookeeper service to use.
+        It's really recommended a dedicated zookeeper service just for Solr in production environments.
+      label: "Zookeeper stack/service"
+      default: "solr-zk/zk"
+      required: true
+      type: "service"
+    - variable: "zk_client_timeout"
+      description: |
+        Set the ZooKeeper client timeout (for SolrCloud mode).
+      label: "Zookeeper Client Timeout"
+      default: "15000"
+      required: true
+      type: "string"
+    - variable: "solr_host_base_domain"
+      description: |
+        Provide your custom base domain in order to override the hostname of Solr nodes
+        for production SolrCloud environments to control the hostname exposed to cluster state
+        (Example: solr.pro.mycompany.com genarate hostnames like 1.solr.pro.mycompany.com where "1" is the first node number)
+      label: "Host Base Domain:"
+      required: true
+      type: "string"
+    - variable: "enable_remote_jmx_opts"
+      description: |
+        Set to true to activate the JMX RMI connector to allow remote JMX client applications
+        to monitor the JVM hosting Solr; set to "false" to disable that behavior
+        (false is recommended in production environments)
+      label: "Enable Remote JMX Options:"
+      required: true
+      default: false
+      type: "boolean"
+    - variable: "rmi_port"
+      description: |
+        Choose a port for the JMX RMI connector to bind to
+      label: "JMX RMI Port:"
+      required: false
+      type: "int"
+    - variable: "solr_opts"
+      description: |
+        The SOLR_OPTS variable will be included in the java start command
+      label: "Solr Options for Java:"
+      required: false
+      type: "string"
+    - variable: "reconf_interval"
+      description: "Interval to poll/apply configuration changes. 0 to disable"
+      label: "Reconfiguration Interval (s):"
+      required: true
+      default: 60
+      type: "int"
+solr:
+  scale: ${solr_scale}
+  health_check:
+    port: 8983
+    interval: 5000
+    unhealthy_threshold: 3
+    request_line: ''
+    healthy_threshold: 2
+    response_timeout: 5000

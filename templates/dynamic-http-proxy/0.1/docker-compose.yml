@@ -1,0 +1,24 @@
+nginx-proxy:
+  labels:
+    io.rancher.sidekicks: letsencrypt-companion
+    io.rancher.scheduler.affinity:host_label: ${AFF_HOST_LABELS}
+  image: jwilder/nginx-proxy
+  container_name: nginx-proxy
+  ports:
+    - "${HTTP_PORT}:80"
+    - "${HTTPS_PORT}:443"
+  volumes:
+    - /etc/nginx/conf.d
+    - /var/certs:/etc/nginx/certs:ro
+    - /var/run/docker.sock:/tmp/docker.sock:ro
+    - /etc/nginx/vhost.d
+    - /usr/share/nginx/html
+
+letsencrypt-companion:
+  image: jrcs/letsencrypt-nginx-proxy-companion
+  container_name: letsencrypt-companion
+  volumes_from:
+      - nginx-proxy
+  volumes:
+    - /var/certs:/etc/nginx/certs:rw
+    - /var/run/docker.sock:/var/run/docker.sock:ro

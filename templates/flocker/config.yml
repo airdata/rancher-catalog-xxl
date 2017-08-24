@@ -1,5 +1,4 @@
 name: flocker
 description: |
-  Open source volume management tool
-version: v0.1
-category: flocker
+    moving volumns around
+version: 0.0.1

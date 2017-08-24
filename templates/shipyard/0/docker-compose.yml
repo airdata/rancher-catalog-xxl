@@ -1,0 +1,46 @@
+docker-proxy:
+  image: shipyard/docker-proxy
+  environment:
+    PORT: "2375"
+    VIRTUAL_HOST: "docker-proxy.docker"
+    VIRTUAL_PORT: "2375"
+  volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+
+etcd:
+  image: microbox/etcd
+  command: --name jiksnu -data-dir=/data
+  links:
+    - redis
+  volumes:
+    - etcd-data:/data
+
+rethinkdb:
+  image: rethinkdb
+  restart: always
+
+shipyard:
+  image: shipyard/shipyard
+  command: server -d tcp://swarm:3375
+  environment:
+    VIRTUAL_HOST: "shipyard.docker"
+    VIRTUAL_PORT: "8080"
+  links:
+    - rethinkdb
+    - swarm
+
+swarm:
+  image: swarm
+  command: manage --host tcp://0.0.0.0:3375 etcd://etcd:4001
+  links:
+    - swarm-agent
+
+swarm-agent:
+  image: swarm
+  command: join --addr docker-proxy:2375 etcd://etcd:4001
+  links:
+    - docker-proxy
+    - etcd
+
+redis:
+  image: redis:3

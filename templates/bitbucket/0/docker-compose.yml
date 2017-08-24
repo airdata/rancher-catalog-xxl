@@ -1,0 +1,28 @@
+bitbucket:
+  ports:
+  - 7990:7990/tcp
+  - 7999:7999/tcp
+  labels:
+    io.rancher.sidekicks: bitbucket-run-once
+    io.rancher.container.pull_image: always
+  tty: true
+  image: atlassian/bitbucket-server
+  volumes_from:
+  - bitbucket-run-once
+  stdin_open: true
+bitbucket-run-once:
+  labels:
+    io.rancher.container.pull_image: always
+    io.rancher.container.start_once: 'true'
+  tty: true
+  command:
+  - chown
+  - -R
+  - daemon
+  - /var/atlassian/application-data/bitbucket
+  image: atlassian/bitbucket-server
+  volumes:
+  - /var/atlassian/application-data/bitbucket
+  stdin_open: true
+  user: root
+  volume_driver: convoy-nfs

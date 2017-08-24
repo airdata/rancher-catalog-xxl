@@ -1,0 +1,50 @@
+.catalog:
+  name: "sslh"
+  version: "latest-custom"
+  description: "SSH/HTTPS/OpenVPN multiplexer"
+  questions:
+    - variable: listen_hostport
+      label: "Listen to this external IP:PORT"
+      description: "IP is optional, but exposed outside port is mandatory (see docker-compose 'ports' attribute)"
+      type: "string"
+      required: true
+      default: "0.0.0.0:443"
+    - variable: affinity
+      label: "Rancher scheduler affinity, based on hosts labels MUST match!"
+      description: "Can be any key=value pair..."
+      type: "string"
+      required: true
+      default: "fq.label=value"
+    - variable: ssh_host
+      label: "Forward SSH connections to this hostname"
+      description: "Any resolvable IP"
+      type: "string"
+      required: true
+      default: "localhost"
+    - variable: ssh_port
+      label: "Forward SSH to this port"
+      type: "int"
+      required: true
+      default: 22
+    - variable: ovpn_host
+      label: "Forward VPN connections to this hostname"
+      description: "Any resolvable IP"
+      type: "string"
+      required: true
+      default: "localhost"
+    - variable: ovpn_port
+      label: "Forward VPN to this port"
+      type: "int"
+      required: true
+      default: 1194
+    - variable: https_host
+      label: "Forward HTTPS connections to this hostname"
+      description: "Any resolvable IP"
+      type: "string"
+      required: true
+      default: "localhost"
+    - variable: https_port
+      label: "Forward HTTPS to this port"
+      type: "int"
+      required: true
+      default: 8443

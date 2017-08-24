@@ -1,0 +1,7 @@
+gitlab-runner:
+  hostname: gitlab-runnner-${name}
+  image: gitlab/gitlab-runner:v1.2.0
+  restart: always
+  volumes:
+    - /var/run/docker.sock:/var/run/docker.sock
+    - gitlab-runnner-${name}-config:/etc/gitlab-runner

@@ -1,0 +1,30 @@
+.catalog:
+  name: Node-RED
+  version: 0.1
+  description: |
+    Node-RED is a tool for wiring together hardware devices, APIs and online services in new and interesting ways.
+  questions:
+    - variable: "HTTP_PORT"
+      label: "HTTP port"
+      required: true
+      type: "int"
+      default: 1880
+      description: "HTTP port"
+    - variable: "DATA_VOLUME"
+      label: "Data volume"
+      type: "string"
+      required: true
+      default: "/var/docker/nodered-data"
+      description: "Volume for persistent storage of service data"
+    - variable: "VHOST_DOMAIN_NAME"
+      label: "Virtual host domain name"
+      type: "string"
+      required: false
+      default: ""
+      description: "Domain name to use for the service if using dynamic proxy"
+    - variable: "LETSENCRYPT_EMAIL"
+      label: "Letsencrypt e-mail"
+      type: "string"
+      required: false
+      default: ""
+      description: "Letsencrypt e-mail if using dynamic proxy"

@@ -1,0 +1,13 @@
+mazacoin:
+  ports:
+  - 9004:9004/tcp
+  labels:
+    io.rancher.container.pull_image: always
+  tty: true
+  entrypoint:
+  - /bin/bash
+  image: roosoft/mazacoin
+  volumes:
+  - /wallets/mazacoin:/wallet
+  working_dir: /wallet
+  stdin_open: true

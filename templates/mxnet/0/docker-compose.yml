@@ -1,0 +1,9 @@
+mxnet:
+  image: kaixhin/mxnet
+  tty: true
+  stdin_open: true
+  entrypoint:
+  - /bin/sh
+  volumes:
+    - ${volume_name}:${volume_mount_path}
+  volume_driver: ${VOLUME_DRIVER}

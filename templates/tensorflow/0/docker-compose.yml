@@ -1,0 +1,8 @@
+tensorflow:
+  image: tensorflow/tensorflow
+  ports:
+    - ${public_port}:8888/tcp
+  privileged: true
+  volumes:
+    - ${volume_name}:${volume_mount_path}
+  volume_driver: ${VOLUME_DRIVER}

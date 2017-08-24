@@ -1,0 +1,41 @@
+icecast:
+  ports:
+  - 8000:8000/tcp
+  environment:
+    ICECAST_SOURCE_PASSWORD: ${ICECAST_SOURCE_PASSWORD}
+    ICECAST_ADMIN_PASSWORD: ${ICECAST_ADMIN_PASSWORD}
+    ICECAST_PASSWORD: ${ICECAST_PASSWORD}
+    ICECAST_RELAY_PASSWORD: ${ICECAST_RELAY_PASSWORD}
+  labels:
+    io.rancher.container.pull_image: always
+  image: moul/icecast
+  volumes_from:
+  - mopidydata
+  stdin_open: true
+mopidy:
+  ports:
+  - 6600:6600/tcp
+  - 6680:6680/tcp
+  labels:
+    io.rancher.container.pull_image: always
+  command:
+  - mopidy
+  - -o
+  - spotify/enabled=false
+  - -o
+  - gmusic/enabled=false
+  - -o
+  - soundcloud/enabled=false
+  image: wernight/mopidy
+  links:
+  - icecast:icecast
+  volumes_from:
+  - mopidydata
+
+mopidydata:
+  build: .
+  net: none
+  volumes:
+  - /var/lib/mopidy/media
+  - /var/lib/mopidy/local
+  - /var/lib/mopidy/.config/mopidy

@@ -1,0 +1,5 @@
+name: Node-RED
+description: |
+  Node-RED is a tool for wiring together hardware devices, APIs and online services in new and interesting ways
+version: 0.1
+category: Workflow

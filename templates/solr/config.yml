@@ -1,0 +1,8 @@
+name: Apache Solr
+description: |
+  (Experimental) SolrCloud cluster
+version: 5.4.1-rancher1
+category: indexer
+maintainer: "Alberto Gregoris <aguean.atbelor@gmail.com>"
+license:
+projectURL: "http://lucene.apache.org/solr/"

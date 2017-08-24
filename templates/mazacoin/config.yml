@@ -1,0 +1,8 @@
+name: mazacoin
+description: >
+  A mazacoin wallet setup
+version: 1.0.0-rancher1
+category: Altcoin wallets
+maintainer: Marc Lacoursiere <marc@roosoft.com>
+license: Apache2
+projectURL: https://github.com/MazaCoin/maza/tree/10.2

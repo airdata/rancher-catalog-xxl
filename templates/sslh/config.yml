@@ -1,0 +1,8 @@
+name: SSLH
+description: |
+  SSH/HTTPS/OpenVPN multiplexer
+version: latest-custom
+category: Network
+maintainer: Olivier ORABONA (olivier.orabona@gmail.com)
+license: MIT
+projectURL: https://github.com/oorabona/docker-containers/sslh

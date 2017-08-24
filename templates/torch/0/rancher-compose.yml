@@ -1,0 +1,29 @@
+.catalog:
+  name: "Torch latest (CPU only)"
+  version: Latest (CPU only)
+  description: "Deep Learning"
+  questions:
+     - variable: "public_port"
+       label: "Public Port"
+       type: "int"
+       required: true
+       description: Public port to access the web site
+       default: 33458
+     - variable: "VOLUME_DRIVER"
+       label: "Volume driver"
+       type: "string"
+       required: true
+       description: Driver that is providing volume
+       default: "convoy-nfs"
+     - variable: "volume_name"
+       label: "Volume Name"
+       type: "string"
+       required: true
+       description: The volume name to store your datasets
+       default: "torch_volume"
+     - variable: "volume_mount_path"
+       label: "Volume Mount Path"
+       type: "string"
+       required: true
+       description: The mount path of your data volume
+       default: "/datasets"

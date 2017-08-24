@@ -1,0 +1,9 @@
+.catalog:
+  name: Data Essential Bitbucket
+  description: "Bitbucket Server is an on-premises source code management solution for Git that's secure, fast, and enterprise grade."
+  version: 0.1
+
+bitbucket:
+  scale: 1
+bitbucket-run-once:
+  scale: 1

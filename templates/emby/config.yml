@@ -1,0 +1,5 @@
+name: Emby
+description: |
+  Emby Server is a home media server built using other popular open source technologies
+version: v0.1.0
+category: Entertainment

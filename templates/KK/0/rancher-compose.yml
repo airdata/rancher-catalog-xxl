@@ -1,0 +1,4 @@
+myService:
+ scale: 3
+.catalog:
+ uuid: kubernetes-0

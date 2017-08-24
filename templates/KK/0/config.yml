@@ -1,0 +1,4 @@
+name: Kubernetes
+version: 1.2
+description: Manage a cluster of Linux containers
+category: Orchestration

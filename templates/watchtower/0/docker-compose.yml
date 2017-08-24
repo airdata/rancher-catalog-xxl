@@ -1,0 +1,6 @@
+pointhq:
+  image: centurylink/watchtower:latest
+  command: --cleanup --interval ${WATCHTOWER_INTERVAL}
+  labels:
+    io.rancher.container.create_agent: "true"
+    io.rancher.container.agent.role: "external-dns"

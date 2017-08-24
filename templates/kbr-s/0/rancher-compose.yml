@@ -1,0 +1,42 @@
+.catalog:
+  name: Kbr-s Site
+  version: 1.0
+  description: |
+    Kbr-s Site
+  minimum_rancher_version: v0.56.0
+  uuid: kbr-s-0
+  questions:
+    - variable: "main_path"
+      description: "Path to conf.d and etc."
+      label: "Path to conf.d and etc."
+      required: true
+      default: "/rancher/kbr-s"
+      type: "string"
+    - variable: "ROOTPASSWORD"
+      description: "MySQL root password"
+      label: "MySQL root password:"
+      required: true
+      default: "password"
+      type: "password"
+    - variable: "DBPASSWORD"
+      description: "MySQL db password"
+      label: "MySQL db password"
+      required: true
+      default: "password"
+      type: "password"
+    - variable: "HOSTLABEL"
+      description: "Run on host with this label "
+      label: "Host label:"
+      required: true
+      default: "hostname=galaxydata"
+      type: "string"
+
+nginx:
+  scale: 1
+mysql:
+  scale: 1
+php:
+  scale: 1
+www-data:
+  scale: 1
+

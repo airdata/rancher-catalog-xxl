@@ -1,0 +1,6 @@
+.catalog:
+  name: Shipyard
+  version: v0.1.0
+  description: Shipyard
+  uuid: shipyard-0
+  minimum_rancher_version: 1.0.0

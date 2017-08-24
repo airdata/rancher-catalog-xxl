@@ -1,0 +1,12 @@
+.catalog:
+  name: "Watchtower"
+  version: "v0.0.1-watchtower"
+  description: "A process for watching your Docker containers and automatically restarting them whenever their base image is refreshed."
+  minimum_rancher_version: v0.44.0
+  questions:
+    - variable: "WATCHTOWER_INTERVAL"
+      label: "Poll interval (in seconds)"
+      description: "This value controls how frequently watchtower will poll for new images. Defaults to 300 seconds (5 minutes)"
+      type: "int"
+      default: 300
+      required: true

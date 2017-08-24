@@ -1,0 +1,31 @@
+.catalog:
+  name: Toran Proxy
+  version: 1.4.4
+  description: |
+    Toran Proxy
+  minimum_rancher_version: v0.56.0
+  maintainer: "David Verholen <david@verholen.com>"
+  uuid: toran-0
+  questions:
+    - variable: "host"
+      label: "Hostname"
+      required: true
+      default: "git.example.com"
+      type: "string"
+    - variable: "mail"
+      description: "Lest Encrypt Mail"
+      label: "Mail"
+      required: true
+      default: "user@domain.tld"
+      type: "string"
+
+toran-proxy:
+  scale: 1
+  retain_ip: true
+  health_check:
+    port: 80
+    interval: 30000
+    unhealthy_threshold: 3
+    strategy: recreate
+    response_timeout: 2000
+    healthy_threshold: 2
