@@ -1,6 +1,6 @@
 .catalog:
-    name: "Flocker"
-    version: "0.0.1"
-    description: "Flocker"
-    uuid: flocker-0
-    questions:
+  name: "Flocker"
+  version: "0.0.1"
+  description: "Flocker"
+  uuid: flocker-0
+  questions:
