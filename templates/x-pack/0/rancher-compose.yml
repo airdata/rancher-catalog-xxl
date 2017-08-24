@@ -1,5 +1,5 @@
 .catalog:
-  name: Kibana X-Pack
+  name: Elastic Stack X-PACK
   version: 6.0
   description: Elastic Kibana X-Pack
 services:

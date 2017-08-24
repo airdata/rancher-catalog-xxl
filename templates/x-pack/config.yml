@@ -1,9 +1,7 @@
-name: Kibana X-PACK
+name: Elastic Stack X-PACK
 description: |
-  (Beta)
+  Kibana Elastic X-Pack for Docker and Rancher (Beta)
 version: 6.0
 category: Log
 maintainer: Rumen Lishkov <rumen.lishkov@icloud.com>
-minimum_rancher_version: v0.59.0
-license:
-projectURL: https://github.com/rawmind0/alpine-etcd
+projectURL: https://github.com/airdata

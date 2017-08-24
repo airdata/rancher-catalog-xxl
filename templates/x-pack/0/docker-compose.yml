@@ -7,5 +7,3 @@ services:
     ports:
     - 9200:9200/tcp
     - 5601:5601/tcp
-    labels:
-      io.rancher.container.pull_image: always
