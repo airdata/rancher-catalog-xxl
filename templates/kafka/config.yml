@@ -1,8 +1,0 @@
-name: Apache Kafka
-description: |
-  (Experimental) Kafka cluster
-version: 0.8.2-rancher1
-category: clustering
-maintainer: Rumen Lishkov <rumen.lishkov@icloud.com>
-minimum_rancher_version: v0.56.0
-license: 
