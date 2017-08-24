@@ -1,0 +1,9 @@
+name: Kibana X-PACK
+description: |
+  (Beta)
+version: 6.0
+category: Log
+maintainer: Rumen Lishkov <rumen.lishkov@icloud.com>
+minimum_rancher_version: v0.59.0
+license:
+projectURL: https://github.com/rawmind0/alpine-etcd

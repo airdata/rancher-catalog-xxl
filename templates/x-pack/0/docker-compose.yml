@@ -1,0 +1,11 @@
+version: '2'
+services:
+  elk-x-pack-6:
+    image: blacktop/elastic-stack:6.0
+    stdin_open: true
+    tty: true
+    ports:
+    - 9200:9200/tcp
+    - 5601:5601/tcp
+    labels:
+      io.rancher.container.pull_image: always
