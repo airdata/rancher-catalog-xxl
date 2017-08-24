@@ -1,0 +1,8 @@
+kanboard:
+    image: kanboard/kanboard:stable
+    ports:
+     - ${client_port}:80
+#    volumes:
+#     - kanboard_data:/var/www/app/data
+#     - kanboard_plugins:/var/www/app/plugins
+

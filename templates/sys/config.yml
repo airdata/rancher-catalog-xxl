@@ -1,7 +1,0 @@
-name: SYS
-description: |
-  System Services
-version: v0.1.1
-category: Santech
-maintainer: Santech DevOps Team
-projectURL: https://bitbucket.org/e-santech/infra

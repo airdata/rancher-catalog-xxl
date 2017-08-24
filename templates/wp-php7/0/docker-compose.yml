@@ -1,0 +1,22 @@
+version: '2'
+
+services:
+
+  wordpress:
+    tty: true
+    stdin_open: true
+    image: emcniece/wp-php7-nginx:0.0.12
+    volumes:
+      - ${DIR}/wordpress:/var/www/wordpress
+    ports:
+      - ${PORT}:80
+    environment:
+      MYSQL_HOST: ${MYSQL_HOST}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_DATABASE: ${MYSQL_NAME}
+      MYSQL_PASSWORD: ${MYSQL_PASS}
+      SSL_ENABLED: ${SSL}
+    labels:
+      rgon.ssl: ${SSL}
+      rgon.domain: ${HOST}
+      rgon.redirect: ${REDIRECT}

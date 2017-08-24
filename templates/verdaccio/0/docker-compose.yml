@@ -1,0 +1,19 @@
+version: '2'
+services:
+  verdaccio:
+    image: "verdaccio/verdaccio"
+    tty: true
+    stdin_open: true
+    ports:
+      - ${PORT}:4873
+    volumes:
+      - ${DIR}/conf:/verdaccio/conf
+      - ${DIR}/storage:/verdaccio/storage
+      - ${DIR}/local_storage:/verdaccio/local_storage
+    environment:
+      - VIRTUAL_HOST=${DOMAIN}
+      - VIRTUAL_PORT=4873
+      - LETSENCRYPT_HOST=${DOMAIN}
+      - LETSENCRYPT_EMAIL=${LETSENCRYPT_EMAIL}
+verdaccio:
+  scale: 1

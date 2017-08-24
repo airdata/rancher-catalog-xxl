@@ -1,0 +1,24 @@
+.catalog:
+  name: "Rstudio"
+  version: v0.1-educaas
+  description: "Entorno integrado de programación en R."
+  uuid: rstudio-0
+  questions:
+    - variable: client_port
+      description: "Port to access Rstudio"
+      label: "Client Port"
+      required: true
+      default: "8787"
+      type: "int"
+    - variable: username
+      description: "Admin user name"
+      label: "Username"
+      required: true
+      default: "username"
+      type: "string"
+    - variable: password
+      description: "Admin password"
+      label: "Password"
+      required: true
+      default: "password"
+      type: "password"

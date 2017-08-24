@@ -1,0 +1,5 @@
+name: Jupyter Base Notebook
+description: |
+  Aplicación web que permite crear y compartir documentos con código, visualizaciones, etc
+version: v0.1-educaas
+category: Escribir

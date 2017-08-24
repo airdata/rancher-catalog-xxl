@@ -1,0 +1,27 @@
+.catalog:
+ name: "Initial Version"
+ version: "v0.0.1"
+ questions:    
+    - variable: PATH
+      label: "Path to save config on host"
+      default: "/data/rancher-active-proxy"
+      type: string
+    - variable: DEFAULT_HOST
+      label: "Default Virtual Host to use"
+      type: string
+    - variable: DEFAULT_EMAIL
+      label: "Default Email to use for Letsencrypt"
+      default: "foo@bar.com"
+      type: string    
+    - variable: DEFAULT_PORT
+      label: "Default Port to use"
+      default: "80"
+      type: string
+    - variable: CRON
+      label: "Auto renew cron like setup"
+      default: "0 2 * * *"
+      type: string
+    - variable: DEBUG
+      label: "Set to true to enable debug"
+      default: "False"
+      type: string
