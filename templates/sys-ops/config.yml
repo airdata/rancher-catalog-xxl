@@ -1,0 +1,7 @@
+name: SYS-OPS
+description: |
+  System OPS infra
+version: v0.4
+category: Santech
+maintainer: Santech DevOps Team
+projectURL: https://bitbucket.org/e-santech/infra
