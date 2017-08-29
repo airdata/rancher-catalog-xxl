@@ -11,9 +11,7 @@ web:
     - redis:redis
   volumes:
     - /home/ubuntu/${STACK_NAME}/html:/var/www/html
-  depends_on:
-    - redis
-    - mysql
+
   environment:
     REDIS_HOST: redis
     MYSQL_HOST: mysql
@@ -44,8 +42,6 @@ phpmyadmin:
     MYSQL_HOST: mysql
   links:
     - mysql:mysql
-  depends_on:
-    - mysql
 
 # MySql
 mysql:
