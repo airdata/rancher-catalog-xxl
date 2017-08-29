@@ -1,0 +1,12 @@
+.catalog:
+  name: "Jupyter Base Notebook"
+  version: "v0.1-educaas"
+  description: "Aplicación web que permite crear y compartir documentos con código, visualizaciones, etc."
+  uuid: jupyter-0
+  questions:
+    - variable: public_port
+      description: "Port to access Jupyter Notebook"
+      label: "Client Port"
+      required: true
+      default: "8888"
+      type: "int"

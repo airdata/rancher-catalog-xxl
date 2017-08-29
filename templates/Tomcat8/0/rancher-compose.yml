@@ -1,0 +1,32 @@
+.catalog:
+  name: "Tomcat"
+  version: "Tomcat 8"
+  description: "Tomcat with unique volume"
+  minimum_rancher_version: v0.46.0
+  questions:
+    - variable: "password"
+      type: string
+      required: true
+      label: "tomcat Password"
+      description: "Password given to the tomcat"
+WebSite:
+  load_balancer_config:
+    lb_cookie_stickiness_policy:
+      indirect: true
+      cookie: sticky
+    haproxy_config: {}
+  health_check:
+    port: 42
+    interval: 2000
+    unhealthy_threshold: 3
+    strategy: recreate
+    response_timeout: 2000
+    healthy_threshold: 2
+Tomcat:
+  health_check:
+    port: 8080
+    interval: 2000
+    unhealthy_threshold: 3
+    strategy: recreate
+    response_timeout: 2000
+    healthy_threshold: 2

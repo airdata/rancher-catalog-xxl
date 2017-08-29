@@ -4,7 +4,7 @@
   description: |
     (Experimental) Apache Cassandra cluster.
   minimum_rancher_version: v0.56.0
-  maintainer: Rumen Lishkov <rumen.lishkov@icloud.com>
+  maintainer: Autoshift
   uuid: cassandra-0
   questions:
     - variable: "scale"

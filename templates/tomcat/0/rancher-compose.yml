@@ -1,0 +1,19 @@
+.catalog:
+  name: "Tomcat"
+  version: "0.1"
+  description: "LB. Tomcat. Redis. MySQL"
+Redis:
+  scale: 2
+MyAppLB:
+  scale: 1
+  load_balancer_config:
+    haproxy_config: {}
+  health_check:
+    port: 42
+    interval: 2000
+    unhealthy_threshold: 3
+    strategy: recreate
+    response_timeout: 2000
+    healthy_threshold: 2
+mysql:
+  scale: 1

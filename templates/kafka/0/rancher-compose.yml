@@ -4,7 +4,7 @@
   description: |
     (Experimental) Apache Kafka cluster.
   minimum_rancher_version: v0.56.0
-  maintainer: Rumen Lishkov <rumen.lishkov@icloud.com>
+  maintainer: "Raul Sanchez <rawmind@gmail.com>"
   uuid: kafka-0
   questions:
     - variable: "kafka_scale"
@@ -17,29 +17,23 @@
       description: "Amount of memory to config brokers."
       label: "Broker Memory (mb):"
       required: true
-      default: 1024
+      default: 1024 
       type: "string"
     - variable: "kafka_interval"
-      description: "Interval to poll/apply configuration changes. 0 to disable"
+      description: "Interval to poll/apply configuration changes. 0 to disable" 
       label: "Broker Interval (s):"
       required: true
-      default: 60
+      default: 60 
       type: "int"
-    - variable: "host_label"
-      description: "Hosts with label to deploy the kafka cluster"
-      label: "Host label:"
-      required: true
-      default: "stack=devops"
-      type: "string"
     - variable: "zk_link"
       description: |
-        Choose the Zookeeper service to use.
+        Choose the Zookeeper service to use. 
         It's really recommended a dedicated zookeeper service just for Kafka.
       label: "Zookeeper stack/service"
       default: "kafka-zk/zk"
       required: true
       type: "service"
-kafka:
+broker:
   scale: ${kafka_scale}
   health_check:
     port: 9092

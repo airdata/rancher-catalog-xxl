@@ -1,0 +1,12 @@
+.catalog:
+  name: "SVGEdit"
+  version: v0.1-educaas
+  description: "Diseño vectorial y edición de imágenes en tu navegador."
+  uuid: svgedit-0
+  questions:
+    - variable: client_port
+      description: "Port to access SVGEdit"
+      label: "Client Port"
+      required: true
+      default: "8080"
+      type: "int"

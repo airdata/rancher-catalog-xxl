@@ -1,0 +1,12 @@
+.catalog:
+  name: "Kanboard"
+  version: v0.1-educaas
+  description: "Kanboard es un gestor de proyectos que usa la metodología Kanban, como Trello."
+  uuid: kanboard-0
+  questions:
+    - variable: client_port
+      description: "Port to access Kanboard"
+      label: "Client Port"
+      required: true
+      default: "8080"
+      type: "int"

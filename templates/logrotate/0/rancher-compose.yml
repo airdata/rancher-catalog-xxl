@@ -1,0 +1,19 @@
+.catalog:
+  name: "Tutum LogRotate"
+  version: "0.0.1"
+  description: "Truncates container logs when they grow in size to avoid filling up the disk"
+  uuid: logrotate-1
+  questions:
+    - variable: "LOG_DIR"
+      label: "Container Log Directory"
+      description: "Host location of container logs"
+      default: "/var/lib/docker/containers"
+      required: true
+      type: "string"
+    - variable: "GLOBAL"
+      label: "Global Deploy"
+      description: "Add to all servers"
+      default: true
+      type: "boolean"
+logrotate:
+  scale: 1

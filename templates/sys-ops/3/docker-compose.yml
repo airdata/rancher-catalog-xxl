@@ -1,0 +1,265 @@
+version: '2'
+services:
+  elk-slave:
+    image: elasticsearch:2.4.5
+    stdin_open: true
+    volumes:
+      - elk:/usr/share/elasticsearch/data
+    tty: true
+    ports:
+      - 9200:9200/tcp
+      - 9300:9300/tcp
+    command:
+      - elasticsearch
+      - -Des.network.publish_host=172.31.19.206,localhost
+      - -Des.network.host=0.0.0.0
+      - -Des.node.data=false
+      - -Des.cluster.name=elk-santech
+      - -Des.node.name=elk-client
+      - -Des.discovery.zen.ping.unicast.hosts=172.31.22.190
+      - -Des.discovery.zen.ping.multicast.enabled=false
+      - -Des.index.number_of_replicas=1
+      - -Des.node.master=false
+    labels:
+      io.rancher.container.pull_image: always
+  foreman:
+    image: nexus.lab:8860/foreman
+    hostname: foreman.lab
+    stdin_open: true
+    tty: true
+    ports:
+      - 8140:8140/tcp
+      - 8443:8443/tcp
+    command:
+      - exec
+      - /start.sh
+    labels:
+      io.rancher.scheduler.affinity:host_label_soft: env=ops
+  sftp2:
+    image: nexus.lab:8860/sftp:fix
+    environment:
+      EDITOR: nano
+    stdin_open: true
+    volumes:
+      - sftp/opt:/opt
+    tty: true
+    ports:
+      - 32479:32479/tcp
+      - 32480:32480/tcp
+    command:
+      - incrond
+      - -n
+  nexus3:
+    image: sonatype/nexus3
+    stdin_open: true
+    volumes:
+      - nexus/opt:/opt
+    tty: true
+    ports:
+      - 8081:8080/tcp
+    labels:
+      io.rancher.container.pull_image: always
+  alexandria:
+    image: rancher/external-service
+  sonar:
+    image: sonarqube:latest
+    environment:
+      SONARQUBE_JDBC_PASSWORD: aSFlJjbr3312rfa!
+      SONARQUBE_JDBC_URL: jdbc:mysql://alexandria:3306/sonar?useUnicode=true&characterEncoding=utf8&rewriteBatchedStatements=true
+      SONARQUBE_JDBC_USERNAME: sonar
+    stdin_open: true
+    tty: true
+    ports:
+      - 9000:9000/tcp
+    labels:
+      io.rancher.container.pull_image: always
+  openvas:
+    image: mikesplain/openvas
+    environment:
+      OV_PASSWORD: admin
+      HTTP_ONLY: 'true'
+    stdin_open: true
+    volumes:
+      - openvas/mgr:/var/lib/openvas/mgr
+      - openvas/etc/default:/etc/default
+    tty: true
+    ports:
+      - 9390:9390/tcp
+      - 12380:80/tcp
+  zabbix-agent:
+    privileged: true
+    image: monitoringartist/dockbix-agent-xxl-limited:latest
+    environment:
+      ZA_Server: zabbix.lab
+      ZA_StartAgents: '10'
+      ZA_Timeout: '30'
+    stdin_open: true
+    network_mode: host
+    volumes:
+      - /:/rootfs
+      - /var/run:/var/run
+    tty: true
+    labels:
+      io.rancher.container.dns: 'true'
+      io.rancher.container.pull_image: always
+      io.rancher.scheduler.global: 'true'
+  LB:
+    image: rancher/lb-service-haproxy:v0.7.6
+    ports:
+      - 22123:22123/tcp
+      - 80:80/tcp
+    labels:
+      io.rancher.container.agent.role: environmentAdmin
+      io.rancher.container.create_agent: 'true'
+      io.rancher.scheduler.global: 'true'
+  gitlab-data:
+    image: gitlab/gitlab-ce:latest
+    hostname: gitdata
+    entrypoint:
+      - /bin/true
+    stdin_open: true
+    volumes:
+      - gitlab/etc:/etc/gitlab
+      - gitlab/var/log:/var/log
+      - gitlab/var/opt:/var/opt/gitlab
+    tty: true
+    labels:
+      io.rancher.container.pull_image: always
+  zabbix-server:
+    image: monitoringartist/zabbix-xxl:latest
+    environment:
+      XXL_grapher: 'true'
+      XXL_zapix: 'true'
+      ZS_DBHost: zabbix.db
+      ZS_DBPassword: N@Q@w8Dc
+      ZS_DBUser: zabbix
+      TZ: Europe/Sofia
+    stdin_open: true
+    volumes:
+      - /etc/localtime2:/etc/localtime:ro
+    tty: true
+    links:
+      - alexandria:zabbix.db
+    ports:
+      - 10051:10051/tcp
+    labels:
+      io.rancher.container.pull_image: always
+  gitlab:
+    image: gitlab/gitlab-ce:latest
+    hostname: git.lab
+    environment:
+      GITLAB_OMNIBUS_CONFIG: external_url 'http://git.lab'
+    stdin_open: true
+    tty: true
+    volumes_from:
+      - gitlab-data
+    ports:
+      - 11180:80/tcp
+      - 11443:443/tcp
+      - 11122:22/tcp
+    labels:
+      io.rancher.container.pull_image: always
+      io.rancher.sidekicks: gitlab-data
+  kibana:
+    image: kibana:4.6.4
+    environment:
+      ELASTICSEARCH_URL: http://atlas.lab:9200
+    stdin_open: true
+    volumes:
+      - kibana/installedPlugins:/opt/kibana/installedPlugins
+      - kibana/config:/opt/kibana/config
+    tty: true
+    ports:
+      - 5601:5601/tcp
+    labels:
+      io.rancher.container.pull_image: always
+      io.rancher.scheduler.affinity:host_label: env=ops
+  rundeck:
+    image: robertdebock/rundeck
+    environment:
+      HOSTNAME: run.lab
+      MYSQL_DATABASE: rundeckdb
+      MYSQL_HOST: alexandria.c7nexxhgy3h5.eu-central-1.rds.amazonaws.com
+      MYSQL_PASSWORD: 78#T2ZGf
+      MYSQL_USER: rundeck
+      URL: http://run.lab
+    stdin_open: true
+    volumes:
+      - rundeck/var/log/rundeck:/var/log/rundeck
+      - rundeck/var/lib/rundeck/var/storage:/var/lib/rundeck/var/storage
+      - rundeck/var/rundeck:/var/rundeck
+      - rundeck/var/lib/rundeck/logs:/var/lib/rundeck/logs
+      - rundeck/var/lib/rundeck/.ssh:/var/lib/rundeck/.ssh
+      - rundeck/var/lib/rundeck/libext:/var/lib/rundeck/libext
+      - rundeck/etc/rundeck:/etc/rundeck/
+    tty: true
+    ports:
+      - 4440:4440/tcp
+    labels:
+      io.rancher.scheduler.affinity:host_label_soft: env=ops
+  janitor:
+    privileged: true
+    image: meltwater/docker-cleanup:1.8.0
+    environment:
+      CLEAN_PERIOD: '3600'
+      DEBUG: '0'
+      DELAY_TIME: '3600'
+      KEEP_CONTAINERS: '*:*'
+      KEEP_CONTAINERS_NAMED: '**None**'
+      KEEP_IMAGES: rancher/, nexus.lab:8860/jenkins-slave:latest
+      LOOP: 'true'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/lib/docker:/var/lib/docker
+    labels:
+      io.rancher.scheduler.affinity:host_label_ne: janitor.exclude=true
+      io.rancher.scheduler.global: 'true'
+volumes:
+  rundeck/var/lib/rundeck/.ssh:
+    external: true
+    driver: rancher-nfs
+  gitlab/var/opt:
+    external: true
+    driver: rancher-nfs
+  rundeck/var/rundeck:
+    external: true
+    driver: rancher-nfs
+  sftp/opt:
+    external: true
+    driver: rancher-nfs
+  gitlab/etc:
+    external: true
+    driver: rancher-nfs
+  rundeck/var/lib/rundeck/logs:
+    external: true
+    driver: rancher-nfs
+  rundeck/etc/rundeck:
+    external: true
+    driver: rancher-nfs
+  rundeck/var/lib/rundeck/var/storage:
+    external: true
+    driver: rancher-nfs
+  rundeck/var/log/rundeck:
+    external: true
+    driver: rancher-nfs
+  openvas/mgr:
+    external: true
+    driver: rancher-nfs
+  rundeck/var/lib/rundeck/libext:
+    external: true
+    driver: rancher-nfs
+  openvas/etc/default:
+    external: true
+    driver: rancher-nfs
+  gitlab/var/log:
+    external: true
+    driver: rancher-nfs
+  kibana/installedPlugins:
+    external: true
+    driver: rancher-nfs
+  nexus/opt:
+    external: true
+    driver: rancher-nfs
+  kibana/config:
+    external: true
+    driver: rancher-nfs

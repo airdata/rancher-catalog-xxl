@@ -1,13 +1,13 @@
-redis:
-  restart: always
-  tty: true
-  image: redis:3.0.3
-  stdin_open: true
-  labels:
-    io.rancher.container.hostname_override: container_name
 logstash-indexer-config:
   restart: always
   image: rancher/logstash-config:v0.2.0
+  labels:
+    io.rancher.container.hostname_override: container_name
+redis:
+  restart: always
+  tty: true
+  image: redis:3.0.7
+  stdin_open: true
   labels:
     io.rancher.container.hostname_override: container_name
 logstash-indexer:
@@ -19,7 +19,7 @@ logstash-indexer:
   - logstash
   - -f
   - /etc/logstash
-  image: logstash:2.1.1-1
+  image: logstash:1.5.6-1
   links:
   - redis:redis
   external_links:
@@ -39,15 +39,15 @@ logstash-collector:
   links:
   - redis:redis
   ports:
-  - "5000:5000/udp"
-  - "25826:25826/udp"
+  - "5000/udp"
+  - "6000/tcp"
   volumes_from:
   - logstash-collector-config
   command:
   - logstash
   - -f
   - /etc/logstash
-  image: logstash:2.1.1-1
+  image: logstash:1.5.6-1
   stdin_open: true
   labels:
     io.rancher.sidekicks: logstash-collector-config
