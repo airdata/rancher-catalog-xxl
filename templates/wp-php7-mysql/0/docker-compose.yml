@@ -1,0 +1,34 @@
+version: '2'
+
+services:
+
+  wordpress:
+    tty: true
+    stdin_open: true
+    image: emcniece/wp-php7-nginx:0.0.12
+    volumes:
+      - ${DIR}/wordpress:/var/www/wordpress
+    ports:
+      - ${PORT}:80
+    links: [mysql]
+    environment:
+      MYSQL_HOST: mysql
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_DATABASE: ${MYSQL_NAME}
+      MYSQL_PASSWORD: ${MYSQL_PASS}
+      SSL_ENABLED: ${SSL}
+    labels:
+      rgon.ssl: ${SSL}
+      rgon.domain: ${HOST}
+      rgon.redirect: ${REDIRECT}
+
+  mysql:
+    image: mariadb
+    command: mysqld --innodb-buffer-pool-size=${INNODB_BUF}M
+    volumes:
+      - ${DIR}/mariadb:/var/lib/mysql:rw
+    environment:
+      MYSQL_RANDOM_ROOT_PASSWORD: 'yes'
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_DATABASE: ${MYSQL_NAME}
+      MYSQL_PASSWORD: ${MYSQL_PASS}

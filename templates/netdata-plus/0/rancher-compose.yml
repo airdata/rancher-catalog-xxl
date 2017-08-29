@@ -1,0 +1,42 @@
+.catalog:
+  name: netdata-plus
+  version: 0.0.4
+  description: Real-time performance monitoring, done righter - with a registry node!
+  questions:
+    - variable: NETDATA_PORT
+      label: Port
+      description: Container port to access netdata
+      required: true
+      type: "int"
+      default: 19999
+    - variable: DIR
+      label: Config Directory
+      description: Directory to volume config file, accessible on each host
+      required: true
+      type: "string"
+      default: "/root/netdata"
+    - variable: "GLOBAL"
+      label: "Global Deploy"
+      description: "Add to all servers"
+      default: true
+      type: "boolean"
+    - variable: DOMAIN
+      label: RGON Proxy Domain Name
+      description: Domain name label (rgon.domain)
+      type: "string"
+    - variable: "SSL"
+      label: "RGON Proxy Enable SSL"
+      description: "Allow RGON Proxy to obtain ACME SSL certs for the domain name"
+      default: false
+      type: "boolean"
+    - variable: "HTTPS"
+      description: "HTTP or HTTPS domain name prefix"
+      label: "RGON Proxy HTTPS Redirect"
+      required: true
+      type: "enum"
+      default: "http"
+      options:
+        - "http"
+        - "https"
+netdata:
+  scale: 1

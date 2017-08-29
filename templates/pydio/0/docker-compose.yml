@@ -1,0 +1,17 @@
+pydio:
+  image: linuxserver/pydio:latest
+  ports:
+    - 443:443
+    - 80:80
+  links:
+    - pydiodb
+  volumes:
+    - "${linkdata}:/data"
+    - "${linkconfig}:/config"
+pydiodb:
+  image: mariadb:10.0.27
+  environment:
+    MYSQL_ROOT_PASSWORD: "${rootpass}"
+    MYSQL_USER: "${user}"
+    MYSQL_PASSWORD: "${userpass}"
+    MYSQL_DATABASE: "${dbname}"

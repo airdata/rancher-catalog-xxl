@@ -1,0 +1,7 @@
+name: Tutum LogRotate
+description: |
+  Truncates container logs when they grow in size to avoid filling up the disk
+version: 0.0.1
+category: System Management
+maintainer: "Eric McNiece <emcniece@gmail.com>"
+projectURL: https://github.com/emcniece/rancher-catalog

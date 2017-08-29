@@ -1,0 +1,30 @@
+.catalog:
+  name: Verdaccio
+  version: 0.0.1
+  description: |
+    Private NPM Repository Server
+  maintainer: "Eric McNiece <emcniece@gmail.com>"
+  uuid: verdaccio-0
+  questions:
+    - variable: "DIR"
+      label: "Storage directory"
+      description: "Path of shared storage to use for storage. This should be available on all hosts. No trailing slash!"
+      required: true
+      type: "string"
+    - variable: "PORT"
+      description: |
+        Port for traffic. Leave blank to let Rancher choose a random port.
+        If using Rancher >= 1.2.0, enter the desired public port (can be the same as other containers)
+      label: "Port"
+      required: false
+      type: "int"
+    - variable: "DOMAIN"
+      description: "FQDN, Domain without the prefix (eg. strider.example.com). Gets set as an environment variable but does nothing."
+      label: "Domain Name"
+      required: true
+      type: "string"
+    - variable: "LETSENCRYPT_EMAIL"
+      label: "LETSENCRYPT_EMAIL"
+      description: "Email address used for ACME cert generation. Only used if paired with the Let's Encrypt Nginx Proxy stack"
+      required: false
+      type: "string"

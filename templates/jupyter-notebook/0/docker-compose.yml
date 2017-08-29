@@ -1,0 +1,10 @@
+version: '2'
+services:
+  jupyter:
+     image: jupyter/base-notebook
+     ports:
+      - ${public_port}:8888
+     volumes:
+      - "jupyter_work:/home/jovyan/work"
+     labels:
+        io.rancher.scheduler.affinity:host_label: availability=permanent

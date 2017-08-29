@@ -1,0 +1,33 @@
+version: '2'
+services:
+  app:
+    image: wallabag/wallabag
+    environment:
+      - MYSQL_ROOT_PASSWORD=${root_password}
+      - SYMFONY__ENV__DATABASE_DRIVER=pdo_mysql
+      - SYMFONY__ENV__DATABASE_HOST=db
+      - SYMFONY__ENV__DATABASE_PORT=3306
+      - SYMFONY__ENV__DATABASE_NAME=wallabag
+      - SYMFONY__ENV__DATABASE_USER=wallabag
+      - SYMFONY__ENV__DATABASE_PASSWORD=${password}
+    ports:
+      - ${client_port}:80
+    labels:
+      # Make db only run on hosts that do not have a availability=temporal label
+      io.rancher.scheduler.affinity:host_label: availability=permanent
+
+  db:
+    image: mariadb
+    environment:
+      - MYSQL_ROOT_PASSWORD=${root_password}
+    volumes:
+      - wallabag_db:/var/lib/mysql
+    labels:
+      # Make db only run on hosts that do not have a availability=temporal label
+      io.rancher.scheduler.affinity:host_label: availability=permanent
+
+  redis:
+    image: redis:alpine
+    labels:
+      # Make db only run on hosts that do not have a availability=temporal label
+      io.rancher.scheduler.affinity:host_label: availability=permanent

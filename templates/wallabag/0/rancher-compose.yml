@@ -1,0 +1,24 @@
+.catalog:
+  name: "Wallabag"
+  version: v0.1-educaas
+  description: "Guarda tus páginas web favoritas para consultar en cualquier dispositivo."
+  uuid: wallabag-0
+  questions:
+    - variable: client_port
+      description: "Port to access App"
+      label: "Client Port"
+      required: true
+      default: "9007"
+      type: "int"
+    - variable: password
+      description: "Password of your App db"
+      label: "DB password"
+      required: true
+      default: "password"
+      type: "password"
+    - variable: root_password
+      description: "Password of your db root user"
+      label: "Root password"
+      required: true
+      default: "password"
+      type: "password"

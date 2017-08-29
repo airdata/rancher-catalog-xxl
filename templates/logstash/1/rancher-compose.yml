@@ -1,8 +1,7 @@
 .catalog:
   name: "Logstash"
-  version: "2.1.1-1-mgolly2"
+  version: "1.5.6-1-rancher1"
   description: "Logstash: Process Any Data, From Any Source"
-  uuid: logstash-2
   questions:
     - variable: "collector_inputs"
       description: |
@@ -16,11 +15,9 @@
           port => 5000
           codec => "json"
         }
-        udp {
-          port => 25826
-          buffer_size => 1452
-          codec => collectd
-          type => "collectd"
+        tcp {
+          port => 6000
+          codec => "json"
         }
     - variable: "indexer_filters"
       description: |
@@ -29,13 +26,7 @@
       label: "Logstash filters"
       type: "multiline"
       required: false
-      default: |
-        if [sysloghost] {
-          mutate {
-            replace => [ "host", "%{sysloghost}" ]
-            remove_field => "sysloghost"
-          }
-        }
+      default: ""
     - variable: "indexer_outputs"
       description: |
         Logstash indexing tier outputs. These will be added
@@ -45,7 +36,9 @@
       required: true
       default: |
         elasticsearch {
-          hosts => ["elasticsearch:9200"]
+          host => "elasticsearch"
+          protocol => "http"
+          index => "logstash-%{+YYYY.MM.dd}"
         }
     - variable: "elasticsearch_link"
       description: |

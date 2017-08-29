@@ -1,0 +1,20 @@
+version: '2'
+services:
+  netdata:
+    image: emcniece/netdata-plus:latest
+    labels:
+      io.rancher.scheduler.global: ${GLOBAL}
+      rgon.domain: '${DOMAIN}'
+      rgon.ssl: ${SSL}
+      rgon.redirect: '${HTTPS}'
+    cap_add:
+    - SYS_PTRACE
+    volumes:
+    - /proc:/host/proc:ro
+    - /sys:/host/sys:ro
+    - ${DIR}:/netdata-config
+    ports:
+    - ${NETDATA_PORT}:19999
+    environment:
+      NETDATA_PORT: "19999"
+      NETDATA_CONFIGFILE: "/netdata-config/netdata.conf"
