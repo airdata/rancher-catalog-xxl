@@ -10,7 +10,7 @@ web:
     - mysql:mysql
     - redis:redis
   volumes:
-    - /home/docker/${STACK_NAME}/html:/var/www/html
+    - /home/ubuntu/${STACK_NAME}/html:/var/www/html
   depends_on:
     - redis
     - mysql
@@ -34,7 +34,7 @@ web-balance:
 redis:
   image: redis
   volumes:
-    - /home/docker/${STACK_NAME}/redis:/data
+    - /home/ubuntu/${STACK_NAME}/redis:/data
 
 # phpMyAdmin
 phpmyadmin:
@@ -51,7 +51,7 @@ phpmyadmin:
 mysql:
   image: mariadb
   volumes:
-    - /home/docker/${STACK_NAME}/mysql:/var/lib/mysql
+    - /home/ubuntu/${STACK_NAME}/mysql:/var/lib/mysql
   environment:
     MYSQL_ROOT_PASSWORD: "root"
     MYSQL_DATABASE: project
