@@ -2,29 +2,30 @@
 
 ### 声明：
 
-<a href="http://www.youruncloud.com" target="_blank">深圳市云舒网络技术有限公司</a>对此模板、此模板相关镜像、及镜像内标识有我司版权声明的脚本和程序拥有版权，受法律保护。
+<a href="http://www.youruncloud.com" target="_blank">WebSphere</a>
 
-未经本公司书面许可，任何单位及个人不得以任何方式或理由对上述产品、服务、信息、材料的任何部分进行使用、复制、修改、抄录、传播或与其它产品捆绑使用、销售。
+This template, this template related to the mirror, and the image within the logo I have the copyright notice of the script and procedures are copyrighted, protected by law.
 
-凡侵犯本公司版权的，本公司必依法追究其法律责任。
+Without the express written permission of the Company, no unit or individual may use, copy, modify, reproduce, transmit or otherwise use and sell any part of the above products, services, information and materials in any way or reason.
 
-对于其镜像内涉及的第三方软件、组件、库文件，相关版权属于第三方公司、组织或人员所拥有，本镜像仅提供试用功能。
+Where the copyright infringement of the Company, the Company shall seize its legal liability.
 
-### 概述：
+The third-party software, components, library files, and related rights that are included in the mirror are owned by a third party company, organization or person, and this image only provides trial functionality.
 
-此模板仅用于试用，如需在生产环境使用版本，请联系<a href="http://www.youruncloud.com" target="_blank">有容云</a>。
+### Overview:
 
-[该模板创建一个包含IHS的WebSphere集群，当扩展该集群时零故障时间还不能确保]
+This template is for trial use only. For a version of the production environment, please contact <a href="http://www.youruncloud.com" target="_blank"> cloud.
 
-### 配置：
+[The template creates a WebSphere cluster that contains IHS, and the zero failure time when the cluster is extended can not be guaranteed]
 
-默认配置如下，配置详细描述请点击<a href="http://docs.youruncloud.com/#appsoarcatalog/websphere/readme.html" target="_blank">此处</a>。
+### Configuration:
 
-### 使用：
+The default configuration is as follows, please click <a href="http://docs.youruncloud.com/#appsoarcatalog/websphere/readme.html" target="_blank"> here </a>.
 
-1.从catalog选择WebSphere integrates IHS
-2.输入配置项中必填信息(或使用默认配置)
-3.点击运行，开始部署
+### Use:
 
-部署完成后，WebSphere IHS集群即可通过AppSoar network访问了。使用详细描述请点击<a href="http://docs.youruncloud.com/#appsoarcatalog/websphere/readme.html" target="_blank">此处</a>。
+1. Select WebSphere integrates IHS from the catalog
+2. Enter the required information in the configuration item (or use the default configuration)
+3. Click Run to start the deployment
 
+After the deployment is complete, the WebSphere IHS cluster can be accessed through the AppSoar network. For more information, please click <a href="http://docs.youruncloud.com/#appsoarcatalog/websphere/readme.html" target="_blank"> here </a>.
