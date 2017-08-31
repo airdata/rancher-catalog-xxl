@@ -1,0 +1,6 @@
+.catalog:
+  name: "Draw.io"
+  version: v0.1-educaas
+  description: "Diseña mapas mentales y diagramas en tu navegador."
+  uuid: drawio-0
+  questions:

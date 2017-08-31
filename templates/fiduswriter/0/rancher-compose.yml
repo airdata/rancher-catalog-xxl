@@ -1,0 +1,72 @@
+.catalog:
+  name: "Fiduswriter"
+  version: v0.1-educaas
+  description: "Edita documentos académicos entre varias personas en tiempo real como Google Drive."
+  uuid: fiduswriter-0
+  questions:
+    - variable: db_name
+      description: "Database name"
+      label: "DB Name"
+      required: true
+      default: "name"
+      type: "string"
+    - variable: db_password
+      description: "Database password"
+      label: "DB password"
+      required: true
+      default: "password"
+      type: "password"
+    - variable: db_user
+      description: "Database default user"
+      label: "DB user"
+      required: true
+      default: "user"
+      type: "string"
+    - variable: CONTACT_EMAIL
+      description: "Email address to contact"
+      label: "Contact"
+      required: true
+      default: "user@example.com"
+      type: "string"
+    - variable: EMAIL_FROM
+      description: "Email address to send emails from"
+      label: "Email"
+      required: true
+      default: "user@example.com"
+      type: "string"
+    - variable: SMTP_HOST
+      description: "Defatl Email host"
+      label: "Smtp Host"
+      required: true
+      default: "smtp.example.com"
+      type: "string"
+    - variable: SMTP_USER
+      description: "Smtp host user"
+      label: "Smtp User"
+      required: true
+      default: "user@example.com"
+      type: "string"
+    - variable: SMTP_PASS
+      description: "Smtp host password"
+      label: "Smtp password"
+      required: true
+      default: "password"
+      type: "password"
+    - variable: SMTP_PORT
+      description: "Smtp port to use"
+      label: "Smtp port"
+      required: true
+      default: "25"
+      type: "string"
+    - variable: ADMIN_NAME
+      description: "Administrator name"
+      label: "Admin name"
+      required: true
+      default: "Admin"
+      type: "string"
+    - variable: HOSTNAME
+      description: "Hostname or IP of the installation"
+      label: "Domain"
+      required: true
+      default: fidus.example.com
+      type: "string"

@@ -1,0 +1,18 @@
+.catalog:
+  name: "Wordpress"
+  version: v0.2-educaas
+  description: "Herramienta de publicación, blog y gestor de contenidos."
+  uuid: wordpress-0
+  questions:
+    - variable: client_port
+      description: "Port to access Wordpress"
+      label: "Client Port"
+      required: true
+      default: "80"
+      type: "int"
+    - variable: db_password
+      description: "Password for database"
+      label: "Password (default: wordpress)"
+      required: true
+      default: "wordpress"
+      type: "password"

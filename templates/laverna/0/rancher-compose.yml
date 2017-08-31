@@ -1,0 +1,12 @@
+.catalog:
+  name: "Laverna"
+  version: v0.1-educaas
+  description: "Una alternativa libre a Evernote."
+  uuid: laverna-0
+  questions:
+    - variable: client_port
+      description: "Port to access Laverna"
+      label: "Client Port"
+      required: true
+      default: "8080"
+      type: "int"

@@ -1,0 +1,38 @@
+postgresql:
+   tty: true
+   image: postgres
+   stdin_open: true
+   volumes:
+     - fidus-db:/var/lib/postgresql/data
+   environment:
+     POSTGRES_PASSWORD: ${db_password}
+     POSTGRES_USER: ${db_user}
+     POSTGRES_DB: ${db_name}
+   labels:
+     io.rancher.scheduler.affinity:host_label: availability=permanent
+
+fiduswriter:
+   tty: true
+   image: dalareo/fiduswriter
+   stdin_open: true
+   links:
+     - postgresql
+   volumes:
+     - fidus-data:/code
+   command: ./manage.py runserver
+   environment:
+     CONTACT_EMAIL: ${CONTACT_EMAIL}
+     DB_NAME: ${db_name}
+     DB_USER: ${db_user}
+     DB_PASS: ${db_password}
+     DB_HOST: postgresql
+     SMTP_HOST: ${SMTP_HOST}
+     SMTP_USER: ${SMTP_USER}
+     SMTP_PASS: ${SMTP_PASS}
+     SMTP_PORT: ${SMTP_PORT}
+     TLS_TRUE: True
+     EMAIL_FROM: ${EMAIL_FROM}
+     ADMIN_NAME: ${ADMIN_NAME}
+     HOSTNAME: ${HOSTNAME}
+   labels:
+     io.rancher.scheduler.affinity:host_label: availability=permanent

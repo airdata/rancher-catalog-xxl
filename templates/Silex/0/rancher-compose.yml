@@ -1,0 +1,12 @@
+.catalog:
+  name: "Silex"
+  version: v0.1-educaas
+  description: "Diseño web de páginas estáticas en tu navegador."
+  uuid: silex-0
+  questions:
+    - variable: client_port
+      description: "Port to access Silex"
+      label: "Client Port"
+      required: true
+      default: "6805"
+      type: "int"

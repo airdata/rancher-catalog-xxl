@@ -1,0 +1,13 @@
+version: '2'
+services:
+
+  cryptpad:
+    image: dalareo/cryptpad
+    hostname: cryptpad
+    ports:
+      - ${client_port}:3000
+    volumes:
+      - cryptpad_files:/cryptpad/datastore:rw
+      - cryptpad_customize:/cryptpad/customize:rw
+    labels:
+      io.rancher.scheduler.affinity:host_label: availability=permanent

@@ -1,0 +1,14 @@
+db:
+  image: mongo
+  volumes:
+    - wekan_data:/data/db
+    - wekan_dump:/dump
+  command: mongod --smallfiles --oplogSize 128
+
+app:
+  image: mquandalle/wekan
+  links:
+    - db
+  environment:
+    - MONGO_URL=mongodb://db/app
+    - ROOT_URL=${site_url}

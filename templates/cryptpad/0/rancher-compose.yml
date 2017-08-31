@@ -1,0 +1,12 @@
+.catalog:
+  name: "Cryptpad"
+  version: v0.1-educaas
+  description: "Edita documentos, encuestas, presentaciones o código entre varias personas en tiempo real en privado."
+  uuid: cryptpad-0
+  questions:
+    - variable: client_port
+      description: "Port to access Cryptpad"
+      label: "Client Port"
+      required: true
+      default: "9006"
+      type: "int"

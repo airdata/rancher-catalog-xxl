@@ -1,0 +1,12 @@
+.catalog:
+  name: "YaCy"
+  version: v0.1-educaas
+  description: "Búsqueda web descentralizada."
+  uuid: yacy-0
+  questions:
+    - variable: client_port
+      description: "Port to access Yacy"
+      label: "Client Port"
+      required: true
+      default: "8443"
+      type: "int"

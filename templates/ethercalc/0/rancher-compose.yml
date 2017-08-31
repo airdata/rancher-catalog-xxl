@@ -1,0 +1,12 @@
+.catalog:
+  name: "Ethercalc"
+  version: v0.1-educaas
+  description: "Edita hojas de cálculo entre varias personas en tiempo real como Google Drive."
+  uuid: ethercalc-0
+  questions:
+    - variable: client_port
+      description: "Port to access Ethercalc"
+      label: "Client Port"
+      required: true
+      default: "9003"
+      type: "int"

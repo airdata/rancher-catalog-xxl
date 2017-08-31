@@ -1,0 +1,26 @@
+mysql:
+   tty: true
+   image: mysql
+   stdin_open: true
+   environment:
+     MYSQL_ROOT_PASSWORD: ${root_pswd}
+   volumes:
+      - etherpad_db:/var/lib/mysql
+   labels:
+     io.rancher.scheduler.affinity:host_label: availability=permanent
+
+etherpad:
+   tty: true
+   image: tvelocity/etherpad-lite
+   stdin_open: true
+   environment:
+     ETHERPAD_TITLE: ${title}
+     ETHERPAD_ADMIN_PASSWORD: ${admin_pswd}
+     ETHERPAD_SESSION_KEY: ${session_key}
+   volumes:
+      - etherpad_settings:/opt/etherpad-lite/var
+      - etherpad_code:/opt/etherpad-lite/src
+   links:
+     - mysql:mysql
+   labels:
+     io.rancher.scheduler.affinity:host_label: availability=permanent

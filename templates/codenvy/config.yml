@@ -1,0 +1,5 @@
+name: Codenvy
+description: |
+  Entorno integrado de programación en la nube.
+version: v0.1-educaas
+category: IDE

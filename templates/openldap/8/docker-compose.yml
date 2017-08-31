@@ -1,25 +1,55 @@
-openldap:
-  image: osixia/openldap:1.1.8
-  environment:
-    LDAP_TLS: ${SLAPD_TLS_ENABLE}
-    LDAP_TLS_CRT_FILENAME: ${SLAPD_TLS_CERT_FILENAME}
-    LDAP_TLS_KEY_FILENAME: ${SLAPD_TLS_KEY_FILENAME}
-    LDAP_TLS_CA_CRT_FILENAME: ${SLAPD_TLS_CERT_CA_FILENAME}
-    LDAP_ORGANISATION: ${SLAPD_COMPANY_NAME}
-    LDAP_DOMAIN: ${SLAPD_COMPANY_DOMAIN}
-    LDAP_ADMIN_PASSWORD: ${SLAPD_PASSWORD}
-    LDAP_CONFIG_PASSWORD: ${SLAPD_PASSWORD}
-    LDAP_TLS_CIPHER_SUITE:  ${SLAPD_TLS_CIPHER_SUITE}
-    LDAP_TLS_VERIFY_CLIENT: ${SLAPD_TLS_VERIFY_CLIENT}
-    LDAP_TLS_PROTOCOL_MIN: ${SLAPD_TLS_PROTOCOL_MIN}
-    LDAP_TLS_ENFORCE: ${SLAPD_TLS_ENFORCE}
-    LDAP_READONLY_USER: ${SLAPD_READONLY_USER_ENABLE}
-    LDAP_READONLY_USER_USERNAME: ${SLAPD_READONLY_USER_NAME}
-    LDAP_READONLY_USER_PASSWORD: ${SLAPD_READONLY_PASSWORD}
-  volumes:
-    - ${DATAPATH}:/var/lib/ldap
-    - ${CONFIGPATH}:/etc/ldap/slapd.d
-    - ${CERTSTOREPATH}:/container/service/slapd/assets/certs/
-  labels:
-    io.rancher.container.create_agent: 'true'
-    io.rancher.container.agent.role: 'environment'
+version: '2'
+services:
+  openldap:
+    image: osixia/openldap:1.1.7
+    container_name: openldap
+    environment:
+      LDAP_LOG_LEVEL: "256"
+      LDAP_ORGANISATION: ${organization}
+      LDAP_DOMAIN: ${domain}
+      LDAP_BASE_DN: ${base_dn}
+      LDAP_ADMIN_PASSWORD: ${admin_password}
+      LDAP_CONFIG_PASSWORD: ${config_password}
+      LDAP_READONLY_USER: "false"
+      #LDAP_READONLY_USER_USERNAME: "readonly"
+      #LDAP_READONLY_USER_PASSWORD: "readonly"
+      LDAP_BACKEND: "hdb"
+      LDAP_TLS: "true"
+      LDAP_TLS_CRT_FILENAME: "ldap.crt"
+      LDAP_TLS_KEY_FILENAME: "ldap.key"
+      LDAP_TLS_CA_CRT_FILENAME: "ca.crt"
+      LDAP_TLS_ENFORCE: "false"
+      LDAP_TLS_CIPHER_SUITE: "SECURE256:-VERS-SSL3.0"
+      LDAP_TLS_PROTOCOL_MIN: "3.1"
+      LDAP_TLS_VERIFY_CLIENT: "demand"
+      LDAP_REPLICATION: "false"
+      #LDAP_REPLICATION_CONFIG_SYNCPROV: "binddn="cn=admin,cn=config" bindmethod=simple credentials=$LDAP_CONFIG_PASSWORD searchbase="cn=config" type=refreshAndPersist retry="60 +" timeout=1 starttls=critical"
+      #LDAP_REPLICATION_DB_SYNCPROV: "binddn="cn=admin,$LDAP_BASE_DN" bindmethod=simple credentials=$LDAP_ADMIN_PASSWORD searchbase="$LDAP_BASE_DN" type=refreshAndPersist interval=00:00:00:10 retry="60 +" timeout=1 starttls=critical"
+      #LDAP_REPLICATION_HOSTS: "#PYTHON2BASH:['ldap://ldap.example.org','ldap://ldap2.example.org']"
+      LDAP_REMOVE_CONFIG_AFTER_SETUP: "true"
+      LDAP_SSL_HELPER_PREFIX: "ldap"
+    tty: true
+    stdin_open: true
+    volumes:
+      - ldap_directory:/var/lib/ldap
+      - ldap_config:/etc/ldap/slapd.d
+      - ldap_certs:/container/service/slapd/assets/certs/
+    ports:
+      - "${ldap_port}:389"
+      - "636:636"
+    hostname: ${domain}
+    labels:
+      io.rancher.scheduler.affinity:host_label: availability=permanent
+
+  phpldapadmin:
+    image: osixia/phpldapadmin:latest
+    container_name: phpldapadmin
+    environment:
+      PHPLDAPADMIN_LDAP_HOSTS: "openldap"
+      PHPLDAPADMIN_HTTPS: "false"
+    ports:
+      - ${admin_port}:80
+    depends_on:
+      - openldap
+    labels:
+      io.rancher.scheduler.affinity:host_label: availability=permanent

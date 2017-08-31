@@ -1,0 +1,6 @@
+.catalog:
+  name: "Codenvy"
+  version: v0.1-educaas
+  description: "Entorno integrado de programación en la nube."
+  uuid: codenvy-0
+  questions:

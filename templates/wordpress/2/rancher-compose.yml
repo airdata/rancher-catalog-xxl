@@ -1,0 +1,12 @@
+.catalog:
+  name: "Wordpress"
+  version: v0.3-educaas
+  description: "Herramienta de publicación, blog y gestor de contenidos."
+  uuid: wordpress-0
+  questions:
+    - variable: db_password
+      description: "Password for database"
+      label: "Password (default: wordpress)"
+      required: true
+      default: "wordpress"
+      type: "password"

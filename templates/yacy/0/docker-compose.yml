@@ -1,0 +1,11 @@
+yacy:
+  tty: true
+  stdin_open: true
+  image: luccioman/yacy:latest
+  ports:
+    - ${client_port}:8443
+  volumes:
+    - yacy_volume:/opt/yacy_search_server/DATA
+  labels:
+    # Make db only run on hosts that do not have a availability=temporal label
+    io.rancher.scheduler.affinity:host_label: availability=permanent

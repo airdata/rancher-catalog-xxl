@@ -1,0 +1,12 @@
+.catalog:
+  name: "MyMind"
+  version: v0.1-educaas
+  description: "Diseña mapas mentales y diagramas en tu navegador."
+  uuid: mymind-0
+  questions:
+    - variable: client_port
+      description: "Port to access My-Mind"
+      label: "Client Port"
+      required: true
+      default: "8082"
+      type: "int"

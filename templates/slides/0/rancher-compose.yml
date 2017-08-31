@@ -1,0 +1,12 @@
+.catalog:
+  name: "Slides"
+  version: v0.1-educaas
+  description: "Diseño de presentaciones dinámicas y en 3D en tu navegador."
+  uuid: slides-0
+  questions:
+    - variable: client_port
+      description: "Port to access Slides"
+      label: "Client Port"
+      required: true
+      default: "8080"
+      type: "int"

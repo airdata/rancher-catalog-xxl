@@ -1,0 +1,6 @@
+.catalog:
+  name: "Zammad"
+  version: v0.1-educaas
+  description: "Gestiona la comunicación con tus clientes y ofrece soporte a través de la web."
+  uuid: zammad-0
+  questions:

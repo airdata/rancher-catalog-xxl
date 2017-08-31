@@ -1,0 +1,16 @@
+ethercalc:
+  image: audreyt/ethercalc
+  ports:
+    - ${client_port}:8000
+  links:
+    - redis:redis
+  labels:
+    io.rancher.scheduler.affinity:host_label: availability=permanent
+
+redis:
+  image: redis:latest
+  volumes:
+    - ethercalc_db:/data
+  command: redis-server --appendonly yes
+  labels:
+    io.rancher.scheduler.affinity:host_label: availability=permanent

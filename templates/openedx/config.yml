@@ -1,0 +1,7 @@
+name: OpenEdx
+description: |
+    Plataforma de formación online utilizada por las principales universidades.
+version: v0.1
+category: LMS
+maintainer: Josh Calder <josh@opensaas.com.au>
+projectURL: http://www.opensaas.com.au
