@@ -1,6 +1,6 @@
 name: Azkaban
 description: |
-  Azkaban是个简单的批处理调度器，用来构建和运行Hadoop作业或其他脱机过程。
+  Is a simple batch scheduler used to build and run Hadoop jobs or other offline processes.
 version: v1
 category: BigData
 maintainer: huangpeng <huangpeng1984101@163.com>
