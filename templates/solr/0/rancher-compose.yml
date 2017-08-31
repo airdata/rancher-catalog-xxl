@@ -5,7 +5,7 @@
     (Experimental) SolrCloud cluster
   uuid: solr-0
   minimum_rancher_version: v0.56.0
-  maintainer: "Alberto Gregoris <aguean.atbelor@gmail.com>"
+  maintainer: "Rumen Lishkov <rumen.lishkov@icloud.com>"
   questions:
     - variable: "solr_scale"
       description: "Number of Solr nodes. Note: Recommended an odd number"

@@ -2,4 +2,5 @@ name: Artifactory Pro
 description: |
   A repository manager.
 version: 5.4.5
+maintainer: "Rumen Lishkov <rumen.lishkov@icloud.com>"
 category: Continuous Integration

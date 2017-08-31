@@ -1,8 +1,7 @@
 name: AutoScale
 description: |
-  特定条件下支持自动扩容服务
+  Support for automatic expansion services under specific conditions
 version: 1.0.0
-category: 扩容
-maintainer: "有容云"
+category: DevOps
+maintainer: "Rumen Lishkov <rumen.lishkov@icloud.com>"
 license:
-

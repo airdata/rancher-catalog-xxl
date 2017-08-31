@@ -3,5 +3,5 @@ description: |
   PureFTP Server
 version: 0.1.0
 category: Applications
-maintainer: "Eugen Mayer <eugen.mayer@kontextwork.de>"
+maintainer: Rumen Lishkov <rumen.lishkov@icloud.com>
 projectURL: https://github.com/stilliard/docker-pure-ftpd
