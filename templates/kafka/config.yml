@@ -1,9 +1,0 @@
-name: Apache Kafka
-description: |
-  (Experimental) Kafka cluster
-version: 0.10.0.1-rancher1
-category: Clustering
-maintainer: "Raul Sanchez <rawmind@gmail.com>"
-minimum_rancher_version: v0.59.0
-license: 
-projectURL: https://github.com/rawmind0/alpine-kafka
