@@ -1,9 +1,0 @@
-name: gocd-agent
-description: |
-  (Experimental) Gocd agent
-version: 16.7.0-rancher1
-category: Continuous Integration
-maintainer: Rumen Lishkov <rumen.lishkov@icloud.com>
-minimum_rancher_version: v0.59.0
-license: 
-projectURL: https://github.com/rawmind0/rancher-goagent
