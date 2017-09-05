@@ -1,0 +1,23 @@
+.catalog:
+  name: "ArangoDB"
+  version: "3.0-rancher1"
+  description: "ArangoDB Cluster"
+  uuid: arangodb-1
+  minimum_rancher_version: v0.46.0
+arango-dbservers:
+  scale: 1
+  health_check:
+    port: 8529
+    interval: 2000
+    initializing_timeout: 60000
+    unhealthy_threshold: 3
+    strategy: recreate
+    response_timeout: 2000
+    healthy_threshold: 2
+arango-agency-conf:
+  scale: 3
+arango-coordinators:
+  scale: 2
+arango-agency:
+  scale: 3
+

@@ -1,0 +1,67 @@
+cert-service:
+  labels:
+    io.rancher.scheduler.global: 'true'
+    io.rancher.container.pull_image: always
+    io.rancher.container.start_once: true
+  environment:
+    - API_ID=${api_id}
+    - API_KEY=${api_key}
+  tty: true
+  image: adityareddy/flocker-conf:latest
+  stdin_open: true
+  volumes:
+    - /etc/flocker:/etc/flocker
+  
+control-service:
+  labels:
+    io.rancher.container.pull_image: always
+    io.rancher.container.hostname_override: container_name
+  tty: true
+  ports:
+    - 4524:4524
+    - 4523:4523
+  image: clusterhq/flocker-control-service:1.14.0
+  stdin_open: true
+  volumes:
+    - /etc/flocker:/etc/flocker
+
+dataset-agent:
+  labels:
+    io.rancher.scheduler.global: 'true'
+    io.rancher.container.pull_image: always
+    io.rancher.container.hostname_override: container_name
+  tty: true
+  image: adityareddy/flocker-dataset-agent:latest
+  privileged: true
+  stdin_open: true
+  volumes:
+    - /etc/flocker:/etc/flocker
+    - /flocker:/flocker
+    - /:/host
+    - /dev:/dev
+
+docker-plugin:
+  labels:
+    io.rancher.scheduler.global: 'true'
+    io.rancher.container.pull_image: always
+    io.rancher.container.hostname_override: container_name
+  tty: true
+  image: clusterhq/flocker-dockerplugin:1.14.0
+  stdin_open: true
+  volumes:
+    - /etc/flocker:/etc/flocker
+    - /run/docker:/run/docker
+
+admin-gui:
+  labels:
+    io.rancher.container.pull_image: always
+    io.rancher.container.hostname_override: container_name
+  environment:
+    - CONTROL_SERVICE=flocker_control-service_1
+    - USERNAME=plugin
+    - CERTS_PATH=/etc/flocker/
+  tty: true
+  image: clusterhq/experimental-volumes-gui:latest
+  stdin_open: true
+  volumes:
+    - /etc/flocker:/etc/flocker

@@ -1,0 +1,18 @@
+.catalog:
+  name: "Flocker-Rancher"
+  version: "1.0-rancher1"
+  description: "ArangoDB Cluster"
+  uuid: flocker-1
+  questions:
+    - variable: api_id
+      label: "API ID"
+      type: "string"
+      required: true
+    - variable: api_key
+      label: "API KEY"
+      type: "string"
+      required: true
+cert-service:
+  scale: 1
+control-service:
+  scale: 1
