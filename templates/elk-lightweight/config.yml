@@ -1,5 +1,5 @@
-name: lightweight-ELK
+name: ELK-lightweight
 description: |
   Provide a lightweight ELK stack.
 version: v1.0
-category: ELK
+category: Logging
