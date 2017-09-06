@@ -1,6 +1,6 @@
 .catalog:
   name: "Atlassian JIRA"
-  version: 7.3.6.1
+  version: 7.3.6.2
   description: "Atlassian Jira"
   minimum_rancher_version: v1.5.0
   questions:
@@ -19,7 +19,7 @@
       description: "Your proxy port"
       required: false
       default: 443
-      type: "number"
+      type: "int"
     - variable: "JIRA_PROXY_SCHEME"
       label: "Proxy scheme"
       description: "Your proxy scheme, http or https"
@@ -52,3 +52,26 @@
         - 7.1.9
         - 7.0.9
         - 6.4.9
+    - variable: "JIRA_DB_USER"
+      label: "JIRA_DB_USER"
+      description: "db user for jira"
+      required: true
+      type: "string"
+      default: "jirauser"
+    - variable: "JIRA_DB_NAME"
+      label: "JIRA_DB_NAME"
+      description: "db name for jira"
+      required: true
+      type: "string"
+      default: "jiradb"
+    - variable: "USE_EXTERNAL_DB_SERVICE"
+      label: "Use external db service"
+      description: "If you want to use an external db, e.g. to share the same db with different applications, activate this, we wont start an own container. This means the DB runs in the same environment as a service"
+      default: false
+      type: "boolean"
+    - variable: "EXTERNAL_DB_SERVICE"
+      label: "Extern DB Service"
+      description: "External DB Service"
+      required: false
+      type: "service"
+

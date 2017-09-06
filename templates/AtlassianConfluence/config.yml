@@ -1,7 +1,0 @@
-name: "Atlassian Confluence"
-description: |
-  Atlassian Confluence
-version: 6.2.1.2
-category: Applications
-maintainer: Rumen Lishkov <rumen.lishkov@icloud.com>
-projectURL: https://de.atlassian.com/software/confluence

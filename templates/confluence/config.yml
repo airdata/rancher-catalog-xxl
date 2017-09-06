@@ -1,5 +1,7 @@
-name: Data Essential Confluence
+name: "Atlassian Confluence"
 description: |
-  One place for all your team's work
-version: 0.1
-category: Wiki
+  Atlassian Confluence
+version: 6.3.2.0
+category: Applications
+maintainer: "Eugen Mayer <eugen.mayer@kontextwork.de>"
+projectURL: https://de.atlassian.com/software/confluence
