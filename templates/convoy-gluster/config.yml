@@ -1,5 +1,0 @@
-name: Convoy GlusterFS
-description: |
-  Docker Volume Manager for GlusterFS Volumes
-version: v0.5
-category: Rancher Services
