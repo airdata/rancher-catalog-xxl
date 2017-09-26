@@ -1,0 +1,5 @@
+name: Flocker-Rancher
+description: |
+  Flocker Cluster.
+version: 1.0-rancher1
+category: Storage

@@ -1,0 +1,8 @@
+version: 1
+dataset:
+  backend: "huawei_oceanstor_flocker_plugin"
+  huawei_conf_file: "/etc/flocker/flocker_huawei_conf.xml"
+  api_id: api_id
+  api_key: api_key
+control-service:
+  port: 4524

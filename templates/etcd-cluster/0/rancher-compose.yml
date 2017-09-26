@@ -1,4 +1,0 @@
-.catalog:
-  name: "etcd cluster"
-  version: "v1"
-  description: "etcd: deploy etcd cluster"

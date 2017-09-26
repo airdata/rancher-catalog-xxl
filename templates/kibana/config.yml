@@ -1,4 +1,3 @@
-name: "Kibana 4"
+name: "Kibana 4+5"
 description: "Visualization dashboard"
-version: "4.6.3-rancher1"
-category: ELK
+category: Logging

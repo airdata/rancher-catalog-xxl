@@ -1,5 +1,0 @@
-name: Redis
-description: |
-  Redis replicas
-version: v1
-category: Replicas

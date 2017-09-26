@@ -1,19 +1,54 @@
 .catalog:
-  name: Atlassian JIRA Software
-  version: 7.1.2
-  description: Atlassian JIRA Software agile software development tool
-  uuid: atlassian-jira-software-7-1-2
-
-JIRA-Software:
-  scale: 1
-  health_check:
-    port: 80
-    interval: 2000
-    recreate_on_quorum_strategy_config:
-      quorum: 1
-    initializing_timeout: 60000
-    unhealthy_threshold: 3
-    strategy: recreateOnQuorum
-    response_timeout: 2000
-    request_line: GET "/" "HTTP/1.0"
-    healthy_threshold: 2
+  name: "Atlassian JIRA"
+  version: 7.3.6.1
+  description: "Atlassian Jira"
+  minimum_rancher_version: v1.5.0
+  questions:
+    - variable: "USE_PROXY"
+      label: "Use proxy"
+      description: "Are you going to run a proxy in front of the jira server, e.g. for SSL interception?"
+      default: true
+      type: "boolean"
+    - variable: "JIRA_PROXY_DOMAIN"
+      label: "Your external proxy domain"
+      description: "Your external proxy domain jira.domain.tld"
+      required: false
+      type: "string"
+    - variable: "JIRA_PROXY_PORT"
+      label: "External domain port"
+      description: "Your proxy port"
+      required: false
+      default: 443
+      type: "number"
+    - variable: "JIRA_PROXY_SCHEME"
+      label: "Proxy scheme"
+      description: "Your proxy scheme, http or https"
+      required: false
+      default: "https"
+      type: "enum"
+      options:
+        - https
+        - http
+    - variable: "DB_PASSWORD"
+      label: "Database password"
+      required: true
+      type: "password"
+    - variable: "CATALINA_OPTS"
+      label: "CATALINA OPTS"
+      description: "e.g. heapsize -Xms256m -Xmx1g"
+      required: false
+      type: "string"
+      default: "-Xms256m -Xmx1g"
+    - variable: "JIRA_VERSION"
+      label: "The jira version you want to use"
+      description: "The jira version you want to use. This will change when upgrading the catalog, if you used default"
+      required: false
+      default: "7.3.6"
+      type: "enum"
+      options:
+        - latest
+        - 7.3.6
+        - 7.2.7
+        - 7.1.9
+        - 7.0.9
+        - 6.4.9
