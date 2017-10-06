@@ -1,5 +1,5 @@
 name: Nexus 2
 description: |
-  A repository manager.
+  Docker-registry,Maven npm, java and ruby server with permissions and authentication backend 
 version: 2.14.2-01
 category: Continuous Integration
