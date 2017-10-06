@@ -5,4 +5,4 @@ version: 5.4.1-rancher1
 category: indexer
 maintainer: "Rumen Lishkov <rumen.lishkov@icloud.com>"
 license:
-projectURL: "http://lucene.apache.org/solr/"
+projectURL: https://github.com/airdata/rancher-catalog-xxl

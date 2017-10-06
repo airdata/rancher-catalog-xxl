@@ -4,4 +4,4 @@ description: |
 version: 0.0.2
 category: Blogging
 maintainer: "Eric McNiece <emcniece@gmail.com>"
-projectURL: https://hub.docker.com/r/emcniece/wp-php7-nginx/
+projectURL: https://github.com/airdata/rancher-catalog-xxl
