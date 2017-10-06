@@ -3,13 +3,13 @@
   version: latest
   uuid: mysql-0
   questions:
-  - variable: DOMAIN
+  - variable: "DOMAIN"
     description: 'Domain name'
     label: 'Domain:'
     required: true
     default: vibioh.fr
     type: string
-  - variable: MYSQL_SERVICE
+  - variable: "MYSQL_SERVICE"
     description: 'MySQL Database to administrate'
     label: 'MySQL service:'
     required: true
