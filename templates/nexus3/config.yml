@@ -1,4 +1,4 @@
-name: "Sona-nexus registry"
+name: "Nexus 3"
 description: |
   Docker-registry, npm, java and ruby server with permissions and authentication backend
 version: 3.5.1.0

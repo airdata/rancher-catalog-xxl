@@ -3,5 +3,5 @@ description: |
   LDAP Auth-Server based on ApacheDS
 version: 2.0.0-rc24
 category: Applications
-maintainer: "Eugen Mayer <eugen.mayer@kontextwork.de>"
+maintainer: Rumen Lishkov <rumen.lishkov@icloud.com>
 projectURL: https://github.com/EugenMayer/kontextwork-catalog/tree/master/templates/apacheds-ldap
