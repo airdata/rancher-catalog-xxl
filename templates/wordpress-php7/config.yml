@@ -1,4 +1,4 @@
-name: WordPress PHP7
+name: WordPress-PHP7-Redis-Nginx
 description: |
   One-click WordPress w/ PHP7-FPM, Redis, Nginx
 version: 0.0.2
