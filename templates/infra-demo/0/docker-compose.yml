@@ -10,10 +10,9 @@ jenkins:
   tty: true
 gitlab:
   ports:
-    - 9004:443/tcp
-    - 9003:80/tcp
-    - 9002:22/tcp
-  labels:
+    - 9443:443/tcp
+    - 9070:80/tcp
+    - 9022:22/tcp
   tty: true
   image: gitlab/gitlab-ce
   volumes:
