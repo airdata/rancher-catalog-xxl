@@ -1,27 +1,23 @@
 jenkins:
-  ports:
-  - 9001:8080/tcp
-  labels:
-  tty: true
-  image: 10.0.0.5:5002/jenkins:1.1
+  image: jenkins
   volumes:
-  - /var/lib/docker/:/var/lib/docker/
-  - /var/run/docker.sock:/var/run/docker.sock
-  - /usr/bin/docker:/usr/bin/docker
-  - /lib64/libdevmapper.so.1.02:/usr/lib/libdevmapper.so.1.02
+    - /var/lib/docker/:/var/lib/docker/
+    - /var/run/docker.sock:/var/run/docker.sock
+    - /usr/bin/docker:/usr/bin/docker
+    - /lib64/libdevmapper.so.1.02:/usr/lib/libdevmapper.so.1.02
   privileged: true
   stdin_open: true
+  tty: true
 gitlab:
   ports:
-  - 9004:443/tcp
-  - 9003:80/tcp
-  - 9002:22/tcp
+    - 9004:443/tcp
+    - 9003:80/tcp
+    - 9002:22/tcp
   labels:
   tty: true
-  hostname: gitlab.youruncloud.com
-  image: 10.0.0.5:5002/gitlab/gitlab-ce
+  image: gitlab/gitlab-ce
   volumes:
-  - /srv/gitlab/config:/etc/gitlab
-  - /srv/gitlab/logs:/var/log/gitlab
-  - /srv/gitlab/data:/var/opt/gitlab
+    - /srv/gitlab/config:/etc/gitlab
+    - /srv/gitlab/logs:/var/log/gitlab
+    - /srv/gitlab/data:/var/opt/gitlab
   stdin_open: true

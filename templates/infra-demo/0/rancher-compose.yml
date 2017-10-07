@@ -1,8 +1,7 @@
 .catalog:
-  name: "Infra-Demo"
+  name: "Jenkins + Gitlab"
   version: "1.0"
   description: "jenkins& gitlab"
-  minimum_rancher_version: v0.51.0
   questions:
 jenkins:
   scale: 1
