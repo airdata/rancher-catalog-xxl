@@ -1,5 +1,7 @@
 jenkins:
   image: jenkins
+  ports:
+    - 18080:8080/tcp  
   volumes:
     - /var/lib/docker/:/var/lib/docker/
     - /var/run/docker.sock:/var/run/docker.sock
