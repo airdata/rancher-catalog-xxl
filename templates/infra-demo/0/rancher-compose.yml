@@ -7,4 +7,6 @@ jenkins:
   scale: 1
 gitlab:
   scale: 1
-
+nexus:
+  scale: 1
+  start_on_create: true
