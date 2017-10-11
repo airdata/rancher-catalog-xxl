@@ -1,35 +1,7 @@
-jenkins:
-  image: jenkins
-  ports:
-    - 18080:8080/tcp  
-  volumes:
-    - /var/lib/docker/:/var/lib/docker/
-    - /var/run/docker.sock:/var/run/docker.sock
-    - /usr/bin/docker:/usr/bin/docker
-    - /lib64/libdevmapper.so.1.02:/usr/lib/libdevmapper.so.1.02
-  privileged: true
-  stdin_open: true
-  tty: true
-gitlab:
-  ports:
-    - 9443:443/tcp
-    - 9070:80/tcp
-    - 9022:22/tcp
-  tty: true
-  image: gitlab/gitlab-ce
-  volumes:
-    - /srv/gitlab/config:/etc/gitlab
-    - /srv/gitlab/logs:/var/log/gitlab
-    - /srv/gitlab/data:/var/opt/gitlab
-  stdin_open: true
-nexus:
-  image: sonatype/nexus3:3.5.1
-  external_links:
-  - sys/ldap:ldap
-  volumes:
-  - nexus-data:/nexus-data
-  ports:
-  - 9080:8081/tcp
-  labels:
-    io.rancher.container.agent.role: environment
-    io.rancher.container.create_agent: 'true'
+docker run \
+  -e ENABLE_SSL=true \
+  -e TARGET_SERVICE=THE_ADDRESS_OR_HOST_YOU_ARE_PROXYING_TO \
+  -v ./certs/lab.santech.fr.crt:/etc/secrets/proxycert \
+  -v ./certs/lab.santech.fr.pem:/etc/secrets/proxykey \
+  -v ./certs/intermediate.crt:/etc/secrets/dhparam \
+  nginx-ssl-proxy
