@@ -1,5 +1,5 @@
-name: Elasticsearch
+name: Elasticsearch Cluster
 description: |
   Elasticsearch, you know for search!
-version: 2.1.1-mgolly1
-category: Logging
+version: 5.6.0
+category: ELK

@@ -1,5 +1,5 @@
-name: Curator
+name: curator
 description: |
-  Provide a curator stack. to clean elasticsearch index
-version: v1.0
+  Provide an elasticsearch curator stack.
+version: 5.2.0
 category: ELK

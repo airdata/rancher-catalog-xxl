@@ -1,0 +1,135 @@
+.catalog:
+  name: "Prometheus"
+  version: "1.0.2"
+  description: "Prometheus Monitoring Solution"
+  minimum_rancher_version: v0.59.0
+  questions:
+  - variable: PROMETHEUS_CONFIG
+    description: "Prometheus config"
+    label: "Prometheus config"
+    type: "multiline"
+    required: true
+    default: |
+      global:
+        scrape_interval:     15s
+        evaluation_interval: 15s
+        external_labels:
+            monitor: 'exporter-metrics'
+
+      rule_files:
+      - /etc/prom-conf/rules.yml
+
+      scrape_configs:
+      - job_name: 'HostsMetrics'
+        dns_sd_configs:
+        - names:
+          - node-exporter
+          refresh_interval: 15s
+          type: A
+          port: 9100
+
+      - job_name: 'ContainerMetrics'
+        dns_sd_configs:
+        - names:
+          - ranch-eye
+          refresh_interval: 15s
+          type: A
+          port: 9104
+
+      - job_name: 'rancher-api'
+        static_configs:
+          - targets:
+            - 'prometheus-rancher-exporter:9010'
+
+      - job_name: 'Prometheus'
+        static_configs:
+          - targets:
+            - '127.0.0.1:9090'
+  - variable: PROMETHEUS_RULES
+    description: "Prometheus rules"
+    label: "Prometheus rules"
+    type: "multiline"
+    required: true
+    default: |
+      ALERT InstanceDown
+        IF rancher_services == 0
+        FOR 5m
+        LABELS { severity = "page" }
+        ANNOTATIONS {
+          summary = "Instance {{ $labels.name }} down",
+          description = "{{ $labels.name }} of job {{ $labels.job }} has been down for more than 5 minutes.",
+        }
+  - variable: ALERTMANAGER_CONFIG
+    description: "Alert Manager config"
+    label: "Alert Manager config"
+    type: "multiline"
+    required: true
+    default: |
+      global:
+        # The smarthost and SMTP sender used for mail notifications.
+        smtp_smarthost: 'localhost:25'
+        smtp_from: 'alertmanager@example.org'
+        smtp_auth_username: 'alertmanager'
+        smtp_auth_password: 'password'
+        # The auth token for Hipchat.
+        hipchat_auth_token: '1234556789'
+        # Alternative host for Hipchat.
+        hipchat_url: 'https://hipchat.foobar.org/'
+
+      # The directory from which notification templates are read.
+      templates:
+      - '/etc/alertmanager/template/*.tmpl'
+
+
+prometheus:
+  scale: 1
+  metadata:
+    prometheus-config: |
+      ${PROMETHEUS_CONFIG}
+    prometheus-rules: |
+      ${PROMETHEUS_RULES}
+  health_check:
+    port: 9090
+    interval: 5000
+    unhealthy_threshold: 3
+    request_line: ''
+    healthy_threshold: 2
+    response_timeout: 5000
+
+alertmanager:
+  scale: 1
+  metadata:
+    alertmanager-config: |
+      ${ALERTMANAGER_CONFIG}
+
+influxdb:
+  scale: 1
+  health_check:
+    port: 8086
+    interval: 5000
+    unhealthy_threshold: 3
+    request_line: ''
+    healthy_threshold: 2
+    response_timeout: 5000
+
+grafana:
+  scale: 1
+  health_check:
+    port: 3000
+    interval: 5000
+    unhealthy_threshold: 3
+    request_line: ''
+    healthy_threshold: 2
+    response_timeout: 5000
+
+prometheus-rancher-exporter:
+  scale: 1
+  upgrade_strategy:
+    start_first: true
+  health_check:
+    port: 9010
+    interval: 5000
+    unhealthy_threshold: 3
+    request_line: ''
+    healthy_threshold: 2
+    response_timeout: 5000
