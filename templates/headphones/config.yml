@@ -2,3 +2,6 @@ name: Headphones
 description: Headphones is an automated music downloader for NZB and Torrent, written in Python.
 category: Media
 version: 1.0
+maintainer: Jason Kulatunga <jason@thesparktree.com>
+license: MIT
+projectURL: https://github.com/mediadepot/docker-headphones

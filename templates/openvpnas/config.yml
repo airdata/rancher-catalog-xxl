@@ -1,0 +1,7 @@
+name: OpenVPN Access Server
+description: OpenVPN Access Server is a full featured secure network tunneling VPN software solution that integrates OpenVPN server.
+category: Media
+version: 1.0
+maintainer: Jason Kulatunga <jason@thesparktree.com>
+license: MIT
+projectURL: https://github.com/mediadepot/docker-openvpn_as

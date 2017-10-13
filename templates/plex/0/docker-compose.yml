@@ -1,23 +1,28 @@
-app:
-  restart: always
-  image: mediadepot/plex:master
-  ports:
-   - "32400"
-  volumes_from:
-  - data
-  volumes:
-  - /mnt/samba/tvshows:/mnt/tvshows
-  - /mnt/samba/movies:/mnt/movies
-  - /mnt/samba/music:/mnt/music
-  labels:
-    io.rancher.sidekicks: data
-    depot.lb.link: true
-    depot.lb.port: 32400
-    depot.app.type: plex
-data:
-  image: mediadepot/plex:master
-  labels:
-    io.rancher.container.start_once: true
-  volumes:
-  - /srv/plex/config
-  - /srv/plex/data
+version: '2'
+services:
+  app:
+    restart: always
+    image: mediadepot/plex:master
+    ports:
+     - "32400:32400"
+    network_mode: "host"
+    cap_drop:
+      - NET_ADMIN
+    volumes_from:
+    - data
+    volumes:
+    - /media/storage/tvshows:/mnt/tvshows
+    - /media/storage/movies:/mnt/movies
+    - /media/storage/music:/mnt/music
+    - ${CONFIG_DIRECTORY}:/srv/plex/config
+    labels:
+      io.rancher.container.pull_image: always
+      io.rancher.sidekicks: data
+      depot.lb.link: true
+      depot.app.type: plex
+  data:
+    image: mediadepot/plex:master
+    labels:
+      io.rancher.container.start_once: true
+    volumes:
+    - /srv/plex/data

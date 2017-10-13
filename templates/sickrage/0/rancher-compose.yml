@@ -1,10 +1,29 @@
-.catalog:
+version: '2'
+catalog:
   name: "sickrage"
   version: "1.0"
   description: "Sickrage"
   uuid: sickrage-0
-app:
-  scale: 1
-data:
-  scale: 1
-  tty: true
+  questions:
+    - variable: "APP_HOSTNAME"
+      description: "The public hostname for this app"
+      label: "Sickrage load balancer hostname"
+      required: true
+      default: "sickrage.depot.lan"
+      type: "string"
+    - variable: "CONFIG_DIRECTORY"
+      description: "The configuration directory for this app"
+      label: "Configuration directory"
+      required: true
+      default: "/srv/apps/sickrage"
+      type: "string"
+services:
+  app:
+    scale: 1
+    lb_config:
+      port_rules:
+      - target_port: 8081
+        hostname: $APP_HOSTNAME
+  data:
+    scale: 1
+    tty: true

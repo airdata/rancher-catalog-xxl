@@ -1,10 +1,29 @@
-.catalog:
+version: '2'
+catalog:
   name: "plex"
   version: "1.0"
   description: "Plex Media Server"
   uuid: plex-0
-app:
-  scale: 1
-data:
-  scale: 1
-  tty: true
+  questions:
+    - variable: "APP_HOSTNAME"
+      description: "The public hostname for this app"
+      label: "Plex load balancer hostname"
+      required: true
+      default: "plex.depot.lan"
+      type: "string"
+    - variable: "CONFIG_DIRECTORY"
+      description: "The configuration directory for this app"
+      label: "Configuration directory"
+      required: true
+      default: "/srv/apps/plex"
+      type: "string"
+services:
+  app:
+    scale: 1
+    lb_config:
+      port_rules:
+      - target_port: 32400
+        hostname: $APP_HOSTNAME
+  data:
+    scale: 1
+    tty: true

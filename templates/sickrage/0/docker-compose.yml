@@ -1,23 +1,27 @@
-app:
-  restart: always
-  image: mediadepot/sickrage:master
-  ports:
-   - "8080"
-  volumes_from:
-  - data
-  volumes:
-  - /mnt/samba/tvshows:/mnt/tvshows
-  - /mnt/samba/downloads/[Tvshows]:/mnt/downloads
-  - /mnt/samba/blackhole/[Tvshows]:/mnt/blackhole
-  labels:
-    io.rancher.sidekicks: data
-    depot.lb.link: true
-    depot.lb.port: 8080
-    depot.app.type: sickrage
-data:
-  image: tianon/true
-  labels:
-    io.rancher.container.start_once: true
-  volumes:
-  - /srv/sickrage/config
-  - /srv/sickrage/data
+version: '2'
+services:
+  app:
+    restart: always
+    image: mediadepot/sickrage:master
+    ports:
+     - "8081"
+    volumes_from:
+    - data
+    volumes:
+    - /media/storage/tvshows:/mnt/tvshows
+    - /media/storage/downloads/tvshows:/mnt/downloads
+    - /media/temp/blackhole/tvshows:/mnt/blackhole
+    - /etc/localtime:/etc/localtime:ro
+    - ${CONFIG_DIRECTORY}:/srv/sickrage/config
+
+    labels:
+      io.rancher.container.pull_image: always
+      io.rancher.sidekicks: data
+      depot.lb.link: true
+      depot.app.type: sickrage
+  data:
+    image: tianon/true
+    labels:
+      io.rancher.container.start_once: true
+    volumes:
+    - /srv/sickrage/data

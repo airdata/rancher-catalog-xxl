@@ -1,4 +1,5 @@
-.catalog:
+version: '2'
+catalog:
   name: "deluge"
   version: "1.0"
   description: "Deluge"
@@ -16,7 +17,24 @@
       required: true
       default: "depotd3p0!"
       type: "string"
-app:
-  scale: 1
-data:
-  scale: 1
+    - variable: "APP_HOSTNAME"
+      description: "The public hostname for this app"
+      label: "Deluge load balancer hostname"
+      required: true
+      default: "deluge.depot.lan"
+      type: "string"
+    - variable: "CONFIG_DIRECTORY"
+      description: "The configuration directory for this app"
+      label: "Configuration directory"
+      required: true
+      default: "/srv/apps/deluge"
+      type: "string"
+services:
+  app:
+    scale: 1
+    lb_config:
+      port_rules:
+      - target_port: 8081
+        hostname: $APP_HOSTNAME
+  data:
+    scale: 1

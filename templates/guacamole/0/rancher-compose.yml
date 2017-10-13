@@ -1,11 +1,28 @@
-.catalog:
+version: '2'
+catalog:
   name: "guacamole"
   version: "1.0"
   description: "Guacamole"
   uuid: guacamole-0
-guacweb:
-  scale: 1
-guacd:
-  scale: 1
-db:
-  scale: 1
+  questions:
+    - variable: "APP_HOSTNAME"
+      description: "The public hostname for this app"
+      label: "Guacamole load balancer hostname"
+      required: true
+      default: "guacamole.depot.lan"
+      type: "string"
+    - variable: "CONFIG_DIRECTORY"
+      description: "The configuration directory for this app"
+      label: "Configuration directory"
+      required: true
+      default: "/srv/apps/guacamole"
+      type: "string"
+services:
+  guacweb:
+    scale: 1
+    lb_config:
+      port_rules:
+      - target_port: 8080
+        hostname: $APP_HOSTNAME
+  guacd:
+    scale: 1

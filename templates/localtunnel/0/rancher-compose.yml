@@ -1,4 +1,5 @@
-.catalog:
+version: '2'
+catalog:
   name: "localtunnel"
   version: "1.0"
   description: "LocalTunnel"
@@ -38,5 +39,6 @@
       label: "Cloudflare Account Api Key"
       required: true
       type: "password"
-tunnel:
-  scale: 1
+services:
+  tunnel:
+    scale: 1

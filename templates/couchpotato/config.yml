@@ -2,3 +2,6 @@ name: Couchpotato
 description: Download movies automatically, easily and in the best quality as soon as they are available
 category: Media
 version: 1.0
+maintainer: Jason Kulatunga <jason@thesparktree.com>
+license: MIT
+projectURL: https://github.com/mediadepot/docker-couchpotato

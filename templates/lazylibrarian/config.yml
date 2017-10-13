@@ -2,3 +2,6 @@ name: LazyLibrarian
 description: Goal is to create a SickBeard, CouchPotato, Headphones-like application for ebooks. Based on DobyTang fork.
 category: Media
 version: 1.0
+maintainer: Jason Kulatunga <jason@thesparktree.com>
+license: MIT
+projectURL: https://github.com/mediadepot/docker-lazylibrarian

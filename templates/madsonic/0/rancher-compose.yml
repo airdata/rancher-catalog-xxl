@@ -1,9 +1,28 @@
-.catalog:
+version: '2'
+catalog:
   name: "madsonic"
   version: "1.0"
   description: "Madsonic"
   uuid: madsonic-0
-app:
-  scale: 1
-data:
-  scale: 1
+  questions:
+    - variable: "APP_HOSTNAME"
+      description: "The public hostname for this app"
+      label: "MadSonic load balancer hostname"
+      required: true
+      default: "madsonic.depot.lan"
+      type: "string"
+    - variable: "CONFIG_DIRECTORY"
+      description: "The configuration directory for this app"
+      label: "Configuration directory"
+      required: true
+      default: "/srv/apps/madsonic"
+      type: "string"
+services:
+  app:
+    scale: 1
+    lb_config:
+      port_rules:
+      - target_port: 8080
+        hostname: $APP_HOSTNAME
+  data:
+    scale: 1

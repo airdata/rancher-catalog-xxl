@@ -1,9 +1,28 @@
-.catalog:
-  name: "headohones"
+version: '2'
+catalog:
+  name: "headphones"
   version: "1.0"
   description: "Headphones"
   uuid: headphones-0
-app:
-  scale: 1
-data:
-  scale: 1
+  questions:
+    - variable: "APP_HOSTNAME"
+      description: "The public hostname for this app"
+      label: "Headphones load balancer hostname"
+      required: true
+      default: "headphones.depot.lan"
+      type: "string"
+    - variable: "CONFIG_DIRECTORY"
+      description: "The configuration directory for this app"
+      label: "Configuration directory"
+      required: true
+      default: "/srv/apps/headphones"
+      type: "string"
+services:
+  app:
+    scale: 1
+    lb_config:
+      port_rules:
+      - target_port: 8181
+        hostname: $APP_HOSTNAME
+  data:
+    scale: 1

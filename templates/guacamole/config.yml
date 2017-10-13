@@ -2,3 +2,6 @@ name: Guacamole
 description: Guacamole is a clientless remote desktop gateway. It supports standard protocols like VNC and RDP.
 category: Remote
 version: 1.0
+maintainer: Jason Kulatunga <jason@thesparktree.com>
+license: MIT
+projectURL: https://github.com/mediadepot/docker-guacamole

@@ -1,0 +1,158 @@
+version: '2'
+volumes:
+  graylog-elasticsearch-storage-volume:
+    driver: ${VOLUME_DRIVER}
+  graylog-mongodb:
+    driver: rancher-nfs
+  graylog-journal:
+    driver: rancher-nfs
+
+services:
+  elasticsearch-storage:
+    image: rawmind/alpine-volume:0.0.2-1
+    environment:
+      SERVICE_GID: '1000'
+      SERVICE_UID: '1000'
+      SERVICE_VOLUME: /usr/share/elasticsearch/data
+    network_mode: none
+    volumes:
+    - graylog-elasticsearch-storage-volume:/usr/share/elasticsearch/data
+    labels:
+      io.rancher.container.start_once: 'true'
+  elasticsearch-sysctl:
+    labels:
+        io.rancher.container.start_once: true
+    network_mode: none
+    image: rawmind/alpine-sysctl:0.1
+    privileged: true
+    environment:
+    - "SYSCTL_KEY=vm.max_map_count"
+    - "SYSCTL_VALUE=262144"
+  elasticsearch:
+    mem_limit: 1073741824
+    cap_add:
+    - IPC_LOCK
+    image: docker.elastic.co/elasticsearch/elasticsearch:5.5.0
+    environment:
+      ES_JAVA_OPTS: -Xms512m -Xmx512m
+      bootstrap.memory_lock: 'true'
+      cluster.name: elasticsearch-cluster-log
+      discovery.zen.minimum_master_nodes: '1'
+      discovery.zen.ping.unicast.hosts: elasticsearch
+      node.data: 'true'
+      node.master: 'true'
+      node.name: $${HOSTNAME}
+      xpack.security.enabled: 'false'
+    ulimits:
+      memlock:
+        hard: -1
+        soft: -1
+      nofile:
+        hard: 262144
+        soft: 262144
+    volumes_from:
+    - elasticsearch-storage
+    labels:
+      io.rancher.sidekicks: elasticsearch-storage, elasticsearch-sysctl
+      io.rancher.container.hostname_override: container_name
+  logstash-config:
+    image: rancher/logstash-config:v0.2.0
+    labels:
+      io.rancher.container.hostname_override: container_name
+  logstash:
+    image: throrin19/logstash-gelf:5.5.0
+    stdin_open: true
+    tty: true
+    links:
+    - graylog
+    volumes_from:
+    - logstash-config
+    ports:
+    - 57584:5000/udp
+    - 61597:6000/tcp
+    command:
+    - logstash
+    - -f
+    - /etc/logstash
+    labels:
+      io.rancher.sidekicks: logstash-config
+      io.rancher.container.hostname_override: container_name
+    depends_on:
+    - graylog
+  logspout:
+    image: bekt/logspout-logstash:latest
+    links:
+    - logstash
+    environment:
+      ROUTE_URIS: "logstash://logstash:5000"
+      LOGSPOUT: 'ignore'
+      SYSLOG_HOSTNAME: "Rancher:Test"
+    volumes:
+    - '/var/run/docker.sock:/var/run/docker.sock'
+    labels:
+      io.rancher.scheduler.global: 'true'
+      io.rancher.container.hostname_override: container_name
+    tty: true
+    stdin_open: true
+    depends_on:
+    - logstash
+  metricbeat:
+    image: throrin19/metricbeat:5.5.0
+    stdin_open: true
+    network_mode: host
+    volumes:
+    - /proc:/hostfs/proc:ro
+    - /sys/fs/cgroup:/hostfs/sys/fs/cgroup:ro
+    - /:/hostfs:ro
+    tty: true
+    links:
+    - graylog
+    labels:
+      io.rancher.container.dns: 'true'
+      io.rancher.container.pull_image: always
+      io.rancher.scheduler.global: 'true'
+    environment:
+      LOGSTASH_URL: "graylog:5044"
+    depends_on:
+    - graylog
+  mongodb:
+    image: mongo:3
+    volumes:
+      - graylog-mongodb:/data/db
+    labels:
+      io.rancher.container.hostname_override: container_name
+  graylog:
+    image: throrin19/graylog-plugins:2.3.1-1
+    volumes:
+      - graylog-journal:/usr/share/graylog/data/journal
+    environment:
+      GRAYLOG_PASSWORD_SECRET: ${graylog_secret}
+      GRAYLOG_ROOT_PASSWORD_SHA2: ${graylog_password}
+      GRAYLOG_WEB_ENDPOINT_URI: ${graylog_fqdn}/api
+      GRAYLOG_TRANSPORT_EMAIL_ENABLED: "true"
+      GRAYLOG_TRANSPORT_EMAIL_HOSTNAME: ${graylog_smtp_hostname}
+      GRAYLOG_TRANSPORT_EMAIL_PORT: ${graylog_smtp_port}
+      GRAYLOG_TRANSPORT_EMAIL_USE_AUTH: "true"
+      GRAYLOG_TRANSPORT_EMAIL_USE_TLS: ${graylog_smtp_tls}
+      GRAYLOG_TRANSPORT_EMAIL_USE_SSL: ${graylog_smtp_ssl}
+      GRAYLOG_TRANSPORT_EMAIL_AUTH_USERNAME: ${graylog_smtp_user}
+      GRAYLOG_TRANSPORT_EMAIL_AUTH_PASSWORD: ${graylog_smtp_password}
+      GRAYLOG_TRANSPORT_EMAIL_SUBJECT_PREFIX: ${graylog_smtp_prefix}
+      GRAYLOG_TRANSPORT_EMAIL_FROM_EMAIL: ${graylog_smtp_from}
+    links:
+      - mongodb:mongo
+      - elasticsearch
+    depends_on:
+      - mongodb
+      - elasticsearch
+    ports:
+      # Graylog web interface and REST API
+      - 9000:9000
+      # Syslog TCP
+      - 514:514
+      # Syslog UDP
+      - 514:514/udp
+      # GELF TCP
+      - 12201:12201
+      # GELF UDP
+      - 12201:12201/udp

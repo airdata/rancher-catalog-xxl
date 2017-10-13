@@ -1,18 +1,14 @@
-app:
-  restart: always
-  image: linuxserver/plexrequests
-  ports:
-   - "3000"
-  volumes_from:
-  - data
-  labels:
-    io.rancher.sidekicks: data
-    depot.lb.link: true
-    depot.lb.port: 3000
-    depot.app.type: plexrequests
-data:
-  image: tianon/true
-  labels:
-    io.rancher.container.start_once: true
-  volumes:
-  - /config
+version: '2'
+services:
+  app:
+    restart: always
+    image: linuxserver/plexrequests
+    ports:
+     - "3000"
+    volumes:
+    - ${CONFIG_DIRECTORY}:/config
+    labels:
+      io.rancher.container.pull_image: always
+      io.rancher.sidekicks: data
+      depot.lb.link: true
+      depot.app.type: plexrequests

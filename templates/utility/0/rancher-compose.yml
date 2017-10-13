@@ -1,4 +1,5 @@
-.catalog:
+version: '2'
+catalog:
   name: "utility"
   version: "1.0"
   description: "Utility"
@@ -10,9 +11,38 @@
       required: true
       default: "80"
       type: "string"
-lb:
-  scale: 1
-  load_balancer_config:
-    name: lb config
-events:
-  scale: 1
+services:
+  lb:
+    scale: 1
+    start_on_create: true
+    lb_config:
+      port_rules:
+
+      # add support for retriving stats from loadbalancer on port 6668
+      # https://github.com/rancher/rancher/issues/8464
+      - backend_name: stats
+        path: /stats
+        priority: 3
+        protocol: http
+        selector:  loadbalancer=stats
+        source_port: 6668
+        target_port: 6668
+      - source_port: 80
+        # Target any service that has foo=bar as a label
+        selector: depot.lb.link=true
+        protocol: http
+
+#      - source_port: 80
+#        target_port: 8080
+#        service: manager
+#        hostname: utility.$DEPOT_DOMAIN
+    health_check:
+      port: 42
+      interval: 2000
+      unhealthy_threshold: 3
+      healthy_threshold: 2
+      response_timeout: 2000
+  manager:
+    scale: 1
+    external_ips:
+      - $DEPOT_HOST
