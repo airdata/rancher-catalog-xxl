@@ -1,0 +1,5 @@
+name: Wordpress(With LB) new
+description: |
+  Blog tool, publishing platform and CMS
+version: 4.8.0-apache
+category: Blogging

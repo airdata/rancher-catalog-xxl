@@ -2,7 +2,7 @@
   name: "Elassandra"
   version: "2.4.2-rancher1"
   description: "Strapdata Elassandra"
-  maintainer: "Lorenzo Mangani <lorenzo.mangani@gmail.com>"
+  maintainer: Rumen Lishkov <rumen.lishkov@icloud.com>
   uuid: elassandra-2
   questions:
     - variable: "cluster_name"

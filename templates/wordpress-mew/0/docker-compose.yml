@@ -1,0 +1,30 @@
+version: "2"
+services:
+  wordpressapp:
+    image: wordpress
+    links:
+      - "database: mysql"
+    ports:
+      - "8888:80/tcp"
+    volumes:
+      - "/opt/nginx:/etc/nginx/conf.d"
+    stdin_open: true
+  wordpresslb:
+    ports: 
+      - "${public_port}:80/tcp"
+    tty: true
+    image: blacklabelops/nginx
+    volumes:
+      - /opt/mysql:/var/lib/mysql
+    stdin_open: true
+    environment:
+      SERVER1REVERSE_PROXY_LOCATION1: "/"
+      SERVER1REVERSE_PROXY_PASS1: "http://${public_ip}:8888"
+  database:
+    environment:
+      MYSQL_ROOT_PASSWORD: "password"
+    tty: true
+    image: percona
+    stdin_open: true
+    volumes:
+      - /opt/mysql:/var/lib/mysql

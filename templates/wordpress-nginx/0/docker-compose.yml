@@ -1,11 +1,6 @@
 wordpress_nginx:
 
   image: legendary/wordpress-nginx
-
-  ports:
-    - "22"
-    - "80"
-
   restart: always
   hostname: ${url}
   domainname: ${url}

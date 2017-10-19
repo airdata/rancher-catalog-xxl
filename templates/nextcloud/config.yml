@@ -2,4 +2,4 @@ name: Nextcloud
 description: "A safe home for all your data."
 version: "12.0-rancher"
 category: "Nextcloud"
-maintainer: "Naoki Aoyama <github@homesoc.tokyo>"
+maintainer: Rumen Lishkov <rumen.lishkov@icloud.com>

@@ -5,8 +5,6 @@ phpmyadmin:
     traefik.frontend.passHostHeader: 'true'
     traefik.frontend.rule: 'Host'
     traefik.port: '1080'
-  links:
-  - ${MYSQL_SERVICE}:mysql
   log_opt:
     max-size: '50m'
   restart: 'no'
