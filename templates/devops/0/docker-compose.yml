@@ -7,7 +7,6 @@ zk:
   - JVMFLAGS=-Xmx${zk_mem}m -Xms${zk_mem}m
   - CONFD_INTERVAL=${zk_interval}
   labels:
-    io.rancher.scheduler.affinity:host_label: ${host_label}
     io.rancher.container.hostname_override: container_name
 
 kafka:
@@ -22,13 +21,11 @@ kafka:
   links:
   - zk
   labels:
-    io.rancher.scheduler.affinity:host_label: ${host_label}
     io.rancher.container.hostname_override: container_name
 
 influxdb:
   restart: always
   labels:
-    io.rancher.scheduler.affinity:host_label: ${host_label}
     io.rancher.container.hostname_override: container_name
     io.rancher.container.pull_image: always
   image: autoshift/influxdb-docker:0.12
