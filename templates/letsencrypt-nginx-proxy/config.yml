@@ -1,0 +1,7 @@
+name: Let's Encrypt Nginx Proxy
+description: |
+  Nginx reverse proxy from JWilder with ACME support
+version: 0.0.17-rancher1
+category: Load Balancing
+maintainer: "Eric McNiece <emcniece@gmail.com>, Martin Treml <github@r2pi.net>"
+projectURL: https://github.com/Munsio/docker-letsencrypt-nginx-proxy-companion

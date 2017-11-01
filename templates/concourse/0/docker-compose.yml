@@ -1,0 +1,47 @@
+version: '2'
+services:
+  concourse-keygen:
+    image: emcniece/concourse-keygen
+    volumes:
+      - ${DIR}:/concourse-keys
+    command: tail -f /dev/null
+
+  concourse-db:
+    image: postgres:9.5
+    environment:
+      POSTGRES_DB: concourse
+      POSTGRES_USER: concourse
+      POSTGRES_PASSWORD: concoursedbpw
+      PGDATA: /database
+
+  concourse-web:
+    image: concourse/concourse
+    links: [concourse-db]
+    command: web
+    ports:
+     - ${PORT}:8080
+    volumes:
+     - ${DIR}/keys/web:/concourse-keys
+    environment:
+      CONCOURSE_BASIC_AUTH_USERNAME: ${USER}
+      CONCOURSE_BASIC_AUTH_PASSWORD: ${PASSWORD}
+      CONCOURSE_EXTERNAL_URL: "${DOMAIN_NAME}"
+      CONCOURSE_POSTGRES_DATA_SOURCE: |-
+        postgres://concourse:concoursedbpw@concourse-db:5432/concourse?sslmode=disable
+      CONCOURSE_GITHUB_AUTH_CLIENT_ID: ${GITHUB_CLIENT_ID}
+      CONCOURSE_GITHUB_AUTH_CLIENT_SECRET: ${GITHUB_CLIENT_SECRET}
+      CONCOURSE_GITHUB_AUTH_TEAM: ${GITHUB_AUTH_TEAM}
+    labels:
+      rgon.domain: ${FQDN}
+
+  concourse-worker:
+    image: concourse/concourse
+    privileged: true
+    links: [concourse-web]
+    command: worker
+    volumes:
+     - ${DIR}/keys/worker:/concourse-keys
+    environment:
+      CONCOURSE_TSA_HOST: concourse-web
+    labels:
+      io.rancher.scheduler.global: ${GLOBAL}

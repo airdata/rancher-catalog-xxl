@@ -1,0 +1,108 @@
+.catalog:
+  name: Concourse
+  version: 0.0.12-2worker
+  description: CI that scales with your project.
+  maintainer: "Eric McNiece <emcniece@gmail.com>"
+  uuid: cc-0
+  questions:
+  - variable: "DIR"
+    label: "Storage Directory"
+    description: For storing access keys (no trailing slash)
+    required: false
+    type: "string"
+  - variable: "PORT"
+    description: |
+      Port for HTTP traffic, leave blank for random. Forwards internally to 8080.
+    label: "HTTP Port"
+    required: false
+    type: "int"
+  - variable: "DOMAIN_NAME"
+    description: |
+      Domain at which server will be accessible on the Internet.
+      E.g. https://concourse.example.com:8080 (no trailing slash). Only include a port if needed for external access.
+    label: "Full Domain String"
+    required: true
+    type: "string"
+  - variable: "FQDN"
+    description: |
+      Base domain at which server will be accessible on the Internet.
+      E.g. concourse.example.com
+    label: "FQDN (Domain Name)"
+    required: true
+    type: "string"
+  - variable: "USER"
+    label: "Login Username"
+    description: Default username for first login
+    required: true
+    type: "string"
+    default: "concourse"
+  - variable: "PASSWORD"
+    label: "Login Password"
+    description: Password for first login (defaults to "changeme")
+    required: true
+    type: "password"
+    default: "changeme"
+  - variable: "GITHUB_CLIENT_ID"
+    label: "Github Client ID"
+    description: For enabling Github OAuth. Callback is https://domain.com/auth/github/callback
+    required: false
+    type: "string"
+  - variable: "GITHUB_CLIENT_SECRET"
+    label: "Github Client Secret"
+    required: false
+    type: "password"
+  - variable: "GITHUB_AUTH_TEAM"
+    label: "Github Team"
+    description: Name of your team (ie. concourse/Pivotal)
+    required: false
+    type: "string"
+
+  - variable: "WEB_INCLUDE"
+    description: "Set io.rancher.scheduler.affinity:host_label for web UI group (in the format key1=value1,key2=value2)"
+    label: "Web Host Label Include"
+    required: false
+    type: "string"
+
+  - variable: "WORKER1_GLOBAL"
+    description: "Deploy Worker1 set on every host"
+    label: "Worker 1 Global"
+    required: true
+    type: "boolean"
+    default: false
+  - variable: "WORKER1_TAG"
+    description: "Set tags on Concourse workers"
+    label: "Worker 1 Tag"
+    required: false
+    type: "string"
+  - variable: "WORKER1_INCLUDE"
+    description: "Set io.rancher.scheduler.affinity:host_label for worker group (in the format key1=value1,key2=value2)"
+    label: "Worker 1 Host Label Include"
+    required: false
+    type: "string"
+  - variable: "WORKER1_EXCLUDE"
+    description: "Set io.rancher.scheduler.affinity:host_label_ne for worker group (in the format key1=value1,key2=value2)"
+    label: "Worker 1 Host Label Exclude"
+    required: false
+    type: "string"
+
+  - variable: "WORKER2_GLOBAL"
+    description: "Deploy Worker2 set on every host"
+    label: "Worker 2 Global"
+    required: true
+    type: "boolean"
+    default: false
+  - variable: "WORKER2_TAG"
+    description: "Set tags on Concourse workers"
+    label: "Worker 2 Tag"
+    required: false
+    type: "string"
+  - variable: "WORKER2_INCLUDE"
+    description: "Set io.rancher.scheduler.affinity:host_label for worker group (in the format key1=value1,key2=value2)"
+    label: "Worker 2 Host Label Include"
+    required: false
+    type: "string"
+  - variable: "WORKER2_EXCLUDE"
+    description: "Set io.rancher.scheduler.affinity:host_label_ne for worker group (in the format key1=value1,key2=value2)"
+    label: "Worker 2 Host Label Exclude"
+    required: false
+    type: "string"

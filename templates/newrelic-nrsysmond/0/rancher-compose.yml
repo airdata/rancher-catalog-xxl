@@ -1,0 +1,25 @@
+.catalog:
+  name: nrsysmond
+  version: 0.0.1
+  description: System monitoring by New Relic
+  questions:
+    - variable: "GLOBAL"
+      label: "Global Deploy"
+      description: "Add to all servers"
+      default: true
+      type: "boolean"
+      required: true
+    - variable: "LOGFILE"
+      label: "Log File"
+      description: "Adjustable for custom volumes"
+      default: "/var/log/nrsysmond.log"
+      type: "string"
+      required: true
+    - variable: LICENSE
+      label: License Key
+      description: "New Relic user license key"
+      type: "string"
+      required: true
+
+nrsysmond:
+  scale: 1

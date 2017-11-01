@@ -1,0 +1,17 @@
+version: '2'
+services:
+  whoami:
+    image: "emilevauge/whoami"
+    tty: true
+    stdin_open: true
+    ports:
+      - ${PORT}:80
+    labels:
+      io.rancher.scheduler.global: ${GLOBAL}
+    environment:
+      - VIRTUAL_HOST=${VIRTUAL_HOST}
+      - VIRTUAL_PORT=${PORT}
+      - LETSENCRYPT_HOST=${VIRTUAL_HOST}
+      - LETSENCRYPT_EMAIL=${LETSENCRYPT_EMAIL}
+whoami:
+  scale: 1

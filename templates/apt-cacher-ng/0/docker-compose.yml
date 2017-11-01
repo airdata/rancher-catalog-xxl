@@ -1,0 +1,13 @@
+AptCacherNG:
+  image: sameersbn/apt-cacher-ng:latest
+  tty: true
+  stdin_open: true
+  ports:
+    - "${PORT}:3142"
+  volumes:
+    - ${DIR}:/var/cache/apt-cacher-ng
+  environment:
+    VIRTUAL_HOST: ${VIRTUAL_HOST}
+    VIRTUAL_PORT: ${PORT}
+    LETSENCRYPT_HOST: ${VIRTUAL_HOST}
+    LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}

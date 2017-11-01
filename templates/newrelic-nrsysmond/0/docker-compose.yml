@@ -1,0 +1,21 @@
+version: '2'
+
+services:
+
+  nrsysmond:
+    image: newrelic/nrsysmond:2.3.0.132
+    privileged: true
+    pid: "host"
+    network_mode: "host"
+    labels:
+      io.rancher.scheduler.global: ${GLOBAL}
+    cap_add:
+    - SYS_PTRACE
+    volumes:
+    - /sys:/sys
+    - /dev:/dev
+    - /var/run/docker.sock:/var/run/docker.sock
+    - /var/log:/var/log:rw
+    environment:
+      NRSYSMOND_license_key: ${LICENSE}
+      NRSYSMOND_logfile: ${LOGFILE}

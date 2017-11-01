@@ -1,0 +1,135 @@
+.catalog:
+  name: Strider CD
+  version: v0.0.15-rancher1
+  description: |
+    Strider Continuous Deployment agent
+  maintainer: "Eric McNiece <emcniece@gmail.com>, Andrew Cutler <candrew@panubo.io>"
+  uuid: strider-cd-0
+  questions:
+    - variable: "DIR"
+      label: "Storage directory"
+      description: "Path of shared storage to use for Strider, Mongo and Postfix. This should be available on all hosts. No trailing slash!"
+      required: true
+      type: "string"
+    - variable: "STRIDER_PORT"
+      description: |
+        Port for HTTP traffic. Leave blank to let Rancher choose a random port.
+        If using Rancher >= 1.2.0, enter the desired public port (can be the same as other containers)
+      label: "Strider Port"
+      required: false
+      type: "int"
+    - variable: "STRIDER_PREFIX"
+      description: "HTTP or HTTPS domain name prefix"
+      label: "Domain Prefix"
+      required: true
+      type: "enum"
+      default: "http"
+      options:
+        - "http"
+        - "https"
+    - variable: "STRIDER_FQDN"
+      description: "FQDN, Domain without the prefix (eg. strider.example.com)"
+      label: "Strider FQDN"
+      required: true
+      type: "string"
+    - variable: "STRIDER_HOST"
+      description: "Host where strider listens, optional (defaults to 0.0.0.0)"
+      label: "Strider Listener Host"
+      required: false
+      type: "string"
+    - variable: "ADMIN_EMAIL"
+      description: "Default user (admin) email address"
+      label: "Strider Admin Email"
+      required: false
+      type: "string"
+    - variable: "ADMIN_PASS"
+      label: "Strider Admin Password"
+      description: "Default user (admin) password"
+      required: false
+      default: password
+      type: "password"
+    - variable: "STRIDER_JOBS"
+      description: "Number of concurrent jobs that can be run"
+      label: "Strider Concurrent Jobs"
+      required: true
+      default: 1
+      type: "int"
+    - variable: "STRIDER_PROXY"
+      description: "Proxy support, optional (defaults to `null`)"
+      label: "Strider HTTP Proxy"
+      required: false
+      type: "string"
+
+    - variable: "MAILNAME"
+      label: "Postfix Hostname"
+      description: "Set this to a legitimate hostname for this service (required)"
+      required: true
+      default: "test"
+      type: "string"
+    - variable: "MYNETWORKS"
+      label: "Postfix Allowed Subnets"
+      description: "Comma separated list of IP subnets that are allowed to relay"
+      required: false
+      type: "string"
+
+    - variable: "SMTP_HOST"
+      label: "SMTP Host"
+      description: "Hostname for the SMTP user"
+      required: false
+      type: "string"
+    - variable: "SMTP_PORT"
+      label: "SMTP Port"
+      description: "Port for the SMTP user"
+      required: false
+      default: 587
+      type: "int"
+    - variable: "SMTP_USER"
+      label: "SMTP Username"
+      description: "Username for the SMTP user"
+      required: false
+      type: "string"
+    - variable: "SMTP_PASS"
+      label: "SMTP Password"
+      description: "Password for the SMTP user"
+      required: false
+      default: password
+      type: "password"
+    - variable: "SMTP_FROM"
+      label: "SMTP Sender Address"
+      description: "Address that mail is sent from"
+      required: false
+      type: "string"
+
+    - variable: "GITHUB_ID"
+      label: "Github App ID"
+      description: "Strider Github Provider App ID"
+      required: false
+      type: "string"
+    - variable: "GITHUB_KEY"
+      label: "Github App Secret Key"
+      description: "Strider Github Provider App"
+      required: false
+      type: "string"
+    - variable: "GITHUB_DOMAIN"
+      label: "Github Domain Name"
+      description: "Defaults to https://github.com"
+      required: false
+      type: "string"
+    - variable: "GITHUB_ENDPOINT"
+      label: "Github API Endpoint"
+      description: "Defaults to https://api.github.com"
+      required: false
+      type: "string"
+    - variable: "LETSENCRYPT_EMAIL"
+      label: "LETSENCRYPT_EMAIL"
+      description: "Email address used for ACME cert generation. Only used if paired with the Let's Encrypt Nginx Proxy stack"
+      required: false
+      type: "string"
+mongo:
+  scale: 1
+smtp:
+  scale: 1
+strider:
+  scale: 1
+db:
+  scale: 1

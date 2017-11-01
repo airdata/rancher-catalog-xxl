@@ -1,0 +1,6 @@
+name: Concourse
+description: CI that scales with your project.
+version: 0.0.12-2worker
+category: Continuous Integration
+maintainer: "Eric McNiece <emcniece@gmail.com>"
+projectURL: https://github.com/emcniece/rancher-catalog

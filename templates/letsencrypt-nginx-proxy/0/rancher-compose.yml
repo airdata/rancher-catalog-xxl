@@ -1,0 +1,37 @@
+.catalog:
+  name: Let's Encrypt Nginx Proxy
+  version: v0.0.17-rancher1
+  description: |
+    Nginx reverse proxy from JWilder with ACME support
+  maintainer: "Eric McNiece <emcniece@gmail.com>, Martin Treml <github@r2pi.net>"
+  uuid: lnp-0
+  questions:
+    - variable: "WEB_PORT"
+      description: "Port for HTTP traffic"
+      label: "HTTP Port"
+      required: true
+      default: 80
+      type: "int"
+    - variable: "SSL_PORT"
+      description: "Port for HTTPS traffic"
+      label: "HTTPS Port"
+      required: true
+      default: 443
+      type: "int"
+    - variable: "DIR"
+      label: "Storage directory"
+      description: "Path of shared storage to use for Nginx."
+      required: true
+      type: "string"
+    - variable: "SOCKET"
+      label: "Docker Socket"
+      description: "Path to internal Docker socket on the host machine"
+      required: true
+      type: "string"
+      default: "/var/run/docker.sock"
+nginx:
+  scale: 1
+nginx-gen:
+  scale: 1
+letsencrypt:
+  scale: 1

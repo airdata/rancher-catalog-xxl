@@ -1,0 +1,7 @@
+name: WhoAmI
+description: |
+  Container identification helper
+version: 0.0.1
+category: System Management
+maintainer: "Eric McNiece <emcniece@gmail.com>"
+projectURL: https://github.com/emcniece/rancher-catalog

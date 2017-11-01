@@ -1,0 +1,82 @@
+db:
+  image: mysql:5.7.10
+  environment:
+    MYSQL_DATABASE: portus
+    MYSQL_ROOT_PASSWORD: ${ROOTPASSWORD}
+    MYSQL_USER: portus
+    MYSQL_PASSWORD: ${DBPASSWORD}
+  tty: true
+  stdin_open: true
+  volumes:
+    - ${DIR}/db:/var/lib/mysql
+registry:
+  image: registry:2.6
+  environment:
+    REGISTRY_LOG_LEVEL: warn
+    REGISTRY_STORAGE_DELETE_ENABLED: true
+    REGISTRY_AUTH_TOKEN_REALM: ${TOKEN_REALM}
+    REGISTRY_AUTH_TOKEN_SERVICE: ${DOMAIN}:${RPORT}
+    REGISTRY_AUTH_TOKEN_ISSUER: ${DOMAIN}
+    REGISTRY_AUTH_TOKEN_ROOTCERTBUNDLE: /certs/${BUNDLE_NAME}
+    REGISTRY_HTTP_TLS_CERTIFICATE: /certs/${BUNDLE_NAME}
+    REGISTRY_HTTP_TLS_KEY: /certs/${KEY_NAME}
+    REGISTRY_HTTP_SECRET: httpsecret
+    REGISTRY_NOTIFICATIONS_ENDPOINTS: >
+      - name: portus
+        url: http://portus:3000/v2/webhooks/events
+        timeout: 500
+        threshold: 5
+        backoff: 1
+  tty: true
+  stdin_open: true
+  ports:
+    - ${RPORT}:5000
+  links:
+    - portus:portus
+  volumes:
+    - ${CERT_DIRECTORY}:/certs:ro
+    - ${DIR}/data:/var/lib/registry
+portus:
+  image: sshipway/portus:2.0.5
+  environment:
+    PORTUS_MACHINE_FQDN: ${DOMAIN}
+    PORTUS_PRODUCTION_HOST: db
+    PORTUS_PRODUCTION_DATABASE: portus
+    PORTUS_PRODUCTION_USERNAME: portus
+    PORTUS_PRODUCTION_PASSWORD: ${DBPASSWORD}
+    PORTUS_GRAVATAR_ENABLED: true
+    PORTUS_KEY_PATH: /certs/${KEY_NAME}
+    PORTUS_PASSWORD: ${DBPASSWORD}
+    PORTUS_SECRET_KEY_BASE: ${ROOTPASSWORD}
+    PORTUS_CHECK_SSL_USAGE_ENABLED: true
+    PORTUS_SMTP_ENABLED: false
+    PORTUS_LDAP_ENABLED: ${LDAP}
+    PORTUS_LDAP_HOSTNAME: ${LDAPHOST}
+    PORTUS_LDAP_PORT: ${LDAPPORT}
+    PORTUS_LDAP_METHOD: ${LDAPTLS}
+    PORTUS_LDAP_BASE: ${LDAPBASE}
+    PORTUS_LDAP_UID: cn
+    PORTUS_LDAP_AUTHENTICATION_ENABLED: ${LDAPBIND}
+    PORTUS_LDAP_AUTHENTICATION_BIND_DN: ${LDAPBINDDN}
+    PORTUS_LDAP_AUTHENTICATION_PASSWORD: ${LDAPBINDPASS}
+    PORTUS_LDAP_GUESS_EMAIL_ENABLED: true
+    PORTUS_LDAP_GUESS_EMAIL_ATTR: mail
+    PORTUS_PORT: ${PPORT}
+    REGISTRY_SSL_ENABLED: true
+    REGISTRY_HOSTNAME: ${DOMAIN}
+    REGISTRY_PORT: ${RPORT}
+    REGISTRY_NAME: Registry
+    VIRTUAL_HOST: ${DOMAIN}
+    VIRTUAL_PORT: ${PPORT}
+    LETSENCRYPT_HOST: ${DOMAIN}
+    LETSENCRYPT_EMAIL: ${LETSENCRYPT_EMAIL}
+  tty: true
+  stdin_open: true
+  volumes:
+    - ${CERT_DIRECTORY}:/certs
+  links:
+    - db:db
+  ports:
+    - ${PPORT}:3000
+  labels:
+    io.rancher.container.pull_image: always

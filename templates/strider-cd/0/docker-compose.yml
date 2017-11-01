@@ -1,0 +1,48 @@
+mongo:
+  image: "mongo"
+  tty: true
+  stdin_open: true
+  volumes:
+   - ${DIR}/mongo:/data/db
+smtp:
+  image: "panubo/postfix"
+  tty: true
+  stdin_open: true
+  volumes:
+   - ${DIR}/smtp:/var/spool/postfix
+  environment:
+   - MAILNAME=${MAILNAME}
+   - MYNETWORKS=${MYNETWORKS}
+strider:
+  image: "emcniece/strider"
+  tty: true
+  stdin_open: true
+  ports:
+   - ${STRIDER_PORT}:3000
+  links:
+   - mongo:mongo
+   - smtp:smtp
+  volumes:
+   - ${DIR}/strider:/share/
+  environment:
+   - SERVER_NAME=${STRIDER_PREFIX}://${STRIDER_FQDN}
+   - HOST=${STRIDER_HOST}
+   - STRIDER_ADMIN_EMAIL=${ADMIN_EMAIL}
+   - STRIDER_ADMIN_PASSWORD=${ADMIN_PASS}
+   - PLUGIN_GITHUB_APP_ID=${GITHUB_ID}
+   - PLUGIN_GITHUB_APP_SECRET=${GITHUB_KEY}
+   - PLUGIN_GITHUB_API_DOMAIN=${GITHUB_DOMAIN}
+   - PLUGIN_GITHUB_API_ENDPOINT=${GITHUB_ENDPOINT}
+   - SMTP_HOST=${SMTP_HOST}
+   - SMTP_PORT=${SMTP_PORT}
+   - SMTP_USER=${SMTP_USER}
+   - SMTP_PASS=${SMTP_PASS}
+   - SMTP_FROM=${SMTP_FROM}
+   - CONCURRENT_JOBS=${STRIDER_JOBS}
+   - HTTP_PROXY=${STRIDER_PROXY}
+   - VIRTUAL_HOST=${STRIDER_FQDN}
+   - VIRTUAL_PORT=${STRIDER_PORT}
+   - LETSENCRYPT_HOST=${STRIDER_FQDN}
+   - LETSENCRYPT_EMAIL=${LETSENCRYPT_EMAIL}
+  labels:
+    io.rancher.container.pull_image: always

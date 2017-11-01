@@ -1,0 +1,7 @@
+name: Apt-Cacher-NG
+description: |
+  Software Package Download Proxy
+version: 0.0.1-rancher1
+category: System Management
+maintainer: "Eric McNiece <emcniece@gmail.com>, Sameer Naik <sameer@damagehead.com>"
+projectURL: https://github.com/emcniece/docker-apt-cacher-ng

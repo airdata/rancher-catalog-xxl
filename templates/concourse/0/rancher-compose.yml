@@ -1,0 +1,63 @@
+.catalog:
+  name: Concourse
+  version: 0.0.11
+  description: CI that scales with your project.
+  maintainer: "Eric McNiece <emcniece@gmail.com>"
+  uuid: cc-0
+  questions:
+  - variable: "DIR"
+    label: "Storage Directory"
+    description: For storing access keys (no trailing slash)
+    required: false
+    type: "string"
+  - variable: "PORT"
+    description: |
+      Port for HTTP traffic, leave blank for random. Forwards internally to 8080.
+    label: "HTTP Port"
+    required: false
+    type: "int"
+  - variable: "DOMAIN_NAME"
+    description: |
+      Domain at which server will be accessible on the Internet.
+      E.g. https://concourse.example.com:8080 (no trailing slash). Only include a port if needed for external access.
+    label: "Full Domain String"
+    required: true
+    type: "string"
+  - variable: "FQDN"
+    description: |
+      Base domain at which server will be accessible on the Internet.
+      E.g. concourse.example.com
+    label: "FQDN (Domain Name)"
+    required: true
+    type: "string"
+  - variable: "USER"
+    label: "Login Username"
+    description: Default username for first login
+    required: true
+    type: "string"
+    default: "concourse"
+  - variable: "PASSWORD"
+    label: "Login Password"
+    description: Password for first login (defaults to "changeme")
+    required: true
+    type: "password"
+    default: "changeme"
+  - variable: "GITHUB_CLIENT_ID"
+    label: "Github Client ID"
+    description: For enabling Github OAuth. Callback is https://domain.com/auth/github/callback
+    required: false
+    type: "string"
+  - variable: "GITHUB_CLIENT_SECRET"
+    label: "Github Client Secret"
+    required: false
+    type: "password"
+  - variable: "GITHUB_AUTH_TEAM"
+    label: "Github Team"
+    description: Name of your team (ie. concourse/Pivotal)
+    required: false
+    type: "string"
+  - variable: "GLOBAL"
+    description: "Deploy a worker on every host (easy shortcut for large deploy, set false for manual scaling)"
+    label: "Global Workers"
+    required: true
+    type: "boolean"

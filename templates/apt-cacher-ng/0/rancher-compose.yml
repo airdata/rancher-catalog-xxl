@@ -1,0 +1,29 @@
+.catalog:
+  name: Apt-Cacher-NG
+  version: v0.0.1-rancher1
+  description: |
+    Software Package Download Proxy
+  maintainer: "Eric McNiece <emcniece@gmail.com>, Sameer Naik <sameer@damagehead.com>"
+  uuid: apt-cacher-ng-0
+  questions:
+    - variable: "DIR"
+      label: "Storage directory"
+      description: "Path of shared storage to use for caching packages"
+      required: false
+      type: "string"
+    - variable: "PORT"
+      description: "Port that the proxy is available on"
+      label: "Port"
+      required: false
+      default: 3142
+      type: "int"
+    - variable: "VIRTUAL_HOST"
+      label: "VIRTUAL_HOST"
+      description: "Environment variable for hostname"
+      required: false
+      type: "string"
+    - variable: "LETSENCRYPT_EMAIL"
+      label: "LETSENCRYPT_EMAIL"
+      description: "Email address used for ACME cert generation. Only used if paired with the <strong>Let's Encrypt Nginx Proxy</strong> stack"
+      required: false
+      type: "string"

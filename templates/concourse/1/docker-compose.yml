@@ -1,0 +1,68 @@
+version: '2'
+services:
+  concourse-keygen:
+    image: emcniece/concourse-keygen
+    volumes:
+      - ${DIR}:/concourse-keys
+    command: tail -f /dev/null
+    labels:
+      io.rancher.scheduler.affinity:host_label: "${WEB_INCLUDE}"
+
+  concourse-db:
+    image: postgres:9.5
+    environment:
+      POSTGRES_DB: concourse
+      POSTGRES_USER: concourse
+      POSTGRES_PASSWORD: concoursedbpw
+      PGDATA: /database
+    labels:
+      io.rancher.scheduler.affinity:host_label: "${WEB_INCLUDE}"
+
+  concourse-web:
+    image: concourse/concourse
+    links: [concourse-db]
+    command: web
+    ports:
+     - ${PORT}:8080
+    volumes:
+     - ${DIR}/keys/web:/concourse-keys
+    environment:
+      CONCOURSE_BASIC_AUTH_USERNAME: ${USER}
+      CONCOURSE_BASIC_AUTH_PASSWORD: ${PASSWORD}
+      CONCOURSE_EXTERNAL_URL: "${DOMAIN_NAME}"
+      CONCOURSE_POSTGRES_DATA_SOURCE: |-
+        postgres://concourse:concoursedbpw@concourse-db:5432/concourse?sslmode=disable
+      CONCOURSE_GITHUB_AUTH_CLIENT_ID: ${GITHUB_CLIENT_ID}
+      CONCOURSE_GITHUB_AUTH_CLIENT_SECRET: ${GITHUB_CLIENT_SECRET}
+      CONCOURSE_GITHUB_AUTH_TEAM: ${GITHUB_AUTH_TEAM}
+    labels:
+      rgon.domain: ${FQDN}
+      io.rancher.scheduler.affinity:host_label: "${WEB_INCLUDE}"
+
+  concourse-worker1:
+    image: concourse/concourse
+    privileged: true
+    links: [concourse-web]
+    command: worker --tag=${WORKER1_TAG}
+    volumes:
+     - ${DIR}/keys/worker:/concourse-keys
+    environment:
+      CONCOURSE_TSA_HOST: concourse-web
+    labels:
+      io.rancher.scheduler.global: "${WORKER1_GLOBAL}"
+      io.rancher.scheduler.affinity:host_label: "${WORKER1_INCLUDE}"
+      io.rancher.scheduler.affinity:host_label_ne: "${WORKER1_EXCLUDE}"
+
+  concourse-worker2:
+    image: concourse/concourse
+    privileged: true
+    links: [concourse-web]
+    command: worker --tag=${WORKER2_TAG}
+    volumes:
+     - ${DIR}/keys/worker:/concourse-keys
+    environment:
+      CONCOURSE_TSA_HOST: concourse-web
+    labels:
+      io.rancher.scheduler.global: "${WORKER2_GLOBAL}"
+      io.rancher.scheduler.affinity:host_label: "${WORKER2_INCLUDE}"
+      io.rancher.scheduler.affinity:host_label_ne: "${WORKER2_EXCLUDE}"
