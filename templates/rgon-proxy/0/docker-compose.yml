@@ -1,0 +1,53 @@
+version: '2'
+
+services:
+  nginx:
+    image: "nginx"
+    tty: true
+    stdin_open: true
+    ports:
+      - 80:80/tcp
+      - 443:443/tcp
+    volumes:
+      - ${config_path}/htpasswd:/etc/nginx/htpasswd
+      - ${config_path}/conf:/etc/nginx/conf.d
+      - ${config_path}/vhost:/etc/nginx/vhost.d
+      - ${config_path}/certs:/etc/nginx/certs
+    labels:
+      io.rancher.sidekicks: rgon-proxy
+      io.rancher.scheduler.global: 'false'  # true for multi-host
+      rgon-proxy: nginx
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "5"
+  rgon-proxy:
+    image: "causticlab/rgon-proxy:dev"  # :latest for production
+    tty: true
+    stdin_open: true
+    links:
+      - nginx
+    volumes_from:
+      - nginx
+    volumes:
+      - ${config_path}/rancher-gen:/etc/rancher-gen
+      - ${config_path}/acmetool:/var/lib/acme
+    links:
+      - nginx
+    labels:
+      io.rancher.scheduler.global: 'false'
+      io.rancher.container.create_agent: 'true'
+      io.rancher.container.agent.role: 'environment'
+      rgon-proxy: rancher-gen
+      rgon-acme: 'true'
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "5"
+    environment:
+      RGEN_CONFIG_ONETIME: '/etc/rancher-gen/default/rancher-gen-onetime.cfg'
+      ACME_EMAIL: ${ACME_EMAIL}
+      ACME_API: ${ACME_API}
+      ACME_AGREE_TOS: ${ACME_AGREE_TOS}

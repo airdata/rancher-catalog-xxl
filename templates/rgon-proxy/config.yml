@@ -1,0 +1,8 @@
+name: RGON Proxy # Name of the Catalog Entry
+description: |
+  An Nginx proxy secured with Letsencrypt
+version: v1 # Version of the Catalog to be used
+category: Applications # Category to be used for searching catalog entries
+maintainer: CausticLab <https://github.com/CausticLab> # The maintainer of the catalog entry
+license: The MIT License # The license
+projectURL: https://github.com/CausticLab/rgon-proxy # A URL related to the catalog entry
