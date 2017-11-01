@@ -1,0 +1,37 @@
+nginx:
+  ports:
+    - 443:443/tcp
+    - 80:80/tcp
+  labels:
+    io.rancher.sidekicks: nginx-gen, letsencrypt
+  tty: true
+  image: nginx
+  volumes:
+    - proxyPasswd:/etc/nginx/htpasswd
+    - proxyConf:/etc/nginx/conf.d
+    - proxyVhost:/etc/nginx/vhost.d
+    - proxyHtml:/usr/share/nginx/html
+    - proxyDockerGen:/etc/nginx/docker-gen
+    - proxyCerts:/etc/nginx/certs:ro
+  stdin_open: true
+
+letsencrypt:
+  tty: true
+  image: munsio/rancher-letsencrypt-nginx-proxy-companion
+  volumes:
+    - proxyCerts:/etc/nginx/certs:rw
+    - /var/run/docker.sock:/var/run/docker.sock:ro
+  volumes_from:
+    - nginx
+  stdin_open: true
+
+
+nginx-gen:
+  tty: true
+  image: jwilder/docker-gen
+  volumes:
+    - /var/run/docker.sock:/tmp/docker.sock:ro
+  volumes_from:
+    - nginx
+  command: "-config /etc/nginx/docker-gen/docker-gen.cfg"
+  stdin_open: true

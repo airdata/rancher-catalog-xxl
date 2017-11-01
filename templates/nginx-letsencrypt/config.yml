@@ -1,0 +1,11 @@
+name: Nginx Letsencrypt Proxy # Name of the Catalog Entry
+description: |
+  An Nginx proxy secured with Letsencrypt
+  ATTENTION: This NGINX Proxy is now abandoned please use https://github.com/CausticLab/rancher-catalog as the catalog repo
+  We created a new nginx/letsencrypt proxy especially for use with rancher: https://github.com/CausticLab/rgon-proxy
+  In the future you will be able to scale the nginx proxy vertically.
+version: v1 # Version of the Catalog to be used
+category: Applications # Category to be used for searching catalog entries
+maintainer: Martin Treml <github@r2pi.net> # The maintainer of the catalog entry
+license: The MIT License # The license
+projectURL: https://github.com/Munsio/nginx-letsencrypt # A URL related to the catalog entry

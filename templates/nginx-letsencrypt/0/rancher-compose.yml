@@ -1,0 +1,12 @@
+.catalog:
+  name: "Nginx + Letsencrypt Proxy" # Name of the versioned template of the Catalog Entry
+  version: "v0.0.1-rancher1" # Version of the versioned template of the Catalog Entry
+  description: "An nginx letsencrypt proxy based on JrCs letsencrypt companion and jwilder's docker-gen " # Description of the versioned template of the Catalog Entry
+  uuid: nginx-letsencrypt-1 # Unique identifier to be used for upgrades. Please see note.
+
+nginx:
+  scale: 1
+letsencrypt:
+  scale: 1
+nginx-gen:
+  scale: 1
