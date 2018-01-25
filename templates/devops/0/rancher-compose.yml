@@ -61,12 +61,6 @@
       required: true
       default: 1024
       type: "int"
-    - variable: "host_label"
-      description: "Hosts with label to deploy the kafka cluster"
-      label: "Host label:"
-      required: true
-      default: "stack=devops"
-      type: "string"
 zk:
   scale: ${zk_scale}
   health_check:

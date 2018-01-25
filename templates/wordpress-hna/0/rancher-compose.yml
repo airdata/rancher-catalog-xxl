@@ -1,0 +1,38 @@
+.catalog:
+  name: "Wordpress"
+  version: "v0.1"
+  description: "Blog tool, publishing platform and CMS"
+  minimum_rancher_version: v1.2.0
+  questions:
+  - variable: "fqdn"
+    label: "LB FQDN"
+    description: "App name for FQDN"
+    type: "string"
+    required: true
+    default: "wordpress"
+  - variable: "lb_source_port"
+    label: "LB Source Port"
+    description: "Source port for GLB"
+    type: "string"
+    required: true
+    default: "8082"
+
+
+wordpress-lb:
+    scale: 1
+    start_on_create: true
+    lb_config:
+      certs: []
+      port_rules:
+      - hostname: ${fqdn}
+        priority: 1
+        protocol: http
+        service: wordpress
+        source_port: ${lb_source_port}
+        target_port: 80
+    health_check:
+      response_timeout: 2000
+      healthy_threshold: 2
+      port: 42
+      unhealthy_threshold: 3
+      interval: 2000

@@ -1,4 +1,4 @@
-name: Wordpress
+name: Wordpress-LB
 description: |
   Wordpress content management system
 version: v2.0
