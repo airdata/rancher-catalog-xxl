@@ -1,5 +1,0 @@
-name: Kong-gongwang
-description: |
-  Micrservice API Gateway . kong
-version: v1-postgres:9.4
-category: Kong-gongwang
