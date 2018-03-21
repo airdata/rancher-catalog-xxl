@@ -1,3 +1,0 @@
-adminer:
-  image: 'clue/adminer:latest'
-  restart: on-failure
