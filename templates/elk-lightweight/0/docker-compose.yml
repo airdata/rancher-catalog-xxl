@@ -1,5 +1,5 @@
 elasticsearch:
-  image: elasticsearch:2.3.3
+  image: elasticsearch:2.4
   volumes_from:
     - elasticsearch-datavolume
   labels:
@@ -13,7 +13,7 @@ elasticsearch-datavolume:
     - /usr/share/elasticsearch/data
     - /usr/share/elasticsearch/config
   entrypoint: /bin/true
-  image: elasticsearch:2.3.3
+  image: elasticsearch:2.4
 redis:
   restart: always
   tty: true
@@ -35,7 +35,7 @@ logstash-indexer:
   - logstash
   - -f
   - /etc/logstash
-  image: logstash:2.1.1-1
+  image: logstash:2.4
   links:
   - redis:redis
   - elasticsearch:elasticsearch
@@ -62,7 +62,7 @@ logstash-collector:
   - logstash
   - -f
   - /etc/logstash
-  image: logstash:2.1.1-1
+  image: logstash:2.4
   stdin_open: true
   labels:
     io.rancher.sidekicks: logstash-collector-config
@@ -83,7 +83,7 @@ logspout:
   stdin_open: true
 kibana-vip:
   ports:
-  - 80:80
+  - 5601:5601
   tty: true
   image: rancher/load-balancer-service
   links:
@@ -106,7 +106,7 @@ kibana4:
   labels:
     io.rancher.container.hostname_override: container_name
   tty: true
-  image: kibana:4.4.2
+  image: kibana:4.6
   stdin_open: true
   net: container:nginx-proxy
 nginx-proxy:
