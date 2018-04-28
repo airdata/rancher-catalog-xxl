@@ -1,9 +1,0 @@
----
-ds-ansible-worker:
-  ports:
-    - 8083:8080/tcp
-  labels:
-    io.rancher.container.pull_image: always
-  tty: true
-  image: repo.rdbs.ctl.io:16002/io.ctl.rdbs/ds-ansible-worker:latest
-  stdin_open: true
