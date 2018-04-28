@@ -53,7 +53,7 @@
       type: "int"
     - variable: "SCALE_SIZE"
       description: "How many containers are newly started each time the capacity is expanded"
-      label: "扩容个数"
+      label: "Scalling"
       required: true
       default: 1
       type: "int"
