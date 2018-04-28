@@ -1,10 +1,11 @@
 version: '2'
+
 services:
   gitbucket:
     image: hiono/gitbucket
     stdin_open: true
     volumes:
-      - ${EDX_DATA_ROOT}:/bitbucket
+      - ${GITBUCKET_DATA}:/gitbucket
     tty: true
     ports:
       - ${EXPOSED_SSH_PORT}:29418/tcp
