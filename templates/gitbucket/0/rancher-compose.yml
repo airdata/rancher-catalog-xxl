@@ -15,7 +15,6 @@
           required: true
           default: "29418"
           type: "int"        
-  GITBUCKET_DATA
 gitbucket:
   metadata:
     volume_name: "${GITBUCKET_DATA}
