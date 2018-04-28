@@ -1,7 +1,7 @@
 name: Ansible AWX Container
 description: |
   Server management
-version: # Version of the Catalog to be used
+version: 1.0
 category: Configuration Management
 maintainer: Patric Wilms <wilms@tovista.net>
 projectURL: https://github.com/pwilms/rancher-awx-container
