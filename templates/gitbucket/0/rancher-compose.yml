@@ -1,0 +1,18 @@
+.catalog:
+  name: "GitBucket"
+  version: 1.0
+  description: "GitBucket"\
+  questions:
+        - variable: EXPOSED_WEB_PORT
+          description: "Exposed WEB Port Number"
+          label: "WEB Port Number to expose"
+          required: true
+          default: "8080"
+          type: "int"
+          - variable: EXPOSED_SSH_PORT
+          description: "Exposed SSH Port Number"
+          label: "SSH Port Number to expose"
+          required: true
+          default: "29418"
+          type: "int"        
+  

@@ -1,0 +1,7 @@
+name: GitBucket
+description: " A Git platform powered by Scala with easy installation,high extensibility & GitHub API compatibility."
+version: "v1"
+category: Versioning
+maintainer: Rumen Lishkov
+license: MIT
+projectURl: "https://github.com/airdata/rancher-catalog-xxl.git"
