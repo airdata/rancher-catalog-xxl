@@ -1,0 +1,8 @@
+---
+name: RDBS Ansible Worker
+description: Orchestration manager for customer vlan deployed subscriptions
+version: 0
+category: rdbs
+maintainer: steven.tarver@ctl.io
+license: None
+projectURL: https://github.com/CenturyLinkCloud/ds-ansible-worker

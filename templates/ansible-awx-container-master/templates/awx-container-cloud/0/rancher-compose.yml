@@ -1,0 +1,20 @@
+version: '2'
+catalog:
+  name: "AWX Container for Rancher"
+  version: "1.0.0"
+  description: "Configuration Managment with ansible web client former tower"
+  uuid: awx-1
+  minimum_rancher_version: v0.46.0
+services:
+  postgres:
+    scale: 1
+    start_on_create: true
+  rabbitmq:
+    scale: 1
+    start_on_create: true
+  awxweb:
+    scale: 1
+    start_on_create: true
+  awxtask:
+    scale: 1
+    start_on_create: true
