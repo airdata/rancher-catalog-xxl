@@ -22,6 +22,8 @@ services:
       - memcached
       - postgres
     hostname: awxweb
+    ports:
+      - ${EXPOSED_WEB_PORT}:8052/tcp
     user: root
     environment:
       SECRET_KEY: aabbcc

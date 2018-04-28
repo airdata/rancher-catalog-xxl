@@ -4,7 +4,13 @@ catalog:
   version: "1.0.0"
   description: "Configuration Managment with ansible web client former tower"
   uuid: awx-1
-  minimum_rancher_version: v0.46.0
+  questions:
+    - variable: EXPOSED_WEB_PORT
+      description: "Exposed WEB Port Number"
+      required: true
+      default: "8052"
+      type: "string"
+
 services:
   postgres:
     scale: 1
