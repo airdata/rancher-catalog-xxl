@@ -3,7 +3,6 @@ catalog:
   name: "AWX Container for Rancher"
   version: "1.0.0"
   description: "Configuration Managment with ansible web client former tower"
-  uuid: awx-1
   questions:
     - variable: EXPOSED_WEB_PORT
       description: "Exposed WEB Port Number"
