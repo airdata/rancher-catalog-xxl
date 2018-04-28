@@ -9,12 +9,9 @@
           required: true
           default: "8080"
           type: "int"
-          - variable: EXPOSED_SSH_PORT
+        - variable: EXPOSED_SSH_PORT
           description: "Exposed SSH Port Number"
           label: "SSH Port Number to expose"
           required: true
           default: "29418"
-          type: "int"        
-gitbucket:
-  metadata:
-    volume_name: "${GITBUCKET_DATA}
+          type: "int"
