@@ -1,5 +1,0 @@
-name: Home Assistant AppDaemon
-description: |
-  Python Apps for Home Assistant.
-version: latest
-category: Automation

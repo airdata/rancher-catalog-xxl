@@ -1,4 +1,0 @@
-name: "Elasticsearch engine"
-description: "EEA Elasticsearch cluster to be used by elastic apps"
-version: "1.0-rancher1"
-category: Logging

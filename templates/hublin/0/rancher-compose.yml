@@ -1,6 +1,0 @@
-.catalog:
-  name: "Hublin"
-  version: v0.1-educaas
-  description: "Servicio de videochat privado."
-  uuid: hublin-0
-  questions:

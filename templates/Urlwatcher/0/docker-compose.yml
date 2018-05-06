@@ -1,6 +1,0 @@
-Watcher:
-  image: steigr/urlwatcher:1
-  environment:
-    WATCH_URL: ${WATCH_URL}
-    NOTIFY_URL: ${NOTIFY_URL}
-  command: ${CURL_ARGS}

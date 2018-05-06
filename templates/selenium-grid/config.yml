@@ -1,5 +1,0 @@
-name: Selenium Grid
-description: |
-  (Experimental) Run your tests on different machines against different browsers in parallel!
-version: v0.0.1
-category: QA

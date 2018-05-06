@@ -1,5 +1,0 @@
-name: SelfServicePassword
-description: |
-  Permite a los usuarios cambiar la contraseña en OpenLDAP
-version: v0.1-educaas
-category: Admin

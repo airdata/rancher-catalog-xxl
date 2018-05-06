@@ -1,5 +1,0 @@
-name: Docker Registry
-description: |
-  The Docker Registry
-version: latest
-category: "Docker"

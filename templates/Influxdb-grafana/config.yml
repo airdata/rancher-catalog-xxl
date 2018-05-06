@@ -1,5 +1,0 @@
-name: Influxdb-grafana
-description: |
-  Docker monitor for cadvisor and influxdb and grafana
-version: v1
-category: Monitor

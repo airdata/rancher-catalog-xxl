@@ -1,4 +1,0 @@
-TeamCity-Agent:
-  image: steigr/teamcity-agent
-  environment:
-    TEAMCITY_SERVER: ${TEAMCITY_SERVER}

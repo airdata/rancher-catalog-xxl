@@ -1,5 +1,0 @@
-name: Neo4j
-description: |
-  Neo4J graph db instance
-version: v0.1
-category: GraphDB

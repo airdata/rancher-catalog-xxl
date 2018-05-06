@@ -1,7 +1,0 @@
-docker run \
-  -e ENABLE_SSL=true \
-  -e TARGET_SERVICE=THE_ADDRESS_OR_HOST_YOU_ARE_PROXYING_TO \
-  -v ./certs/lab.santech.fr.crt:/etc/secrets/proxycert \
-  -v ./certs/lab.santech.fr.pem:/etc/secrets/proxykey \
-  -v ./certs/intermediate.crt:/etc/secrets/dhparam \
-  nginx-ssl-proxy

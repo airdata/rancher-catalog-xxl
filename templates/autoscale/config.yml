@@ -1,7 +1,0 @@
-name: AutoScale
-description: |
-  Support for automatic expansion services under specific conditions
-version: 1.0.0
-category: DevOps
-maintainer: "Rumen Lishkov <rumen.lishkov@icloud.com>"
-license:

@@ -1,7 +1,0 @@
-name: Vamp
-description: |
-  (Experimental) Vamp core
-version: 0.9.2-rancher1
-category: clustering
-maintainer: Rumen Lishkov <rumen.lishkov@icloud.com>
-license: 

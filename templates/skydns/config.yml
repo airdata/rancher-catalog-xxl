@@ -1,8 +1,0 @@
-name: Skydns
-description: |
-  (Experimental) Skydns 
-version: 2.5.3-rancher1
-category: Rancher Services
-maintainer: Rumen Lishkov <rumen.lishkov@icloud.com>
-license: 
-projectURL: https://github.com/rawmind0/alpine-skydns

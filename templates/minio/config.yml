@@ -1,6 +1,0 @@
----
-name: Minio
-description: |
-  Minio Server Stack
-version: v2017-03-16-2
-category: "Camptocamp services"

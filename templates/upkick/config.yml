@@ -1,6 +1,0 @@
----
-name: Upkick
-description: |
-  Unattended upgrades for Docker containers
-version: v0.6.0-2
-category: "Camptocamp services"

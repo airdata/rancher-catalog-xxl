@@ -1,5 +1,0 @@
-mumble:
-  image: ranchercb/murmur:latest
-  ports:
-  - 64738:64738
-  - 64738:64738/udp

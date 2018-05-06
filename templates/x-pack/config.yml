@@ -1,6 +1,0 @@
-name: Elastic Stack X-PACK
-description: |
-  Kibana Elastic X-Pack for Docker and Rancher (Beta)
-version: 6.0
-category: Log
-maintainer: Rumen Lishkov <rumen.lishkov@icloud.com>

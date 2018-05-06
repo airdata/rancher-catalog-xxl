@@ -1,8 +1,0 @@
-name: Apache Solr
-description: |
-  (Experimental) SolrCloud cluster
-version: 5.4.1-rancher1
-category: indexer
-maintainer: "Rumen Lishkov <rumen.lishkov@icloud.com>"
-license:
-projectURL: https://github.com/airdata/rancher-catalog-xxl

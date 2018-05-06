@@ -1,6 +1,0 @@
-name: Portus
-description: |
-  Portus private Docker registry.
-version: v0.1-portus
-category: Applications
-maintainer: "Dominic Taylor <dominic@yobasystems.co.uk"

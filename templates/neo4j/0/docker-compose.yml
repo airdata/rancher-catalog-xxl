@@ -1,7 +1,0 @@
-neo4j:
-  image: alevm/neo4j_simple
-  ports:
-    - "80"
-  volumes:
-  - ${VOLUME_POOL}:/srv/neo4j/data/
-  volume_driver: ${VOLUME_DRIVER}

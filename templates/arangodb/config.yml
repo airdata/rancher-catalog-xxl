@@ -1,5 +1,0 @@
-name: ArangoDB
-description: |
-  ArangoDB Cluster.
-version: 3.0-rancher1
-category: Databases

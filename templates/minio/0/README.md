@@ -1,1 +1,0 @@
-# Minio Stack

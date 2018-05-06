@@ -1,3 +1,0 @@
-# Webapp for Testing
-
-Just a simple Webapp to play with scaling and versioning ...

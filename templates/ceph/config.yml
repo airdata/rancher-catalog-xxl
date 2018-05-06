@@ -1,6 +1,0 @@
-name: Ceph Storage
-description: |
-  Ceph Storage Gateway
-version: v1.0.0
-category: Storage
-maintainer: Rumen Lishkov
