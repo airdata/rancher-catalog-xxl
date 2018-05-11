@@ -1,5 +1,5 @@
 elasticsearch:
-  image: elasticsearch:2
+  image: elasticsearch:2.4
 
 logstash:
   image: logstash:2.4
