@@ -1,4 +1,4 @@
-name: Tomcat
+name: Tomcat Redis and Mysql
 description: |
   Tomcat. Redis. MySQL
 version: 0.1
