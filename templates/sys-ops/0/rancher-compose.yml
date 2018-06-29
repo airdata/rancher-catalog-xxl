@@ -1,0 +1,49 @@
+.catalog:
+  name: "SYS-OPS"
+  version: "0.1"
+  description: "System OPS"
+  uuid: sys-ops
+elk-slave:
+  scale: 1
+  start_on_create: false
+  health_check:
+    healthy_threshold: 2
+    response_timeout: 3000
+    port: 9200
+    unhealthy_threshold: 3
+    initializing_timeout: 30000
+    interval: 3000
+    strategy: recreate
+    request_line: GET "/_cat/health?h=status" "HTTP/1.1"
+    reinitializing_timeout: 30000
+nexus3:
+  scale: 1
+  start_on_create: false
+sonar:
+  scale: 1
+  start_on_create: false
+openvas:
+  scale: 1
+  start_on_create: false
+zabbix-agent:
+  start_on_create: false
+  health_check:
+    healthy_threshold: 2
+    response_timeout: 2000
+    port: 10050
+    unhealthy_threshold: 3
+    initializing_timeout: 30000
+    interval: 2000
+    strategy: recreate
+    reinitializing_timeout: 30000
+zabbix-server:
+  scale: 1
+  start_on_create: false
+kibana:
+  scale: 1
+  start_on_create: false
+rundeck:
+  scale: 1
+  start_on_create: false
+janitor:
+  start_on_create: false

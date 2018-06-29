@@ -1,0 +1,7 @@
+name: SYS-OPS
+description: |
+  System OPS infra
+version: v0.4
+category: DevOps
+maintainer:  DevOps Team
+projectURL: https://github.com/airdata/rancher-catalog-xxl/
