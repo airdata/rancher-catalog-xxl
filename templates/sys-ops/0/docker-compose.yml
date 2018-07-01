@@ -82,14 +82,12 @@ services:
     labels:
       io.rancher.container.pull_image: always
   kibana:
-    image: kibana:4.6.4
+    image: kibana
     environment:
     stdin_open: true
     tty: true
     ports:
       - 5601:5601/tcp
-    labels:
-      io.rancher.container.pull_image: always
   rundeck:
     image: robertdebock/rundeck
     environment:
