@@ -83,9 +83,6 @@ services:
       io.rancher.container.pull_image: always
   kibana:
     image: kibana
-    environment:
-    stdin_open: true
-    tty: true
     ports:
       - 5601:5601/tcp
   rundeck:
