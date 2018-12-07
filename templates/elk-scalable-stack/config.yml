@@ -1,0 +1,7 @@
+name: Scalable ELK Cluster v5.4.1
+description: |
+  ElasticSearch, Kibana, Logstash (Collector & Indexer), Logspout, Redis, Cerebro and Curator
+category: ELK
+license: Apache, v2.0
+projectURL: https://github.com/dm/rancher-catalog-elk
+version: v5.4.1-rancher1

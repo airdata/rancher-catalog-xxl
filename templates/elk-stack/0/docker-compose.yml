@@ -1,0 +1,123 @@
+cerebro:
+  image: 'dmacedo/cerebro:0.6.5'
+  labels:
+    io.rancher.container.hostname_override: container_name
+  links:
+    - 'elasticsearch:elasticsearch'
+  net: 'container:nginx-proxy'
+  stdin_open: true
+  tty: true
+
+curator:
+  environment:
+    ELASTICSEARCH_HOST: elasticsearch
+    ELASTICSEARCH_PORT: 9200
+    MAX_INDEX_AGE: 15
+  image: sxmichael/curator-docker
+  links:
+    - 'elasticsearch:elasticsearch'
+  stdin_open: true
+  tty: true
+
+elasticsearch:
+  image: 'docker.elastic.co/elasticsearch/elasticsearch:5.4.1'
+  labels:
+    io.rancher.sidekicks: elasticsearch-datavolume
+  volumes_from:
+    - elasticsearch-datavolume
+
+elasticsearch-datavolume:
+  entrypoint: /bin/true
+  image: 'docker.elastic.co/elasticsearch/elasticsearch:5.4.1'
+  labels:
+    elasticsearch.datanode.config.version: '0'
+    io.rancher.container.hostname_override: container_name
+    io.rancher.container.start_once: true
+  volumes:
+    - /usr/share/elasticsearch/data
+    - /usr/share/elasticsearch/config
+
+kibana:
+  environment:
+    ELASTICSEARCH_URL: 'http://elasticsearch:9200'
+  image: 'docker.elastic.co/kibana/kibana:5.4.1'
+  labels:
+    io.rancher.container.hostname_override: container_name
+  links:
+    - 'elasticsearch:elasticsearch'
+  net: 'container:nginx-proxy'
+  stdin_open: true
+  tty: true
+
+logspout:
+  environment:
+    LOGSPOUT: ignore
+    ROUTE_URIS: 'logstash://logstash:5000'
+  image: 'dmacedo/logspout-logstash:v1.0.0'
+  labels:
+    io.rancher.container.hostname_override: container_name
+    io.rancher.scheduler.global: 'true'
+  links:
+    - 'logstash-collector:logstash'
+  stdin_open: true
+  tty: true
+  volumes:
+    - '/var/run/docker.sock:/var/run/docker.sock'
+
+logstash-collector:
+  command:
+    - logstash
+    - '-f'
+    - /etc/logstash
+  image: 'docker.elastic.co/logstash/logstash:5.4.1'
+  labels:
+    io.rancher.container.hostname_override: container_name
+    io.rancher.sidekicks: logstash-collector-config
+  links:
+    - 'redis:redis'
+  ports:
+    - '5000:5000/udp'
+    - '25826:25826/udp'
+  restart: always
+  stdin_open: true
+  tty: true
+  volumes_from:
+    - logstash-collector-config
+
+logstash-collector-config:
+  image: 'rancher/logstash-config:v0.2.0'
+  labels:
+    io.rancher.container.hostname_override: container_name
+  restart: always
+
+logstash-indexer:
+  command:
+    - logstash
+    - '-f'
+    - /etc/logstash
+  image: 'docker.elastic.co/logstash/logstash:5.4.1'
+  labels:
+    io.rancher.container.hostname_override: container_name
+    io.rancher.sidekicks: logstash-indexer-config
+  links:
+    - 'redis:redis'
+    - 'elasticsearch:elasticsearch'
+  restart: always
+  stdin_open: true
+  tty: true
+  volumes_from:
+    - logstash-indexer-config
+
+logstash-indexer-config:
+  image: 'rancher/logstash-config:v0.2.0'
+  labels:
+    io.rancher.container.hostname_override: container_name
+  restart: always
+
+redis:
+  image: 'redis:3.2.9'
+  labels:
+    io.rancher.container.hostname_override: container_name
+  restart: always
+  stdin_open: true
+  tty: true

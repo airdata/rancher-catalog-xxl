@@ -1,0 +1,143 @@
+.catalog:
+  name: "Scalable ELK Cluster v5.4.1"
+  version: "v5.4.1-rancher1"
+  description: "Setup scalable ELK stack"
+  uuid: scalable-elk-stack-1
+  questions:
+    - variable: "cluster_name"
+      type: "string"
+      required: true
+      label: "Cluster name"
+      description: "Name of the Elasticsearch Cluster"
+      default: "elk-stack"
+
+    - variable: "UPDATE_SYSCTL"
+      label: "Update host sysctl:"
+      description: |
+        Set true to avoid vm.max_map_count errors.
+        WARN: If set true, host param vm.max_map_count will be update to 262144.
+      default: true
+      required: true
+      type: enum
+      options:
+      - false
+      - true
+
+    - variable: "master_heap_size"
+      type: "string"
+      required: true
+      label: "Heap size (master nodes)"
+      description: "Heap size to be allocated for Java (mater nodes)"
+      default: "512m"
+
+    - variable: "master_mem_limit"
+      type: "int"
+      required: true
+      label: "Memory limit in byte (master nodes)"
+      description: "Memory limit in Byte per elasticsearch container. AT LEAST double the heap size! (master nodes)"
+      default: 1073741824
+
+    - variable: "data_heap_size"
+      type: "string"
+      required: true
+      label: "Heap size (data nodes)"
+      description: "Heap size to be allocated for Java (mater nodes)"
+      default: "512m"
+
+    - variable: "data_mem_limit"
+      type: "int"
+      required: true
+      label: "Memory limit in byte (data nodes)"
+      description: "Memory limit in Byte per elasticsearch container. AT LEAST double the heap size! (data nodes)"
+      default: 1073741824
+
+    - variable: "client_heap_size"
+      type: "string"
+      required: true
+      label: "Heap size (client nodes)"
+      description: "Heap size to be allocated for Java (mater nodes)"
+      default: "512m"
+
+    - variable: "client_mem_limit"
+      type: "int"
+      required: true
+      label: "Memory limit in byte (client nodes)"
+      description: "Memory limit in Byte per elasticsearch container. AT LEAST double the heap size! (client nodes)"
+      default: 1073741824
+
+    - variable: "minimum_master_nodes"
+      type: "int"
+      required: true
+      label: "# of minimum Master Nodes"
+      description: "Set the number of required master nodes to reach quorum. Sets initial scale to this value as well"
+      default: 3
+
+    - variable: "initial_data_nodes"
+      type: "int"
+      required: true
+      label: "# of initial data nodes"
+      description: "Set the initial number of data nodes"
+      default: 2
+
+    - variable: "initial_client_nodes"
+      type: "int"
+      required: true
+      label: "# of initial client nodes"
+      description: "Set the initial number of client nodes"
+      default: 1
+
+logstash-indexer:
+  metadata:
+    logstash:
+      inputs: |
+        redis {
+          host => "redis"
+          port => "6379"
+          data_type => "list"
+          key => "logstash"
+        }
+      filters: |
+        mutate {
+          rename => { "docker.id" => "container_id" }
+          rename => { "docker.name" => "container_name" }
+          rename => { "docker.image" => "docker_image" }
+          rename => { "docker.hostname" => "docker_hostname" }
+        }
+      outputs: |
+        elasticsearch {
+          hosts => ["elasticsearch-data:9200"]
+        }
+
+logstash-collector:
+  metadata:
+    logstash:
+      inputs: |
+        udp {
+          port => 5000
+          codec => "json"
+        }
+      outputs: |
+        redis {
+          host => "redis"
+          port => "6379"
+          data_type => "list"
+          key => "logstash"
+        }
+
+logspout:
+  scale: 1
+
+elasticsearch-master:
+  scale: ${minimum_master_nodes}
+
+elasticsearch-data:
+  scale: ${initial_data_nodes}
+
+elasticsearch-client:
+  scale: ${initial_client_nodes}
+
+kibana:
+  scale: 1
+
+cerebro:
+  scale: 1

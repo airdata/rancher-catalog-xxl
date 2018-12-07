@@ -1,0 +1,7 @@
+name: ELK v5.4.1
+description: |
+  ElasticSearch, Kibana, Logstash (Collector & Indexer), Logspout, Redis, Cerebro and Curator
+version: v5.4.1-rancher1
+category: ELK
+license: Apache, v2.0
+projectURL: https://github.com/dm/rancher-catalog-elk
